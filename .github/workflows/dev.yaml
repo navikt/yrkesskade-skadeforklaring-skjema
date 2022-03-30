@@ -89,7 +89,7 @@ jobs:
           'APIKEY': '${{ secrets.NAIS_DEPLOY_APIKEY }}'
           'CLUSTER': 'dev-gcp'
           'RESOURCE': '.nais/nais.yaml'
-          'VARS': '.nais/dev.yaml'
+          'VARS': '.nais/dev/vars.yaml'
 
   'deployAlertsToDev':
     name: 'Deploy alerts to dev'
@@ -103,4 +103,4 @@ jobs:
           'APIKEY': '${{ secrets.NAIS_DEPLOY_APIKEY }}'
           'CLUSTER': 'dev-gcp'
           'RESOURCE': '.nais/alerts-dev.yaml'
-          'VARS': '.nais/dev.yaml'
+          'VARS': '.nais/dev/vars.yaml'
