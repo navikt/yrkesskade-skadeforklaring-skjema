@@ -1,5 +1,5 @@
 import { Radio, RadioGroup, TextField } from '@navikt/ds-react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Skadeforklaring } from '../../../../api/skadeforklaring/models/Skadeforklaring';
 
