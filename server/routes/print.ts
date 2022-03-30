@@ -14,7 +14,7 @@ const handlePrint = async (req, res) => {
     res.sendStatus(400);
   }
 
-  //const pdfSkademelding = pdfSkademeldingMapper(req.body as Skademelding);
+  // const pdfSkademelding = pdfSkademeldingMapper(req.body as Skademelding);
 
   /*const response = await axios.post(`${config.DOKGEN_URL}/template/skademelding-tro-kopi/download-pdf`, pdfSkademelding, {
     responseType: 'stream'
@@ -30,5 +30,5 @@ const handlePrint = async (req, res) => {
     'Content-Disposition',
     'attachment; filename=kopi_skademelding.pdf'
   );
-  //response.data.pipe();
+  // response.data.pipe();
 };
