@@ -1,10 +1,6 @@
 import { createProxyMiddleware, fixRequestBody } from 'http-proxy-middleware';
 import { exchangeToken } from '../tokenx';
-import {
-  logError,
-  logSecure,
-  stdoutLogger,
-} from '@navikt/yrkesskade-logging';
+import { logError, logSecure, stdoutLogger } from '@navikt/yrkesskade-logging';
 
 const errorHandler = (err, req, res) => {
   if (process.env.ENV !== 'production') {
@@ -17,7 +13,8 @@ const errorHandler = (err, req, res) => {
 export const doProxy = (path: string, target: string) => {
   return createProxyMiddleware(path, {
     pathRewrite: {
-      '^/kodeverk/': '/'
+      '^/kodeverk/': '/',
+      '^/api/': '/',
     },
     changeOrigin: true,
     secure: false,
