@@ -11,25 +11,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - uses: "actions/setup-node@v2"
+      - uses: 'actions/setup-node@v2'
         with:
-          node-version: "14"
-          cache: "yarn"
+          node-version: '14'
+          cache: 'yarn'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@navikt'
-      - name: "install server dependencies Yarn"
+      - name: 'install server dependencies Yarn'
         # if: "steps.cache-server-node-modules.outputs.cache-hit != 'true'"
-        run: "yarn install --frozen-lockfile"
+        run: 'yarn install --frozen-lockfile'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-      - name: "install dependencies Yarn"
-        run: "yarn install --frozen-lockfile"
-        working-directory: "client"
+      - name: 'install dependencies Yarn'
+        run: 'yarn install --frozen-lockfile'
+        working-directory: 'client'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-      - name: "install test dependencies Yarn"
-        run: "yarn install --frozen-lockfile"
-        working-directory: "test"
+      - name: 'install test dependencies Yarn'
+        run: 'yarn install --frozen-lockfile'
+        working-directory: 'test'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Cypress run
@@ -38,4 +38,4 @@ jobs:
           project: ./test
           build: yarn build-prod
           start: yarn dev
-          wait-on: 'http://localhost:3001'
+          wait-on: 'http://localhost:3006'

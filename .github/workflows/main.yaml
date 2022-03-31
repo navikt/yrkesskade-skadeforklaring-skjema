@@ -38,7 +38,7 @@ jobs:
           project: ./test
           build: yarn build-prod
           start: yarn dev
-          wait-on: 'http://localhost:3001'
+          wait-on: 'http://localhost:3006'
 
   'build':
     name: 'build'
