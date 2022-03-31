@@ -14,6 +14,8 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
+    "cypress:open:local": "cypress open --env local=true",
+    "cypress:run:local": "cypress run --env local=true",
     "build-prod": "cd .. && yarn build-prod",
     "dev": "cd .. && yarn dev"
   },

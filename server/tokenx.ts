@@ -3,7 +3,7 @@ import { Issuer, TokenSet } from 'openid-client';
 import { getMockTokenFromIdPorten, verifiserAccessToken } from './idporten';
 import { logInfo, logError } from '@navikt/yrkesskade-logging';
 
-import config from './config'
+import config from './config';
 
 let tokenXClient;
 
@@ -64,10 +64,8 @@ const getTokenXToken = async (token: string | Uint8Array, additionalClaims) => {
 
 const getMockTokenXToken = async () => {
   // ?client_id=someclientid&aud=dev-gcp:targetteam:targetapp&acr=Level4&pid=12345678910
-  const tokenXTokenResponse = await (
-    await axios.get(
-      `${process.env.FAKEDINGS_URL_TOKENX}?aud=${process.env.TOKENX_AUDIENCE}&acr=Level4&pid=12345678910&client_id=yrkesskade-skjema`
-    )
+  const tokenXTokenResponse = await await axios.get(
+    `${process.env.FAKEDINGS_URL_TOKENX}?aud=${process.env.TOKENX_AUDIENCE}&acr=Level4&pid=12345678910&client_id=yrkesskade-skadeforklaring-skjema`
   );
 
   const tokenxToken = tokenXTokenResponse.data;
@@ -84,7 +82,7 @@ export const exchangeToken = async (request) => {
       token = await getMockTokenFromIdPorten();
     } else {
       // fant ikke token in header - sjekker cookie
-      token = request.cookies[config.IDPORTEN_COOKIE_NAME]
+      token = request.cookies[config.IDPORTEN_COOKIE_NAME];
 
       if (!token) {
         // brukeren er ikke autentisert

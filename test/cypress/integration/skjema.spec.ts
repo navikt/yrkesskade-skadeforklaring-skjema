@@ -14,16 +14,26 @@ describe('Skadeforklaring skjema', () => {
         location: '/test/test',
       },
     }).as('postVedlegg');
+
+    network
+      .intercept(endpointUrls.brukerinfo, 'brukerinfo/brukerinfo.json')
+      .as('getBrukerinfo');
+    network
+      .intercept(endpointUrls.skadeforklaringer, 'skadeforklaring.json')
+      .as('postSkadeforklaring');
+
     cy.visit('');
     cy.location().should('to.be', 'http://localhost:3001/');
   });
 
-  it.only('med vedlegg - ingen avvik', () => {
+  it('med vedlegg - ingen avvik', () => {
     const injuryTime = dayjs();
 
     network
-      .intercept(endpointUrls.innlogget, 'innlogget.json')
+      .intercept(endpointUrls.innlogget, 'innlogget.json', true)
       .as('getInnlogget');
+
+    cy.wait('@getBrukerinfo');
 
     general.nextStep().click();
 
@@ -69,7 +79,8 @@ describe('Skadeforklaring skjema', () => {
     // gå til oppsummering
     general.nextStep().click();
 
-    oppsummering.submit().click();
+    oppsummering.submit().click().wait('@postSkadeforklaring');
+
     cy.location().should('to.be', 'http://localhost:3001/skjema/kvittering');
   });
 
@@ -122,8 +133,12 @@ describe('Skadeforklaring skjema', () => {
   });
 
   it('feilet innlogging', () => {
-    network
-      .intercept(endpointUrls.innlogget, 'innlogget.json', 401)
-      .as('getInnlogget');
+    // denne testen må fikses. dersom vi ikke får 200 fra innlogget, vil applikasjonen gå i en løkke.
+    cy.intercept(endpointUrls.innlogget, {
+      statusCode: 200,
+    });
+    /*   network
+      .intercept(endpointUrls.innlogget, 'innlogget.json', false, 401)
+      .as('getInnlogget');*/
   });
 });

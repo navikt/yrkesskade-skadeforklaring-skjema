@@ -14,11 +14,11 @@ export const doProxy = (path: string, target: string) => {
   return createProxyMiddleware(path, {
     pathRewrite: {
       '^/kodeverk/': '/',
-      '^/api/': '/',
+      //  '^/api/': '/',
     },
     changeOrigin: true,
     secure: false,
-    logLevel: process.env.ENV === 'prod' ? 'info' : 'info',
+    logLevel: process.env.ENV === 'prod' ? 'info' : 'debug',
     logProvider: () => stdoutLogger,
     onProxyReq: fixRequestBody,
     onError: errorHandler,
