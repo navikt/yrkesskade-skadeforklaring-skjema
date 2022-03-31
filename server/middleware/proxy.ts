@@ -14,7 +14,7 @@ export const doProxy = (path: string, target: string) => {
   return createProxyMiddleware(path, {
     pathRewrite: {
       '^/kodeverk/': '/',
-      //  '^/api/': '/',
+      '^/api/': process.env.PROD ? '/' : '/api/',
     },
     changeOrigin: true,
     secure: false,
