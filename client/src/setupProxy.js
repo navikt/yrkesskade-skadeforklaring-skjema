@@ -1,7 +1,7 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 module.exports = function (app) {
   const host = process.env.HOST || 'localhost';
-  const port = '3000';
+  const port = '3005';
 
   app.use(
     '/redirect-til-login',
