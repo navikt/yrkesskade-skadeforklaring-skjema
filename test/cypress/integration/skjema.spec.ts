@@ -15,7 +15,7 @@ describe('Skadeforklaring skjema', () => {
       },
     }).as('postVedlegg');
     cy.visit('');
-    cy.location().should('to.be', 'http://localhost:3006/');
+    cy.location().should('to.be', 'http://localhost:3001/');
   });
 
   it.only('med vedlegg - ingen avvik', () => {
@@ -70,7 +70,7 @@ describe('Skadeforklaring skjema', () => {
     general.nextStep().click();
 
     oppsummering.submit().click();
-    cy.location().should('to.be', 'http://localhost:3006/skjema/kvittering');
+    cy.location().should('to.be', 'http://localhost:3001/skjema/kvittering');
   });
 
   it('med papir vedlegg - ingen avvik', () => {
@@ -118,7 +118,7 @@ describe('Skadeforklaring skjema', () => {
     general.nextStep().click();
 
     oppsummering.submit().click();
-    cy.location().should('to.be', 'http://localhost:3006/skjema/kvittering');
+    cy.location().should('to.be', 'http://localhost:3001/skjema/kvittering');
   });
 
   it('feilet innlogging', () => {
