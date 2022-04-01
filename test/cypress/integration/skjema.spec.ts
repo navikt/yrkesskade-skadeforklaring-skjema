@@ -22,16 +22,16 @@ describe('Skadeforklaring skjema', () => {
       .intercept(endpointUrls.skadeforklaringer, 'skadeforklaring.json')
       .as('postSkadeforklaring');
 
+    network
+      .intercept(endpointUrls.innlogget, 'innlogget.json', true)
+      .as('getInnlogget');
+
     cy.visit('');
     cy.location().should('to.be', 'http://localhost:3006/');
   });
 
   it('med vedlegg - ingen avvik', () => {
     const injuryTime = dayjs();
-
-    network
-      .intercept(endpointUrls.innlogget, 'innlogget.json', true)
-      .as('getInnlogget');
 
     cy.wait('@getBrukerinfo');
 
@@ -86,10 +86,6 @@ describe('Skadeforklaring skjema', () => {
 
   it('med papir vedlegg - ingen avvik', () => {
     const injuryTime = dayjs();
-
-    network
-      .intercept(endpointUrls.innlogget, 'innlogget.json')
-      .as('getInnlogget');
 
     general.nextStep().click();
 
