@@ -5,6 +5,7 @@ import { endpointUrls } from '../support/utils/endpointUrls';
 import { network } from '../support/utils/network';
 import * as dayjs from 'dayjs';
 import { vedlegg } from '../support/selectors/vedlegg.selectors';
+import { person } from '../support/selectors/person.selector';
 
 describe('Skadeforklaring skjema', () => {
   beforeEach(() => {
@@ -36,6 +37,9 @@ describe('Skadeforklaring skjema', () => {
     cy.wait('@getBrukerinfo');
 
     general.nextStep().click();
+
+    // velg person
+    person.personvelger().click();
 
     // velg tidspunkt
     ulykken
@@ -87,6 +91,10 @@ describe('Skadeforklaring skjema', () => {
   it('med papir vedlegg - ingen avvik', () => {
     const injuryTime = dayjs();
 
+    general.nextStep().click();
+
+    // velg person
+    person.personvelger(1).click();
     general.nextStep().click();
 
     // velg tidspunkt

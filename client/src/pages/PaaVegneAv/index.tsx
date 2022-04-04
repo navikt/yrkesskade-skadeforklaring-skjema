@@ -5,6 +5,7 @@ import {
   Heading,
   Button,
   BodyShort,
+  BodyLong,
 } from '@navikt/ds-react';
 import SystemHeader from '../../components/SystemHeader';
 import {
@@ -14,6 +15,7 @@ import {
 } from '@navikt/yrkesskade-personvelger';
 import { useNavigate } from 'react-router';
 import { useCancel } from '../../core/hooks/cancel.hooks';
+import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 
 const PaaVegneAv = () => {
   const navigate = useNavigate();
@@ -58,11 +60,21 @@ const PaaVegneAv = () => {
               <Personvelger
                 personer={personer}
                 onPersonChange={handlePersonChange}
+                data-test-id="person-velger"
               />
-              <BodyShort spacing>
+              <BodyLong spacing>
+                Du kan melde skadeforklaring digitalt på vegene av dine barn som
+                er oppført med samme bostedsadresse som deg i folkeregisteret.
+                Barn er yrkesskadedekket fra de begynner på skolen, og derfor
+                vil du kun få opp barn som er i skolealder frem til de er 18år.
+                Får du ikke opp alle dine barn kan det være fordi de ikke er
+                yrkesskade dekket, eller fordi de ikke er oppført på samme
+                adresse som deg i folkeregisteret.
+              </BodyLong>
+              <BodyLong spacing>
                 Alle opplysninger som sendes inn vil være knyttet til personen
-                du velger
-              </BodyShort>
+                du velger.
+              </BodyLong>
               <section className="button-section spacer button-group">
                 <Button
                   variant="secondary"
@@ -74,6 +86,10 @@ const PaaVegneAv = () => {
               </section>
             </div>
           </div>
+        </Cell>
+        <Cell xs={12} lg={2}></Cell>
+        <Cell xs={12} sm={12} lg={2}>
+          <StepIndicator />
         </Cell>
       </Grid>
     </ContentContainer>

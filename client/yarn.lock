@@ -1580,10 +1580,10 @@
   resolved "https://npm.pkg.github.com/download/@navikt/hoykontrast/3.0.1/0525de7ea4e8738a5c44599564eb8acf9c16f0f074ad65b5aba3ef7581bc7868#dc20ff864d5b942e209f71b5dd5059992769ddd2"
   integrity sha512-nB/+fAK4JIvumgl0CH4vSiXqnjaAt33YFXWhEVplPzjuEl8dN9dXMAeb0TiahFfQBAnr2RcUMADHVNXxFSuN6Q==
 
-"@navikt/yrkesskade-personvelger@^0.0.3":
-  version "0.0.3"
-  resolved "https://npm.pkg.github.com/download/@navikt/yrkesskade-personvelger/0.0.3/32e0df9a4d3f8610f5232c28481af1925f32b930cada694e7f44e68308c069f8#1e4c7bcad858985d759ae487d6163536c9d94859"
-  integrity sha512-l4cBxAaghPuAaCi2LvpZFnrVq0Wl8KwAKka4p7SqnczJD+0iT+6BkSMmUgB1cQJWdPmWLa1G/2OZ88FHXrJ8xA==
+"@navikt/yrkesskade-personvelger@^0.0.9":
+  version "0.0.9"
+  resolved "https://npm.pkg.github.com/download/@navikt/yrkesskade-personvelger/0.0.9/a380650cc619fa40726e81904798a346badf7b522bf377663cd5541519c81749#9c75dba347e4a8831b1e046a60113f4179f55515"
+  integrity sha512-+C2MMHh52K+PZ6d5Liyhy2lNo17f3Zemtz8tYPhmDHrlQu4ntJRIF0vakvWj4UTe2z55EmlrwVU0D+gWgwGF8g==
   dependencies:
     "@types/amplitude-js" "^8.9.4"
     fuzzysort "^1.1.4"

@@ -16,7 +16,7 @@ const Veiledning = () => {
   const cancel = useCancel();
 
   const handleNext = () => {
-    navigate('/skjema/ulykken');
+    navigate('/skjema/person');
   };
 
   return (

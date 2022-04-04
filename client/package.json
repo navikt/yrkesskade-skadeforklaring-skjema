@@ -7,7 +7,7 @@
     "@navikt/ds-icons": "^0.8.6",
     "@navikt/ds-react": "^0.14.0-beta.1",
     "@navikt/hoykontrast": "^3.0.1",
-    "@navikt/yrkesskade-personvelger": "^0.0.3",
+    "@navikt/yrkesskade-personvelger": "^0.0.9",
     "@navikt/yrkesskade-stepindicator": "^0.0.6",
     "@reduxjs/toolkit": "^1.8.0",
     "@testing-library/jest-dom": "^5.11.4",

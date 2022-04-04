@@ -127,7 +127,7 @@ const OmUlykkenSkjema = () => {
 
   return (
     <>
-      <Ingress>
+      <Ingress spacing>
         Basert på opplysningene som allerede er gitt i skademeldingen trenger vi
         mer informasjon om hendelsen
       </Ingress>

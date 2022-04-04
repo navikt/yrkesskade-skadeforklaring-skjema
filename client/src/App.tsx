@@ -54,6 +54,12 @@ const steps: ISteps = {
       pathmatch: '/skjema',
     },
     {
+      text: 'Dine opplysninger',
+      done: false,
+      active: false,
+      pathmatch: '/skjema/person',
+    },
+    {
       text: 'Om ulykken',
       done: false,
       active: false,
