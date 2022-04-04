@@ -11,6 +11,7 @@ import PaaVegneAv from './pages/PaaVegneAv';
 import Ulykken from './pages/Ulykken';
 import Vedlegg from './pages/Vedlegg';
 import Veiledning from './pages/Veiledning';
+import { StepsProvider, ISteps } from '@navikt/yrkesskade-stepindicator';
 import { autentiseringsInterceptor } from './utils/autentisering';
 
 const App = () => {
@@ -20,22 +21,55 @@ const App = () => {
   return (
     <InnloggetProvider>
       <FormProvider {...methods}>
-        <Routes>
-          <Route index element={<Landing />} />
-          <Route path="skjema">
-            <Route index element={<Veiledning />} />
-            <Route path="person" element={<PaaVegneAv />} />
-            <Route path="ulykken" element={<Ulykken />} />
-            <Route path="vedlegg" element={<Vedlegg />} />
-            <Route path="oppsummering" element={<Oppsummering />} />
-            <Route path="kvittering" element={<Kvittering />} />
-          </Route>
-          <Route path="feilmelding" element={<Feil />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <StepsProvider stepsDefinition={steps}>
+          <Routes>
+            <Route index element={<Landing />} />
+            <Route path="skjema">
+              <Route index element={<Veiledning />} />
+              <Route path="person" element={<PaaVegneAv />} />
+              <Route path="ulykken" element={<Ulykken />} />
+              <Route path="vedlegg" element={<Vedlegg />} />
+              <Route path="oppsummering" element={<Oppsummering />} />
+              <Route path="kvittering" element={<Kvittering />} />
+            </Route>
+            <Route path="feilmelding" element={<Feil />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </StepsProvider>
       </FormProvider>
     </InnloggetProvider>
   );
 };
 
 export default App;
+
+const steps: ISteps = {
+  totalSteps: 5,
+  currentStep: 0,
+  details: [
+    {
+      text: 'Veiledning',
+      done: false,
+      active: true,
+      pathmatch: '/skjema',
+    },
+    {
+      text: 'Om ulykken',
+      done: false,
+      active: false,
+      pathmatch: '/skjema/ulykken',
+    },
+    {
+      text: 'Vedlegg',
+      done: false,
+      active: false,
+      pathmatch: '/skjema/vedlegg',
+    },
+    {
+      text: 'Oppsummering',
+      done: false,
+      active: false,
+      pathmatch: '/skjema/oppsummering',
+    },
+  ],
+};

@@ -9,6 +9,7 @@ import {
 import { useNavigate } from 'react-router';
 import SystemHeader from '../../components/SystemHeader';
 import { useCancel } from '../../core/hooks/cancel.hooks';
+import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 
 const Veiledning = () => {
   const navigate = useNavigate();
@@ -52,6 +53,10 @@ const Veiledning = () => {
               </section>
             </div>
           </div>
+        </Cell>
+        <Cell xs={12} lg={2}></Cell>
+        <Cell xs={12} sm={12} lg={2}>
+          <StepIndicator />
         </Cell>
       </Grid>
     </ContentContainer>

@@ -5,6 +5,7 @@ import {
   Heading,
   Button,
 } from '@navikt/ds-react';
+import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 import { useFormContext } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { Skadeforklaring } from '../../api/skadeforklaring/models/Skadeforklaring';
@@ -55,6 +56,10 @@ const Vedlegg = () => {
               </section>
             </div>
           </div>
+        </Cell>
+        <Cell xs={12} lg={2}></Cell>
+        <Cell xs={12} sm={12} lg={2}>
+          <StepIndicator />
         </Cell>
       </Grid>
     </ContentContainer>

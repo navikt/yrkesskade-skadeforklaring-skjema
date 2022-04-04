@@ -14,6 +14,7 @@ import { oppdaterSkadeforklaring } from '../../core/reducers/skadeforklaring.red
 import { useDispatch } from 'react-redux';
 import { Skadeforklaring } from '../../api/skadeforklaring';
 import { useCancel } from '../../core/hooks/cancel.hooks';
+import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 
 const Ulykken = () => {
   const navigate = useNavigate();
@@ -56,6 +57,10 @@ const Ulykken = () => {
               </section>
             </div>
           </div>
+        </Cell>
+        <Cell xs={12} lg={2}></Cell>
+        <Cell xs={12} sm={12} lg={2}>
+          <StepIndicator />
         </Cell>
       </Grid>
     </ContentContainer>

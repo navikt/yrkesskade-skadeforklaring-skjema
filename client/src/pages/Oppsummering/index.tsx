@@ -7,6 +7,7 @@ import {
   Accordion,
   Ingress,
 } from '@navikt/ds-react';
+import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 import { useNavigate } from 'react-router';
 import { SkadeforklaringApiService } from '../../api/skadeforklaring/services/SkadeforklaringApiService';
 import UlykkenOppsummering from '../../components/summary/UlykkenOppsummering';
@@ -87,6 +88,10 @@ const Oppsummering = () => {
               </section>
             </div>
           </div>
+        </Cell>
+        <Cell xs={12} lg={2}></Cell>
+        <Cell xs={12} sm={12} lg={2}>
+          <StepIndicator />
         </Cell>
       </Grid>
     </ContentContainer>

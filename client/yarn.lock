@@ -1588,6 +1588,14 @@
     "@types/amplitude-js" "^8.9.4"
     fuzzysort "^1.1.4"
 
+"@navikt/yrkesskade-stepindicator@^0.0.6":
+  version "0.0.6"
+  resolved "https://npm.pkg.github.com/download/@navikt/yrkesskade-stepindicator/0.0.6/82022f595bc383d009adc88f69e4889854d0c44a9540d14aacb4b52bab710b0d#4b1ebcd20cf75d22f2c65902b1392a2c242d4abf"
+  integrity sha512-KGvpwQS/kgFCRNT3wogCLM5x7n2VbLWt/n+suAqurx/h3zNzU7Qvd8xnNGJZ9MIHkI5AJN+zFUWNYk0A/HTxsQ==
+  dependencies:
+    "@types/amplitude-js" "^8.9.4"
+    fuzzysort "^1.1.4"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
