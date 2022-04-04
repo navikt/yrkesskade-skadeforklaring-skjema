@@ -4,7 +4,6 @@ import {
   Cell,
   Heading,
   Button,
-  BodyShort,
   BodyLong,
 } from '@navikt/ds-react';
 import SystemHeader from '../../components/SystemHeader';
