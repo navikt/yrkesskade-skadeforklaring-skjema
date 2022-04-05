@@ -52,8 +52,10 @@ const UlykkenOppsummering = () => {
       <BodyLong spacing>
         {skadeforklaring.fravaer?.harFravaer ? 'Ja' : 'Nei'}
       </BodyLong>
-      <Label>Antall fraværsdager</Label>
-      <BodyLong spacing>{skadeforklaring.fravaer?.antallDager}</BodyLong>
+      <Label>Type fravær</Label>
+      <BodyLong spacing>
+        {skadeforklaring.fravaer?.fravaertype || 'Ukjent'}
+      </BodyLong>
       <Label>Ble lege oppsøkt etter skaden?</Label>
       <BodyLong spacing={skadeforklaring.behandler?.erBehandlerOppsokt}>
         {skadeforklaring.behandler?.erBehandlerOppsokt ? 'Ja' : 'Nei'}

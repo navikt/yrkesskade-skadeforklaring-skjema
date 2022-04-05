@@ -20,7 +20,6 @@ const initialState: SkadeforklaringState = {
     fravaer: {
       harFravaer: undefined,
       fravaertype: '',
-      antallDager: 0,
     },
     arbeidsbeskrivelse: '',
     ulykkesbeskrivelse: '',

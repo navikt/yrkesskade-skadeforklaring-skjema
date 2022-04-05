@@ -1,4 +1,4 @@
-import { Radio, RadioGroup, TextField } from '@navikt/ds-react';
+import { Radio, RadioGroup } from '@navikt/ds-react';
 import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Skadeforklaring } from '../../../../api/skadeforklaring/models/Skadeforklaring';
@@ -97,27 +97,6 @@ const Fravaertype: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
               Egenmelding
             </Radio>
           </RadioGroup>
-
-          {fravertype && fravertype !== '' && (
-            <TextField
-              label="Skriv inn antall fraværsdager"
-              data-test-id="fravaer-antall-dager"
-              error={
-                errors?.fravaer?.antallDager &&
-                errors?.fravaer?.antallDager.message
-              }
-              {...register('fravaer.antallDager', {
-                required: {
-                  value: fravaer === 'ja',
-                  message: 'Dette feltet er påkrevd',
-                },
-                min: {
-                  value: 1,
-                  message: 'Det må være minst 1 fraværsdag',
-                },
-              })}
-            />
-          )}
         </>
       )}
     </div>

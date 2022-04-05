@@ -1,6 +1,7 @@
 export const useCancel = () => {
   const handleCancel = () => {
-    console.log('cancel');
+    window.location.href =
+      'https://www.nav.no/soknader/nb/person/helse/yrkesskade';
   };
 
   return handleCancel;

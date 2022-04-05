@@ -5,5 +5,4 @@
 export type Fravaer = {
     harFravaer?: boolean;
     fravaertype?: string;
-    antallDager?: number;
 };
