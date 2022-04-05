@@ -2,6 +2,8 @@ import { Ingress, Radio, RadioGroup } from '@navikt/ds-react';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Skadeforklaring } from '../../../api/skadeforklaring/models/Skadeforklaring';
+import { useAppSelector } from '../../../core/hooks/state.hooks';
+import { selectSkadeforklaring } from '../../../core/reducers/skadeforklaring.reducer';
 import Opplast from './Opplast';
 import Papir from './Papir';
 
@@ -10,7 +12,12 @@ const VedleggSkjema = () => {
     register,
     formState: { errors },
   } = useFormContext<Skadeforklaring>();
-  const [vedleggtype, setVedleggtype] = useState<string>('');
+  const skadeforklaring = useAppSelector((state) =>
+    selectSkadeforklaring(state)
+  );
+  const [vedleggtype, setVedleggtype] = useState<string>(
+    skadeforklaring.vedleggtype || ''
+  );
 
   const visVedleggType = () => {
     switch (vedleggtype) {

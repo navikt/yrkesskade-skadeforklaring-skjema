@@ -10,6 +10,7 @@ import {
 import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 import { useNavigate } from 'react-router';
 import { SkadeforklaringApiService } from '../../api/skadeforklaring/services/SkadeforklaringApiService';
+import BackButton from '../../components/BackButton';
 import UlykkenOppsummering from '../../components/summary/UlykkenOppsummering';
 import VedleggOppsummering from '../../components/summary/VedleggOppsummering';
 import SystemHeader from '../../components/SystemHeader';
@@ -40,6 +41,7 @@ const Oppsummering = () => {
       <Grid>
         <Cell xs={12} lg={2}></Cell>
         <Cell xs={12} lg={5}>
+          <BackButton />
           <div>
             <div>
               <Heading size="2xlarge" spacing data-number="2">

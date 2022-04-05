@@ -2,6 +2,8 @@ import { Radio, RadioGroup, TextField } from '@navikt/ds-react';
 import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Skadeforklaring } from '../../../../api/skadeforklaring/models/Skadeforklaring';
+import { useAppSelector } from '../../../../core/hooks/state.hooks';
+import { selectSkadeforklaring } from '../../../../core/reducers/skadeforklaring.reducer';
 
 const Fravaertype = () => {
   const {
@@ -9,8 +11,19 @@ const Fravaertype = () => {
     control,
     formState: { errors },
   } = useFormContext<Skadeforklaring>();
-  const [fravaer, setFravaer] = useState<string>('');
-  const [fravertype, setFravaertype] = useState<string>('');
+  const skadeforklaring = useAppSelector((state) =>
+    selectSkadeforklaring(state)
+  );
+  const [fravaer, setFravaer] = useState<string>(
+    skadeforklaring.fravaer?.harFravaer !== undefined
+      ? skadeforklaring.fravaer.harFravaer
+        ? 'ja'
+        : 'nei'
+      : ''
+  );
+  const [fravertype, setFravaertype] = useState<string>(
+    skadeforklaring.fravaer?.fravaertype || ''
+  );
 
   return (
     <>
@@ -44,7 +57,7 @@ const Fravaertype = () => {
       {fravaer === 'ja' && (
         <>
           <RadioGroup
-            legend="Velg type fravært"
+            legend="Velg type fravær"
             value={fravertype}
             error={
               errors?.fravaer?.fravaertype &&

@@ -9,6 +9,7 @@ import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 import { useFormContext } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { Skadeforklaring } from '../../api/skadeforklaring/models/Skadeforklaring';
+import BackButton from '../../components/BackButton';
 import VedleggSkjema from '../../components/form/VedleggSkjema';
 import SystemHeader from '../../components/SystemHeader';
 import { useCancel } from '../../core/hooks/cancel.hooks';
@@ -32,6 +33,7 @@ const Vedlegg = () => {
       <Grid>
         <Cell xs={12} lg={2}></Cell>
         <Cell xs={12} lg={5}>
+          <BackButton />
           <div>
             <div>
               <Heading size="2xlarge" spacing data-number="2">

@@ -4,18 +4,19 @@ import './BackButton.less';
 
 import { useNavigate } from 'react-router-dom';
 
-interface IProps {
-  url: string;
-}
-
-const BackButton = ({ url }: IProps) => {
+const BackButton = () => {
   const navigate = useNavigate();
   const handleBack = () => {
-    navigate(url);
+    navigate(-1);
   };
   return (
     <div className="backButton no-print">
-      <Button onClick={handleBack} variant="tertiary" size="small" data-testid="tilbake-steg">
+      <Button
+        onClick={handleBack}
+        variant="tertiary"
+        size="small"
+        data-test-id="tilbake-steg"
+      >
         <Left />
         Tilbake
       </Button>

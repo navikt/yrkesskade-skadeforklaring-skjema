@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { Skadeforklaring } from '../../api/skadeforklaring';
 import { useCancel } from '../../core/hooks/cancel.hooks';
 import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
+import BackButton from '../../components/BackButton';
 
 const Ulykken = () => {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const Ulykken = () => {
       <Grid>
         <Cell xs={12} lg={2}></Cell>
         <Cell xs={12} lg={5}>
+          <BackButton />
           <div>
             <div>
               <Heading size="2xlarge" spacing data-number="2">

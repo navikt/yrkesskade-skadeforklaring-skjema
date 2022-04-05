@@ -2,6 +2,8 @@ import { RadioGroup, Radio, TextField } from '@navikt/ds-react';
 import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Skadeforklaring } from '../../../../api/skadeforklaring';
+import { useAppSelector } from '../../../../core/hooks/state.hooks';
+import { selectSkadeforklaring } from '../../../../core/reducers/skadeforklaring.reducer';
 
 const LegeOppsokt = () => {
   const {
@@ -9,8 +11,17 @@ const LegeOppsokt = () => {
     control,
     formState: { errors },
   } = useFormContext<Skadeforklaring>();
-  const [legeOppsokt, setLegeOppsokt] = useState('');
-  const [navn, setNavn] = useState('');
+  const skadeforklaring = useAppSelector((state) =>
+    selectSkadeforklaring(state)
+  );
+  const [legeOppsokt, setLegeOppsokt] = useState(
+    skadeforklaring.behandler?.erBehandlerOppsokt !== undefined
+      ? skadeforklaring.behandler.erBehandlerOppsokt
+        ? 'ja'
+        : 'nei'
+      : ''
+  );
+  const [navn, setNavn] = useState(skadeforklaring.behandler?.behandlerNavn);
 
   return (
     <>

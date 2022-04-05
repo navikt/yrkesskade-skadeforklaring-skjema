@@ -1,4 +1,4 @@
-import { BodyLong, Link } from '@navikt/ds-react';
+import { BodyLong, BodyShort, Link } from '@navikt/ds-react';
 
 const Papir = () => {
   return (
@@ -6,12 +6,12 @@ const Papir = () => {
       <BodyLong spacing>
         Du kan sende inn dokumentasjonen din per post til:
       </BodyLong>
-      <BodyLong>
-        <span>NAV Skanning</span>
-        <span>Postboks 1400</span>
-        <span>0109 OSLO</span>
-      </BodyLong>
-      <BodyLong>
+      <div data-test-id="post-adresse">
+        <BodyShort>NAV Skanning</BodyShort>
+        <BodyShort>Postboks 1400</BodyShort>
+        <BodyShort spacing>0109 OSLO</BodyShort>
+      </div>
+      <BodyLong spacing>
         Husk å skrive ut førstesiden for å knytte skjemaet til riktig person og
         legge den ved innsendelsen.
       </BodyLong>

@@ -16,6 +16,8 @@ import './OmUlykken.less';
 import LegeOppsokt from './LegeOppsokt';
 import Fravaertype from './FravaerType';
 import { Skadeforklaring } from '../../../api/skadeforklaring';
+import { useAppSelector } from '../../../core/hooks/state.hooks';
+import { selectSkadeforklaring } from '../../../core/reducers/skadeforklaring.reducer';
 
 const OmUlykkenSkjema = () => {
   const FORMAT: string = 'dd.MM.yyyy';
@@ -25,6 +27,9 @@ const OmUlykkenSkjema = () => {
     setValue,
     formState: { errors },
   } = useFormContext<Skadeforklaring>();
+  const skadeforklaring = useAppSelector((state) =>
+    selectSkadeforklaring(state)
+  );
 
   const dayPickerClassNames = {
     container: 'nav-day-picker',
@@ -47,21 +52,23 @@ const OmUlykkenSkjema = () => {
     container: `timeframe-from-date ${dayPickerClassNames.container}`,
   };
 
-  const [timeType, setTimeType] = useState('Tidspunkt');
+  const [timeType, setTimeType] = useState(
+    skadeforklaring.tid?.tidstype || 'Tidspunkt'
+  );
   const [specificDate, setSpecificDate] = useState<Date | undefined>(
-    handleDateValue(undefined)
+    handleDateValue(skadeforklaring.tid?.tidspunkt)
   );
 
   const [specificTime, setSpecificTime] = useState<string | undefined>(
-    handleTimeValue(undefined)
+    handleTimeValue(skadeforklaring.tid?.tidspunkt)
   );
 
   const [toDayInput, setToDayInput] = useState<DayPickerInput | null>();
   const [specificFromDay, setSpecificFromDay] = useState<Date | undefined>(
-    handleDateValue(undefined)
+    handleDateValue(skadeforklaring.tid?.periode?.fra)
   );
   const [specificToDay, setSpecificToDay] = useState<Date | undefined>(
-    handleDateValue(undefined)
+    handleDateValue(skadeforklaring.tid?.periode?.til)
   );
 
   const modifiers = { start: specificFromDay, end: specificToDay };
@@ -122,8 +129,12 @@ const OmUlykkenSkjema = () => {
     setValue('tid.periode.til', specificToDay?.toISOString() || '');
   }, [timeType, specificFromDay, specificToDay, setValue]);
 
-  const [arbeidsbeskrivelse, setArbeidsbeskrivelse] = useState<string>('');
-  const [ulykkebeskrivelse, setUlykkesbeskrivelse] = useState<string>('');
+  const [arbeidsbeskrivelse, setArbeidsbeskrivelse] = useState<string>(
+    skadeforklaring.arbeidsbeskrivelse || ''
+  );
+  const [ulykkebeskrivelse, setUlykkesbeskrivelse] = useState<string>(
+    skadeforklaring.ulykkesbeskrivelse || ''
+  );
 
   return (
     <>
