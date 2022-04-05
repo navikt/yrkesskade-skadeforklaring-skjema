@@ -8,6 +8,7 @@ import { Skadeforklaring } from '../../../api/skadeforklaring';
 import { useAppSelector } from '../../../core/hooks/state.hooks';
 import { selectSkadeforklaring } from '../../../core/reducers/skadeforklaring.reducer';
 import Tid from './Tid';
+import Ulykkesbeskrivelse from './Ulykkesbeskrivelse';
 
 const OmUlykkenSkjema = () => {
   const { register } = useFormContext<Skadeforklaring>();
@@ -18,9 +19,6 @@ const OmUlykkenSkjema = () => {
   const [arbeidsbeskrivelse, setArbeidsbeskrivelse] = useState<string>(
     skadeforklaring.arbeidsbeskrivelse || ''
   );
-  const [ulykkebeskrivelse, setUlykkesbeskrivelse] = useState<string>(
-    skadeforklaring.ulykkesbeskrivelse || ''
-  );
 
   return (
     <>
@@ -29,31 +27,26 @@ const OmUlykkenSkjema = () => {
         mer informasjon om hendelsen
       </Ingress>
 
-      <Tid />
+      <Tid className="spacer" />
 
-      <Textarea
-        label="Hva arbeidet du med i ulykkesøyeblikket?"
-        maxLength={1000}
-        value={arbeidsbeskrivelse}
-        {...register('arbeidsbeskrivelse')}
-        onChange={(e) => setArbeidsbeskrivelse(e.target.value)}
-        data-test-id="ulykke-arbeidsbeskrivelse"
-        className="ulykke-arbeidsbeskrivelse"
-      />
+      <div className="spacer">
+        <Textarea
+          label="Hva arbeidet du med i ulykkesøyeblikket?"
+          maxLength={1000}
+          minRows={5}
+          value={arbeidsbeskrivelse}
+          {...register('arbeidsbeskrivelse')}
+          onChange={(e) => setArbeidsbeskrivelse(e.target.value)}
+          data-test-id="ulykke-arbeidsbeskrivelse"
+          className="ulykke-arbeidsbeskrivelse"
+        />
+      </div>
 
-      <Textarea
-        label="Gi en så nøyaktig beskrivelse av hendelsen som mulig"
-        maxLength={2000}
-        value={ulykkebeskrivelse}
-        {...register('ulykkesbeskrivelse')}
-        onChange={(e) => setUlykkesbeskrivelse(e.target.value)}
-        data-test-id="ulykke-ulykkesbeskrivelse"
-        className="ulykke-ulykkesbeskrivelse"
-      />
+      <Ulykkesbeskrivelse className="spacer" />
 
-      <Fravaertype />
+      <Fravaertype className="spacer" />
 
-      <LegeOppsokt />
+      <LegeOppsokt className="spacer" />
     </>
   );
 };

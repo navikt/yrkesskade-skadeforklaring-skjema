@@ -16,7 +16,7 @@ import dateFnsParse from 'date-fns/parse';
 import InputMask from 'react-input-mask';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 
-const Tid = () => {
+const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   const FORMAT: string = 'dd.MM.yyyy';
 
   const {
@@ -128,136 +128,138 @@ const Tid = () => {
   }, [timeType, specificFromDay, specificToDay, setValue]);
 
   return (
-    <Controller
-      name="tid.tidstype"
-      control={control}
-      render={({ field: { onChange, onBlur } }) => (
-        <RadioGroup
-          legend="Når skjedde ulykken?"
-          error={errors?.tid?.tidstype && errors?.tid.tidstype.message}
-          value={timeType}
-        >
-          <Radio
-            data-test-id="timeframe-when-date"
-            id="timeframe-when-date"
-            value="Tidspunkt"
-            {...register('tid.tidstype', {
-              required: 'Dette feltet er påkrevd',
-            })}
-            onChange={(e) => {
-              setTimeType(e.target.value);
-              onChange(e.target.value);
-            }}
+    <div className={`skadeforklaring-tid ${props.className}`}>
+      <Controller
+        name="tid.tidstype"
+        control={control}
+        render={({ field: { onChange, onBlur } }) => (
+          <RadioGroup
+            legend="Når skjedde ulykken?"
+            error={errors?.tid?.tidstype && errors?.tid.tidstype.message}
+            value={timeType}
           >
-            På en dato
-          </Radio>
+            <Radio
+              data-test-id="timeframe-when-date"
+              id="timeframe-when-date"
+              value="Tidspunkt"
+              {...register('tid.tidstype', {
+                required: 'Dette feltet er påkrevd',
+              })}
+              onChange={(e) => {
+                setTimeType(e.target.value);
+                onChange(e.target.value);
+              }}
+            >
+              På en dato
+            </Radio>
 
-          {timeType === 'Tidspunkt' && (
-            <div>
-              <Label>Dato for ulykken</Label>
-
-              <DayPickerInput
-                classNames={{ ...whenDayPickerClassNames }}
-                placeholder=""
-                value={specificDate}
-                onDayChange={handleSpecificDate}
-                formatDate={formatDate}
-                format={FORMAT}
-                parseDate={parseDate}
-                {...register('tid.tidspunkt', {
-                  required: timeType === 'Tidspunkt',
-                })}
-                dayPickerProps={{
-                  disabledDays: {
-                    after: new Date(),
-                  },
-                }}
-              />
-
-              {errors?.tid?.tidspunkt && (
-                <div>{errors?.tid?.tidspunkt.message}</div>
-              )}
-            </div>
-          )}
-
-          {timeType === 'Tidspunkt' && specificDate !== null && (
-            <div className="spacer">
-              <label htmlFor="timeframe-when-time" className="navds-label">
-                Tid for ulykken
-              </label>
-              <InputMask
-                mask="99:99"
-                onChange={handleKlokkeChange}
-                value={specificTime || ''}
-                data-test-id="timeframe-when-time"
-                id="timeframe-when-time"
-                className="navds-text-field__input navds-body-short navds-body-medium"
-              />
-            </div>
-          )}
-
-          <Radio
-            value="Periode"
-            data-testid="timeframe-when-over-period"
-            id="timeframe-when-over-period"
-            {...register('tid.tidstype', {
-              required: 'Dette feltet er påkrevd',
-            })}
-            onChange={(e) => {
-              setTimeType(e.target.value);
-              onChange(e.target.value);
-            }}
-          >
-            Over en periode
-          </Radio>
-          {timeType === 'Periode' && (
-            <div className="periode-container spacer">
+            {timeType === 'Tidspunkt' && (
               <div>
-                <Label>Fra dag</Label>
+                <Label>Dato for ulykken</Label>
+
                 <DayPickerInput
-                  classNames={fromDayPickerClassNames}
+                  classNames={{ ...whenDayPickerClassNames }}
                   placeholder=""
-                  value={specificFromDay}
-                  onDayChange={handleSpecificFromDay}
+                  value={specificDate}
+                  onDayChange={handleSpecificDate}
                   formatDate={formatDate}
                   format={FORMAT}
                   parseDate={parseDate}
+                  {...register('tid.tidspunkt', {
+                    required: timeType === 'Tidspunkt',
+                  })}
                   dayPickerProps={{
-                    toMonth: specificToDay,
-                    disabledDays: {
-                      after: new Date(),
-                    },
-                    modifiers,
-                    onDayClick: () => toDayInput?.getInput().focus(),
-                  }}
-                />
-              </div>
-              <div>
-                <Label>Til dag</Label>
-                <DayPickerInput
-                  ref={(el) => setToDayInput(el)}
-                  classNames={toDayPickerClassNames}
-                  placeholder=""
-                  value={specificToDay}
-                  onDayChange={handleSpecificToDay}
-                  formatDate={formatDate}
-                  format={FORMAT}
-                  parseDate={parseDate}
-                  dayPickerProps={{
-                    month: specificFromDay,
-                    fromMonth: specificFromDay,
-                    modifiers,
                     disabledDays: {
                       after: new Date(),
                     },
                   }}
                 />
+
+                {errors?.tid?.tidspunkt && (
+                  <div>{errors?.tid?.tidspunkt.message}</div>
+                )}
               </div>
-            </div>
-          )}
-        </RadioGroup>
-      )}
-    />
+            )}
+
+            {timeType === 'Tidspunkt' && specificDate !== null && (
+              <div className="spacer">
+                <label htmlFor="timeframe-when-time" className="navds-label">
+                  Tid for ulykken
+                </label>
+                <InputMask
+                  mask="99:99"
+                  onChange={handleKlokkeChange}
+                  value={specificTime || ''}
+                  data-test-id="timeframe-when-time"
+                  id="timeframe-when-time"
+                  className="navds-text-field__input navds-body-short navds-body-medium"
+                />
+              </div>
+            )}
+
+            <Radio
+              value="Periode"
+              data-testid="timeframe-when-over-period"
+              id="timeframe-when-over-period"
+              {...register('tid.tidstype', {
+                required: 'Dette feltet er påkrevd',
+              })}
+              onChange={(e) => {
+                setTimeType(e.target.value);
+                onChange(e.target.value);
+              }}
+            >
+              Over en periode
+            </Radio>
+            {timeType === 'Periode' && (
+              <div className="periode-container spacer">
+                <div>
+                  <Label>Fra dag</Label>
+                  <DayPickerInput
+                    classNames={fromDayPickerClassNames}
+                    placeholder=""
+                    value={specificFromDay}
+                    onDayChange={handleSpecificFromDay}
+                    formatDate={formatDate}
+                    format={FORMAT}
+                    parseDate={parseDate}
+                    dayPickerProps={{
+                      toMonth: specificToDay,
+                      disabledDays: {
+                        after: new Date(),
+                      },
+                      modifiers,
+                      onDayClick: () => toDayInput?.getInput().focus(),
+                    }}
+                  />
+                </div>
+                <div>
+                  <Label>Til dag</Label>
+                  <DayPickerInput
+                    ref={(el) => setToDayInput(el)}
+                    classNames={toDayPickerClassNames}
+                    placeholder=""
+                    value={specificToDay}
+                    onDayChange={handleSpecificToDay}
+                    formatDate={formatDate}
+                    format={FORMAT}
+                    parseDate={parseDate}
+                    dayPickerProps={{
+                      month: specificFromDay,
+                      fromMonth: specificFromDay,
+                      modifiers,
+                      disabledDays: {
+                        after: new Date(),
+                      },
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+          </RadioGroup>
+        )}
+      />
+    </div>
   );
 };
 

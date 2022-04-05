@@ -5,7 +5,7 @@ import { Skadeforklaring } from '../../../../api/skadeforklaring';
 import { useAppSelector } from '../../../../core/hooks/state.hooks';
 import { selectSkadeforklaring } from '../../../../core/reducers/skadeforklaring.reducer';
 
-const LegeOppsokt = () => {
+const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   const {
     register,
     control,
@@ -24,7 +24,7 @@ const LegeOppsokt = () => {
   const [navn, setNavn] = useState(skadeforklaring.behandler?.behandlerNavn);
 
   return (
-    <>
+    <div className={`skade-lege ${props.className}`}>
       <Controller
         name="behandler.erBehandlerOppsokt"
         control={control}
@@ -60,7 +60,7 @@ const LegeOppsokt = () => {
           onChange={(e) => setNavn(e.target.value)}
         />
       )}
-    </>
+    </div>
   );
 };
 

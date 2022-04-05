@@ -5,7 +5,7 @@ import { Skadeforklaring } from '../../../../api/skadeforklaring/models/Skadefor
 import { useAppSelector } from '../../../../core/hooks/state.hooks';
 import { selectSkadeforklaring } from '../../../../core/reducers/skadeforklaring.reducer';
 
-const Fravaertype = () => {
+const Fravaertype: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   const {
     register,
     control,
@@ -26,7 +26,7 @@ const Fravaertype = () => {
   );
 
   return (
-    <>
+    <div className={`skade-fravaer ${props.className}`}>
       <Controller
         name="fravaer.harFravaer"
         control={control}
@@ -120,7 +120,7 @@ const Fravaertype = () => {
           )}
         </>
       )}
-    </>
+    </div>
   );
 };
 
