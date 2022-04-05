@@ -55,15 +55,13 @@ const UlykkenOppsummering = () => {
       <Label>Antall fraværsdager</Label>
       <BodyLong spacing>{skadeforklaring.fravaer?.antallDager}</BodyLong>
       <Label>Ble lege oppsøkt etter skaden?</Label>
-      <BodyLong spacing>
+      <BodyLong spacing={skadeforklaring.behandler?.erBehandlerOppsokt}>
         {skadeforklaring.behandler?.erBehandlerOppsokt ? 'Ja' : 'Nei'}
       </BodyLong>
       {skadeforklaring.behandler?.erBehandlerOppsokt && (
         <>
           <Label>Navn på helseforetak, legevakt eller lege</Label>
-          <BodyLong spacing>
-            {skadeforklaring.behandler?.behandlerNavn}
-          </BodyLong>
+          <BodyLong>{skadeforklaring.behandler?.behandlerNavn}</BodyLong>
         </>
       )}
     </>

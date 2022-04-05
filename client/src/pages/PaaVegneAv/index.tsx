@@ -16,10 +16,13 @@ import { useNavigate } from 'react-router';
 import { useCancel } from '../../core/hooks/cancel.hooks';
 import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 import BackButton from '../../components/BackButton';
+import { useFormContext } from 'react-hook-form';
+import { Skadeforklaring } from '../../api/skadeforklaring';
 
 const PaaVegneAv = () => {
   const navigate = useNavigate();
   const cancel = useCancel();
+  const { setValue } = useFormContext<Skadeforklaring>();
 
   const personer: Person[] = [
     {
@@ -43,6 +46,7 @@ const PaaVegneAv = () => {
   ];
 
   const handlePersonChange = (person: Person) => {
+    setValue('identifikator', person.identifikator);
     navigate('/skjema/ulykken');
   };
 

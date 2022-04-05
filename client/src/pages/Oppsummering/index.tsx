@@ -6,11 +6,14 @@ import {
   Button,
   Accordion,
   Ingress,
+  Label,
+  BodyShort,
 } from '@navikt/ds-react';
 import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 import { useNavigate } from 'react-router';
 import { SkadeforklaringApiService } from '../../api/skadeforklaring/services/SkadeforklaringApiService';
 import BackButton from '../../components/BackButton';
+import PersonOppsummering from '../../components/summary/PersonOppsummering';
 import UlykkenOppsummering from '../../components/summary/UlykkenOppsummering';
 import VedleggOppsummering from '../../components/summary/VedleggOppsummering';
 import SystemHeader from '../../components/SystemHeader';
@@ -52,11 +55,17 @@ const Oppsummering = () => {
                 opplysningene du har oppgitt. Hvis du trenger å gjøre endringer
                 kan du gjøre det helt frem til du har fullført innsendingen
               </Ingress>
+              <Label>Vi stoler på deg</Label>
+              <BodyShort spacing>
+                Dersom du med viten og vilje oppgir uriktige opplysninger, eller
+                holder tilbake informasjon som kan ha betydning for utbetalinger
+                fra NAV, kan dette medføre en politianmeldelse.
+              </BodyShort>
               <Accordion className="spacer">
                 <Accordion.Item renderContentWhenClosed={true}>
                   <Accordion.Header>Dine opplysninger</Accordion.Header>
                   <Accordion.Content>
-                    <div>Opplysninger om deg</div>
+                    <PersonOppsummering />
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item renderContentWhenClosed={true}>
