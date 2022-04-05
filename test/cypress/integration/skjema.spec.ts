@@ -65,7 +65,6 @@ describe('Skadeforklaring skjema', () => {
     // fravær
     ulykken.fravaer.valgJa().click();
     ulykken.fravaer.sykemelding().click();
-    ulykken.fravaer.antallDager().type('4');
 
     // lege
     ulykken.lege.oppsoktJa().click();

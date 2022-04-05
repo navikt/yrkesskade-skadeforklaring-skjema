@@ -34,7 +34,7 @@ const Kvittering = () => {
               </Alert>
               <Label>Skriv ut</Label>
               <BodyShort spacing>
-                Ønsker du kopi av skademeldingen, kan du skrive den ut her
+                Ønsker du kopi av skadeforklaringen, kan du skrive den ut her
               </BodyShort>
               <Button
                 className="no-print"
