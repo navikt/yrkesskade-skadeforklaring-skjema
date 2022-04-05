@@ -1,4 +1,4 @@
-import { BodyLong, BodyShort, Label } from '@navikt/ds-react';
+import { BodyLong, Label } from '@navikt/ds-react';
 import { parseISO } from 'date-fns';
 import { useAppSelector } from '../../../core/hooks/state.hooks';
 import { selectSkadeforklaring } from '../../../core/reducers/skadeforklaring.reducer';
@@ -12,6 +12,8 @@ const UlykkenOppsummering = () => {
   );
 
   const ulykkestid = () => {
+    console.log('tidstype: ', skadeforklaring.tid?.tidstype);
+
     switch (skadeforklaring.tid?.tidstype) {
       case 'Tidspunkt':
         return formatDato(
@@ -41,21 +43,29 @@ const UlykkenOppsummering = () => {
   return (
     <>
       <Label>Når skjedde ulykken?</Label>
-      <BodyShort spacing>{ulykkestid()}</BodyShort>
+      <BodyLong spacing>{ulykkestid()}</BodyLong>
       <Label>Hva arbeidet du med i ulykkesøyeblikket?</Label>
       <BodyLong spacing>{skadeforklaring.arbeidsbeskrivelse}</BodyLong>
       <Label>Beskrivelse av hendelsen</Label>
       <BodyLong spacing>{skadeforklaring.ulykkesbeskrivelse}</BodyLong>
       <Label>Førte din skade/sykdom til fravær?</Label>
-      <BodyShort spacing>{skadeforklaring.fravaer?.harFravaer}</BodyShort>
+      <BodyLong spacing>
+        {skadeforklaring.fravaer?.harFravaer ? 'Ja' : 'Nei'}
+      </BodyLong>
       <Label>Antall fraværsdager</Label>
-      <BodyShort spacing>{skadeforklaring.fravaer?.antallDager}</BodyShort>
+      <BodyLong spacing>{skadeforklaring.fravaer?.antallDager}</BodyLong>
       <Label>Ble lege oppsøkt etter skaden?</Label>
-      <BodyShort spacing>
-        {skadeforklaring.behandler?.erBehandlerOppsokt}
-      </BodyShort>
-      <Label>Navn på helseforetak, legevakt eller lege</Label>
-      <BodyShort spacing>{skadeforklaring.behandler?.behandlerNavn}</BodyShort>
+      <BodyLong spacing>
+        {skadeforklaring.behandler?.erBehandlerOppsokt ? 'Ja' : 'Nei'}
+      </BodyLong>
+      {skadeforklaring.behandler?.erBehandlerOppsokt && (
+        <>
+          <Label>Navn på helseforetak, legevakt eller lege</Label>
+          <BodyLong spacing>
+            {skadeforklaring.behandler?.behandlerNavn}
+          </BodyLong>
+        </>
+      )}
     </>
   );
 };
