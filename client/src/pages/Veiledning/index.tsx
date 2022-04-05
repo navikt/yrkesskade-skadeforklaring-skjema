@@ -5,6 +5,7 @@ import {
   Cell,
   Button,
   Ingress,
+  BodyLong,
 } from '@navikt/ds-react';
 import { useNavigate } from 'react-router';
 import SystemHeader from '../../components/SystemHeader';
@@ -35,6 +36,21 @@ const Veiledning = () => {
                 arbeidsulykke. Har du fått konkrete spørsmål fra NAV, kan de
                 besvares her. Skadeforklaringen erstatter ikke skademeldingen.
               </Ingress>
+              <BodyLong spacing>
+                Statistisk sentralbyrå og tilsynsmyndigheter kan benytte data om
+                arbeidstakeres yrkesskader til analyse og statistikkformål.
+              </BodyLong>
+              <BodyLong spacing>
+                Har du fått konkrete spørsmål fra NAV i forbindelse med en
+                innmeldt yrkesskade, kan du benytte skadeforklaringsskjemaet til
+                å besvare disse. Det presiseres at en skadeforklaring ikke
+                erstatter skademeldingen, men kan benyttes for å gi flere
+                opplysninger om en hendelse.
+              </BodyLong>
+              <BodyLong spacing>
+                Husk å logge av når du er ferdig med registreringen.
+              </BodyLong>
+
               <section className="button-section spacer button-group">
                 <Button
                   variant="secondary"
