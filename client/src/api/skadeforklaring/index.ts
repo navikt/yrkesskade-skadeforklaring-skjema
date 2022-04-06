@@ -6,11 +6,13 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
+export type { Adresse } from './models/Adresse';
 export type { Behandler } from './models/Behandler';
 export type { Brukerinfo } from './models/Brukerinfo';
 export type { ErrorResponse } from './models/ErrorResponse';
 export type { Fravaer } from './models/Fravaer';
 export type { Periode } from './models/Periode';
+export type { Person } from './models/Person';
 export type { Skadeforklaring } from './models/Skadeforklaring';
 export type { Tid } from './models/Tid';
 export type { Vedleggreferanse } from './models/Vedleggreferanse';

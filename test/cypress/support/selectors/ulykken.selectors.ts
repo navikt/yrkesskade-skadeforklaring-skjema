@@ -21,5 +21,9 @@ export const ulykken = {
     oppsoktJa: () => cy.get('[data-test-id="lege-oppsokt-ja"]'),
     oppsoktNei: () => cy.get('[data-test-id="lege-oppsokt-nei"]'),
     behandlerNavn: () => cy.get('[data-test-id="lege-behandler-navn"]'),
+    behandlerAdresse: () => cy.get('[data-test-id="lege-behandler-adresse"]'),
+    behandlerPostnummer: () =>
+      cy.get('[data-test-id="lege-behandler-postnummer"]'),
+    behandlerPoststed: () => cy.get('[data-test-id="lege-behandler-poststed"]'),
   },
 };

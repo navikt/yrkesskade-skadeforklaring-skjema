@@ -2,11 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Person } from './Person';
-
-export type Brukerinfo = {
+export type Person = {
     identifikator?: string;
     navn?: string;
     fodselsdato?: string;
-    juridiskAnsvarFor?: Array<Person>;
 };

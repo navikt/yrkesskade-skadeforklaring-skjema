@@ -15,6 +15,7 @@ import {
 import dateFnsParse from 'date-fns/parse';
 import InputMask from 'react-input-mask';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
+import './Tid.less';
 
 const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   const FORMAT: string = 'dd.MM.yyyy';
@@ -154,46 +155,45 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
             </Radio>
 
             {timeType === 'Tidspunkt' && (
-              <div>
-                <Label>Dato for ulykken</Label>
+              <div className="tidspunkt-container spacer">
+                <div className="dato-felt">
+                  <Label>Dato for ulykken</Label>
 
-                <DayPickerInput
-                  classNames={{ ...whenDayPickerClassNames }}
-                  placeholder=""
-                  value={specificDate}
-                  onDayChange={handleSpecificDate}
-                  formatDate={formatDate}
-                  format={FORMAT}
-                  parseDate={parseDate}
-                  {...register('tid.tidspunkt', {
-                    required: timeType === 'Tidspunkt',
-                  })}
-                  dayPickerProps={{
-                    disabledDays: {
-                      after: new Date(),
-                    },
-                  }}
-                />
+                  <DayPickerInput
+                    classNames={{ ...whenDayPickerClassNames }}
+                    placeholder=""
+                    value={specificDate}
+                    onDayChange={handleSpecificDate}
+                    formatDate={formatDate}
+                    format={FORMAT}
+                    parseDate={parseDate}
+                    {...register('tid.tidspunkt', {
+                      required: timeType === 'Tidspunkt',
+                    })}
+                    dayPickerProps={{
+                      disabledDays: {
+                        after: new Date(),
+                      },
+                    }}
+                  />
 
-                {errors?.tid?.tidspunkt && (
-                  <div>{errors?.tid?.tidspunkt.message}</div>
-                )}
-              </div>
-            )}
-
-            {timeType === 'Tidspunkt' && specificDate !== null && (
-              <div className="spacer">
-                <label htmlFor="timeframe-when-time" className="navds-label">
-                  Tid for ulykken
-                </label>
-                <InputMask
-                  mask="99:99"
-                  onChange={handleKlokkeChange}
-                  value={specificTime || ''}
-                  data-test-id="timeframe-when-time"
-                  id="timeframe-when-time"
-                  className="navds-text-field__input navds-body-short navds-body-medium"
-                />
+                  {errors?.tid?.tidspunkt && (
+                    <div>{errors?.tid?.tidspunkt.message}</div>
+                  )}
+                </div>
+                <div className="klokkeslett-felt">
+                  <label htmlFor="timeframe-when-time" className="navds-label">
+                    Tid for ulykken
+                  </label>
+                  <InputMask
+                    mask="99:99"
+                    onChange={handleKlokkeChange}
+                    value={specificTime || ''}
+                    data-test-id="timeframe-when-time"
+                    id="timeframe-when-time"
+                    className="navds-text-field__input navds-body-short navds-body-medium"
+                  />
+                </div>
               </div>
             )}
 

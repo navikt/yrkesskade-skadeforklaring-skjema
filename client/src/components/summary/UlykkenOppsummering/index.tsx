@@ -63,7 +63,18 @@ const UlykkenOppsummering = () => {
       {skadeforklaring.behandler?.erBehandlerOppsokt && (
         <>
           <Label>Navn på helseforetak, legevakt eller lege</Label>
-          <BodyLong>{skadeforklaring.behandler?.behandlerNavn}</BodyLong>
+          <BodyLong spacing>
+            {skadeforklaring.behandler?.behandlerNavn}
+          </BodyLong>
+          <Label>Adresse</Label>
+          <BodyLong spacing>
+            {skadeforklaring.behandler.adresse?.adresse}
+          </BodyLong>
+          <Label>Postnummer og sted</Label>
+          <BodyLong>
+            {skadeforklaring.behandler?.adresse?.postnummer}{' '}
+            {skadeforklaring.behandler?.adresse?.poststed}
+          </BodyLong>
         </>
       )}
     </>

@@ -69,6 +69,9 @@ describe('Skadeforklaring skjema', () => {
     // lege
     ulykken.lege.oppsoktJa().click();
     ulykken.lege.behandlerNavn().type('Test Testesen');
+    ulykken.lege.behandlerAdresse().type('Testveien 1');
+    ulykken.lege.behandlerPostnummer().type('4314');
+    ulykken.lege.behandlerPoststed().type('Sandnes');
 
     // gå til vedlegg
     general.nextStep().click();
