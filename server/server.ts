@@ -17,6 +17,7 @@ import { configureLoggingEndpoint } from './routes/logging';
 import bodyParser from 'body-parser';
 import { logInfo } from '@navikt/yrkesskade-logging';
 import { configurePrintEndpoint } from './routes/print';
+import { configureMetricEndpoint } from './routes/metric';
 
 const BUILD_PATH = path.join(__dirname, '../build');
 const PORT = process.env.PORT || 3005;
@@ -52,6 +53,9 @@ configureAllFeatureTogglesEndpoint(app);
 
 // enpoint to send frontend logs to remote logging services
 configureLoggingEndpoint(app);
+
+// enpoint to send metrics to metric service
+configureMetricEndpoint(app);
 
 // print endpoint
 configurePrintEndpoint(app);

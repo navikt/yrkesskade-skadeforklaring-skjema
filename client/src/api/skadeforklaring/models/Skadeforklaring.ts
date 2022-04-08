@@ -4,11 +4,17 @@
 
 import type { Behandler } from './Behandler';
 import type { Fravaer } from './Fravaer';
+import type { Innmelder } from './Innmelder';
+import type { Skadelidt } from './Skadelidt';
 import type { Tid } from './Tid';
 import type { Vedleggreferanse } from './Vedleggreferanse';
 
+/**
+ * skadeforklaring som skal sendes inn
+ */
 export type Skadeforklaring = {
-    identifikator?: string;
+    innmelder?: Innmelder;
+    skadelidt?: Skadelidt;
     arbeidsbeskrivelse?: string;
     ulykkesbeskrivelse?: string;
     tid?: Tid;

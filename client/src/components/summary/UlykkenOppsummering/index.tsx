@@ -12,8 +12,6 @@ const UlykkenOppsummering = () => {
   );
 
   const ulykkestid = () => {
-    console.log('tidstype: ', skadeforklaring.tid?.tidstype);
-
     switch (skadeforklaring.tid?.tidstype) {
       case 'Tidspunkt':
         return formatDato(

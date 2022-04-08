@@ -11,10 +11,40 @@ import {
 } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import SystemHeader from '../../components/SystemHeader';
+import { useAppSelector } from '../../core/hooks/state.hooks';
+import { selectSkadeforklaring } from '../../core/reducers/skadeforklaring.reducer';
+import { PrintService } from '../../services/PrintService';
+import {
+  logErrorMessage,
+  logMessage,
+  logWarningMessage,
+} from '../../utils/logging';
 
 const Kvittering = () => {
-  const handlePrintClicked = () => {
-    console.log('handle print clicked');
+  const skadeforklaring = useAppSelector((state) =>
+    selectSkadeforklaring(state)
+  );
+
+  const handlePrintClicked = async () => {
+    try {
+      const response = await PrintService.print(skadeforklaring);
+
+      const file = new Blob([response.data], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+
+      logMessage('Bruker har valgt å skrive ut en kopi');
+      const pdfWindow = window.open();
+
+      if (pdfWindow) {
+        pdfWindow.location.href = fileURL;
+      } else {
+        logWarningMessage('Kunne ikke åpne pdf vindu/tab');
+      }
+    } catch (error: any) {
+      logErrorMessage(
+        `Nedlasting av skadeforklaring kopi feilet. Årsak: ${error.message}`
+      );
+    }
   };
 
   return (

@@ -9,8 +9,7 @@ const KODEVERK_URL =
   process.env.KODEVERK_API_URL ||
   'https://yrkesskade-kodeverk.dev.intern.nav.no';
 const DOKGEN_URL =
-  process.env.DOKGEN_URL ||
-  'https://https://yrkesskade-dokgen.dev.intern.nav.no';
+  process.env.DOKGEN_URL || 'https://yrkesskade-dokgen.dev.intern.nav.no';
 const IDPORTEN_COOKIE_NAME = 'local-idtoken';
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */

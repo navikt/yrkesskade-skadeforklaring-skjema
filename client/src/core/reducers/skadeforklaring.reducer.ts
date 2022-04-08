@@ -9,9 +9,10 @@ interface SkadeforklaringState {
 
 const initialState: SkadeforklaringState = {
   skadeforklaring: {
-    identifikator: '12345678910',
+    innmelder: undefined,
+    skadelidt: undefined,
     tid: {
-      tidstype: '',
+      tidstype: 'Tidspunkt',
     },
     behandler: {
       erBehandlerOppsokt: undefined,

@@ -2,6 +2,8 @@ import { Express } from 'express';
 import { logInfo, logWarn, logError } from '@navikt/yrkesskade-logging';
 import axios from 'axios';
 import config from '../config';
+import { pdfSkadeforklaringMapper } from '../dokgen/pdfSkadeforklaringMapper';
+import { Skadeforklaring } from '../../client/src/api/skadeforklaring';
 
 export const configurePrintEndpoint = (app: Express): Express => {
   app.post(`/print`, handlePrint);
@@ -14,21 +16,30 @@ const handlePrint = async (req, res) => {
     res.sendStatus(400);
   }
 
-  // const pdfSkademelding = pdfSkademeldingMapper(req.body as Skademelding);
+  const pdfSkadeforklaring = pdfSkadeforklaringMapper(
+    req.body as Skadeforklaring
+  );
 
-  /*const response = await axios.post(`${config.DOKGEN_URL}/template/skademelding-tro-kopi/download-pdf`, pdfSkademelding, {
-    responseType: 'stream'
-  });
+  const response = await axios.post(
+    `${config.DOKGEN_URL}/template/skadeforklaring-tro-kopi/download-pdf`,
+    pdfSkadeforklaring,
+    {
+      responseType: 'stream',
+    }
+  );
 
   if (response.status !== 200) {
-    logError(`Feilet i å generere PDF. Status: ${response.status} ${response.data}`);
+    logError(
+      `Feilet i å generere PDF. Status: ${response.status} ${response.data}`
+    );
     res.sendStatus(400);
-  }*/
+  }
 
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader(
     'Content-Disposition',
-    'attachment; filename=kopi_skademelding.pdf'
+    'attachment; filename=kopi_skadeforklaring.pdf'
   );
-  // response.data.pipe();
+
+  response.data.pipe();
 };

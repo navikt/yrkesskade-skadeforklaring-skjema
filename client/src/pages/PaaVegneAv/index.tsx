@@ -32,7 +32,6 @@ const PaaVegneAv = () => {
   const [personer, setPersoner] = useState<Person[]>([]);
 
   useEffect(() => {
-    console.log('bruker: ', bruker);
     const brukerinfo = bruker.brukerinfo;
     if (!brukerinfo) {
       // skal vi sende feilmelding og sende brukeren til en annen side?
@@ -63,7 +62,11 @@ const PaaVegneAv = () => {
   }, [bruker]);
 
   const handlePersonChange = (person: Person) => {
-    setValue('identifikator', person.identifikator);
+    setValue('skadelidt.norskIdentitetsnummer', person.identifikator);
+    setValue(
+      'innmelder.norskIdentitetsnummer',
+      bruker.brukerinfo?.identifikator
+    );
     navigate('/skjema/ulykken');
   };
 
