@@ -8,5 +8,5 @@ export type Brukerinfo = {
     identifikator?: string;
     navn?: string;
     fodselsdato?: string;
-    juridiskAnsvarFor?: Array<Person>;
+    foreldreansvar?: Array<Person>;
 };

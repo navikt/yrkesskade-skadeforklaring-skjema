@@ -18,36 +18,71 @@ import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 import BackButton from '../../components/BackButton';
 import { useFormContext } from 'react-hook-form';
 import { Skadeforklaring } from '../../api/skadeforklaring';
+import { useAppSelector } from '../../core/hooks/state.hooks';
+import { selectBruker } from '../../core/reducers/bruker.reducer';
+import { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
 
 const PaaVegneAv = () => {
   const navigate = useNavigate();
   const cancel = useCancel();
   const { setValue } = useFormContext<Skadeforklaring>();
+  const bruker = useAppSelector((state) => selectBruker(state));
 
-  const personer: Person[] = [
-    {
-      navn: 'Randi Olsen',
-      beskrivelse: 'Deg selv',
-      identifikator: '1',
-      type: PersonType.VOKSEN,
-    },
-    {
-      navn: 'Erik Olsen',
-      beskrivelse: 'Barnet ditt',
-      identifikator: '2',
-      type: PersonType.BARN,
-    },
-    {
-      navn: 'Nina Olsen',
-      beskrivelse: 'Barnet ditt',
-      identifikator: '3',
-      type: PersonType.BABY,
-    },
-  ];
+  const [personer, setPersoner] = useState<Person[]>([]);
+
+  useEffect(() => {
+    console.log('bruker: ', bruker);
+    const brukerinfo = bruker.brukerinfo;
+    if (!brukerinfo) {
+      // skal vi sende feilmelding og sende brukeren til en annen side?
+      return;
+    }
+    let tilPersoner: Person[] = [
+      {
+        navn: brukerinfo.navn || '',
+        beskrivelse: 'Deg selv',
+        identifikator: brukerinfo.identifikator || '',
+        type: PersonType.VOKSEN,
+      },
+    ];
+
+    if (brukerinfo.foreldreansvar) {
+      const barn: Person[] = brukerinfo.foreldreansvar.map(
+        (foreldreansvarperson) => ({
+          navn: foreldreansvarperson.navn || '',
+          beskrivelse: 'Barn',
+          identifikator: foreldreansvarperson.identifikator || '',
+          type: kalkulerPersontype(foreldreansvarperson.foedselsaar),
+        })
+      );
+      tilPersoner = [...tilPersoner, ...barn];
+    }
+
+    setPersoner(tilPersoner);
+  }, [bruker]);
 
   const handlePersonChange = (person: Person) => {
     setValue('identifikator', person.identifikator);
     navigate('/skjema/ulykken');
+  };
+
+  const kalkulerPersontype = (fodselsaar?: number): PersonType => {
+    if (fodselsaar === undefined) {
+      return PersonType.VOKSEN;
+    }
+
+    const alder = dayjs().year() - fodselsaar;
+
+    if (alder <= 1) {
+      return PersonType.BABY;
+    }
+
+    if (alder <= 18) {
+      return PersonType.BARN;
+    }
+
+    return PersonType.VOKSEN;
   };
 
   return (
@@ -68,7 +103,7 @@ const PaaVegneAv = () => {
                 data-test-id="person-velger"
               />
               <BodyLong spacing>
-                Du kan melde skadeforklaring digitalt på vegene av dine barn som
+                Du kan melde skadeforklaring digitalt på vegne av dine barn som
                 er oppført med samme bostedsadresse som deg i folkeregisteret.
                 Barn er yrkesskadedekket fra de begynner på skolen, og derfor
                 vil du kun få opp barn som er i skolealder frem til de er 18år.

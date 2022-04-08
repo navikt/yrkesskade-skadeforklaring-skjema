@@ -1,14 +1,15 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Brukerinfo } from '../../api/skadeforklaring';
 import { InnloggetStatus } from '../../utils/autentisering';
 import { RootState } from '../store';
 
 interface BrukerState {
-  fnr: string;
+  brukerinfo: Brukerinfo | null;
   innlogget: InnloggetStatus;
 }
 
 const initialState: BrukerState = {
-  fnr: '',
+  brukerinfo: null,
   innlogget: InnloggetStatus.IKKE_VERIFISERT,
 };
 
@@ -16,8 +17,8 @@ export const brukerSlice = createSlice({
   name: 'bruker',
   initialState,
   reducers: {
-    setBrukerIdentifikasjon: (state, action: PayloadAction<string>) => {
-      state.fnr = action.payload;
+    setBruker: (state, action: PayloadAction<Brukerinfo>) => {
+      state.brukerinfo = action.payload;
     },
     setInnlogget: (state, action: PayloadAction<InnloggetStatus>) => {
       state.innlogget = action.payload;
@@ -33,6 +34,6 @@ export const selectInnlogget = createSelector(
   }
 );
 
-export const { setBrukerIdentifikasjon, setInnlogget } = brukerSlice.actions;
+export const { setBruker, setInnlogget } = brukerSlice.actions;
 
 export default brukerSlice.reducer;

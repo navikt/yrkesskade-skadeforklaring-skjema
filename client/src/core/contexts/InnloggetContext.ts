@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/state.hooks';
 import { InnloggetStatus } from '../../utils/autentisering';
 import {
   selectInnlogget,
-  setBrukerIdentifikasjon,
+  setBruker,
   setInnlogget,
 } from '../reducers/bruker.reducer';
 import { BrukerinfoApiService } from '../../api/skadeforklaring/services/BrukerinfoApiService';
@@ -29,9 +29,9 @@ const [InnloggetProvider, useInnloggetContext] = createUseContext(() => {
         if (ressurs.status === 200) {
           BrukerinfoApiService.hentBrukerinfo()
             .then((brukerResponse) => {
-              if (brukerResponse.identifikator) {
+              if (brukerResponse) {
                 dispatch(setInnlogget(InnloggetStatus.OK));
-                dispatch(setBrukerIdentifikasjon(brukerResponse.identifikator));
+                dispatch(setBruker(brukerResponse));
               } else {
                 dispatch(setInnlogget(InnloggetStatus.FEILET));
               }

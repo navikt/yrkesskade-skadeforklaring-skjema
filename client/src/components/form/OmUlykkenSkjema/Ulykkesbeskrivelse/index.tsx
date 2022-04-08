@@ -1,4 +1,4 @@
-import { BodyShort, Label, Textarea } from '@navikt/ds-react';
+import { Label, Textarea } from '@navikt/ds-react';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Skadeforklaring } from '../../../../api/skadeforklaring';
@@ -20,7 +20,7 @@ const Ulykkesbeskrivelse: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
   return (
     <div className={`skade-ulykkesbeskrivelse ${props.className}`}>
       <Label>Gi en så nøyaktig beskrivelse av hendelsen som mulig</Label>
-      <BodyShort spacing>
+      <div className="spacer">
         <ul>
           <li>Har du fått spørsmål fra saksbehandler, så svar på disse</li>
           <li>Beskriv hendelsesforløpet</li>
@@ -28,7 +28,7 @@ const Ulykkesbeskrivelse: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
           <li>Beskriv avvik fra normale arbeidsoppgaver</li>
           <li>Situasjon om skadelig påvirkning av stoffer</li>
         </ul>
-      </BodyShort>
+      </div>
       <Textarea
         label="Gi en så nøyaktig beskrivelse av hendelsen som mulig"
         hideLabel={true}

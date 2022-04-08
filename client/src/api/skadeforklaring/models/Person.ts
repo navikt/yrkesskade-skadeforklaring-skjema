@@ -5,5 +5,6 @@
 export type Person = {
     identifikator?: string;
     navn?: string;
-    fodselsdato?: string;
+    foedselsdato?: string;
+    foedselsaar?: number;
 };
