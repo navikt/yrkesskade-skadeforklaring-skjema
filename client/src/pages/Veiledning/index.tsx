@@ -4,19 +4,20 @@ import {
   Grid,
   Cell,
   Button,
-  Ingress,
   BodyLong,
 } from '@navikt/ds-react';
 import { useNavigate } from 'react-router';
 import SystemHeader from '../../components/SystemHeader';
 import { useCancel } from '../../core/hooks/cancel.hooks';
 import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
+import { logMessage } from '../../utils/logging';
 
 const Veiledning = () => {
   const navigate = useNavigate();
   const cancel = useCancel();
 
   const handleNext = () => {
+    logMessage('Skjemautfylling påbegynt');
     navigate('/skjema/person');
   };
 
@@ -31,11 +32,16 @@ const Veiledning = () => {
               <Heading size="2xlarge" spacing data-number="1">
                 Skadeforklaringskjema ved arbeidsulykke
               </Heading>
-              <Ingress spacing>
-                I dette skjemaet kan du gi flere opplysninger om en
-                arbeidsulykke. Har du fått konkrete spørsmål fra NAV, kan de
-                besvares her. Skadeforklaringen erstatter ikke skademeldingen.
-              </Ingress>
+              <BodyLong spacing>
+                I dette skjemaet kan du gi flere opplysninger om en yrkesskade.
+                Opplysningene som oppgis skal være riktige og relevante, slik at
+                NAV kan behandle saken så effektivt som mulig. Du skal kun oppgi
+                opplysninger om deg selv, personopplysninger om andre anses ikke
+                relevante for saken. Personopplysningene som oppgis i
+                skadeforklaringen skal avgrenses til behandlingens formål og
+                beskrive fakta om hendelsen og hvilken skade du har blitt
+                påført.
+              </BodyLong>
               <BodyLong spacing>
                 Statistisk sentralbyrå og tilsynsmyndigheter kan benytte data om
                 arbeidstakeres yrkesskader til analyse og statistikkformål.

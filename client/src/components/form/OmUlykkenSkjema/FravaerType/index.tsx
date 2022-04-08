@@ -8,6 +8,7 @@ import { selectSkadeforklaring } from '../../../../core/reducers/skadeforklaring
 const Fravaertype: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   const {
     register,
+    setValue,
     control,
     formState: { errors },
   } = useFormContext<Skadeforklaring>();
@@ -40,6 +41,9 @@ const Fravaertype: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
             onChange={(e) => {
               setFravaer(e);
               onChange(e === 'ja');
+              if (e === 'nei') {
+                setValue('fravaer.fravaertype', undefined);
+              }
             }}
             onBlur={onBlur}
             data-test-id="fravaer-valg"

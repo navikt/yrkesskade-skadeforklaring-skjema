@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { useAppSelector } from '../../core/hooks/state.hooks';
 import { selectInnlogget } from '../../core/reducers/bruker.reducer';
 import { InnloggetStatus } from '../../utils/autentisering';
+import { logMessage } from '../../utils/logging';
 import './Landing.less';
 
 const Landing = () => {
@@ -12,6 +13,7 @@ const Landing = () => {
 
   useEffect(() => {
     if (innloggetBruker === InnloggetStatus.OK) {
+      logMessage('Bruker har logget inn og blir sendt videre til skjema siden');
       navigate('skjema');
     }
   }, [innloggetBruker, navigate]);

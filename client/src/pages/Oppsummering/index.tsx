@@ -20,6 +20,7 @@ import SystemHeader from '../../components/SystemHeader';
 import { useCancel } from '../../core/hooks/cancel.hooks';
 import { useAppSelector } from '../../core/hooks/state.hooks';
 import { selectSkadeforklaring } from '../../core/reducers/skadeforklaring.reducer';
+import { logMessage } from '../../utils/logging';
 
 const Oppsummering = () => {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ const Oppsummering = () => {
   const handleSubmit = async () => {
     try {
       await SkadeforklaringApiService.postSkadeforklaring(skadeforklaring);
+      logMessage('Skjemainnsending fullført');
       navigate('/skjema/kvittering');
     } catch (e: any) {
       navigate('/feilmelding', { state: e.body });

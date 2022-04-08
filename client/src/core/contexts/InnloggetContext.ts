@@ -11,6 +11,7 @@ import {
   setInnlogget,
 } from '../reducers/bruker.reducer';
 import { BrukerinfoApiService } from '../../api/skadeforklaring/services/BrukerinfoApiService';
+import { logErrorMessage } from '../../utils/logging';
 
 const [InnloggetProvider, useInnloggetContext] = createUseContext(() => {
   const dispatch = useAppDispatch();
@@ -34,17 +35,31 @@ const [InnloggetProvider, useInnloggetContext] = createUseContext(() => {
                 dispatch(setBruker(brukerResponse));
               } else {
                 dispatch(setInnlogget(InnloggetStatus.FEILET));
+                logErrorMessage(
+                  'Innlogging feilet. Kunne ikke finne bruker i brukerresponse'
+                );
               }
             })
             .catch((error) => {
               dispatch(setInnlogget(InnloggetStatus.FEILET));
+              logErrorMessage(
+                `Hente brukerinformasjon feilet. Årsak: ${JSON.stringify(
+                  error
+                )}`
+              );
             });
         } else {
           dispatch(setInnlogget(InnloggetStatus.FEILET));
+          logErrorMessage(
+            `Innlogginsjekk feilet. Uventet statuskode: ${ressurs.status}`
+          );
         }
       })
       .catch((error) => {
         dispatch(setInnlogget(InnloggetStatus.FEILET));
+        logErrorMessage(
+          `Innloggingsjekk feilet. Årsak: ${JSON.stringify(error)}`
+        );
       });
   };
 

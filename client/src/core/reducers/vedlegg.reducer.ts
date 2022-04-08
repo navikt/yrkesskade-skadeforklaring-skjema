@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { findIndex } from 'lodash';
 import { ApiError, VedleggApiService } from '../../api/skadeforklaring';
 import { Attachment } from '../../types/attachment';
+import { logErrorMessage } from '../../utils/logging';
 import { RootState } from '../store';
 
 interface VedleggState {
@@ -91,15 +92,25 @@ export const lastoppVedlegg = createAsyncThunk<
     };
     return oppdatertVedlegg;
   } catch (error: any) {
+    logErrorMessage(`Feilet ved opplast av vedlegg: ${JSON.stringify(error)}`);
     return rejectWithValue(error);
   }
 });
 
 export const slettVedlegg = createAsyncThunk(
   'vedlegg/slett',
-  async (vedlegg: Attachment) => {
-    await VedleggApiService.slettVedlegg(vedlegg.id);
-    return vedlegg;
+  async (vedlegg: Attachment, { rejectWithValue }) => {
+    try {
+      await VedleggApiService.slettVedlegg(vedlegg.id);
+      return vedlegg;
+    } catch (error: any) {
+      logErrorMessage(
+        `Feilet ved sletting av vedlegg med id ${
+          vedlegg.id
+        }. Årsak: ${JSON.stringify(error)}`
+      );
+      return rejectWithValue(error);
+    }
   }
 );
 

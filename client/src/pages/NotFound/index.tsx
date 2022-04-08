@@ -5,9 +5,21 @@ import {
   Heading,
   Ingress,
 } from '@navikt/ds-react';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router';
 import SystemHeader from '../../components/SystemHeader';
+import { logWarningMessage } from '../../utils/logging';
 
 const NotFound = () => {
+  const location = useLocation();
+  console.log('location: ', location);
+
+  useEffect(() => {
+    logWarningMessage(
+      `Bruker har prøvd å gå inn på siden ${location.pathname} som ikke ekstisterer`
+    );
+  });
+
   return (
     <ContentContainer>
       <SystemHeader />

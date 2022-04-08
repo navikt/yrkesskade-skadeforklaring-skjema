@@ -13,10 +13,18 @@ import Vedlegg from './pages/Vedlegg';
 import Veiledning from './pages/Veiledning';
 import { StepsProvider, ISteps } from '@navikt/yrkesskade-stepindicator';
 import { autentiseringsInterceptor } from './utils/autentisering';
-
+import { useEffect } from 'react';
+import { LogService } from './services/LogService';
+import { v4 as uuidv4 } from 'uuid';
 const App = () => {
   const methods = useForm<Skadeforklaring>();
   autentiseringsInterceptor();
+
+  useEffect(() => {
+    if (LogService.sesjon === undefined) {
+      LogService.sesjon = uuidv4();
+    }
+  });
 
   return (
     <InnloggetProvider>

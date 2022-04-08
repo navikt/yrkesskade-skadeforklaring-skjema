@@ -6,11 +6,21 @@ import {
   BodyLong,
   Ingress,
 } from '@navikt/ds-react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router';
+import { logErrorMessage } from '../../utils/logging';
 
 const Feil = () => {
   const location = useLocation();
   const state: any = location.state;
+
+  useEffect(() => {
+    logErrorMessage(
+      `Bruker har blitt sendt til feilside: Årsak: ${
+        state?.melding || 'ukjent'
+      }`
+    );
+  });
 
   return (
     <ContentContainer>
@@ -22,11 +32,7 @@ const Feil = () => {
         </Cell>
         <Cell xs={12} lg={6} className="grid-centered--lg">
           <Ingress spacing>Det har oppstått en feil</Ingress>
-          {state?.melding ? (
-            <BodyLong spacing>{state.melding}</BodyLong>
-          ) : (
-            <BodyLong spacing>En ukjent feil</BodyLong>
-          )}
+          <BodyLong spacing>{state?.melding || 'En ukjent feil'}</BodyLong>
         </Cell>
       </Grid>
     </ContentContainer>

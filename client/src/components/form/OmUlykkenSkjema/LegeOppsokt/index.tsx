@@ -10,6 +10,7 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   const {
     register,
     control,
+    setValue,
     formState: { errors },
   } = useFormContext<Skadeforklaring>();
   const skadeforklaring = useAppSelector((state) =>
@@ -49,6 +50,10 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
             onChange={(e) => {
               setLegeOppsokt(e);
               onChange(e === 'ja');
+              if (e === 'nei') {
+                // sørg for at vi setter adresse til undefined
+                setValue('behandler.adresse', undefined);
+              }
             }}
           >
             <Radio value="ja" data-test-id="lege-oppsokt-ja">
