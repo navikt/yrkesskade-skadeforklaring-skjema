@@ -16,13 +16,19 @@ import { autentiseringsInterceptor } from './utils/autentisering';
 import { useEffect } from 'react';
 import { LogService } from './services/LogService';
 import { v4 as uuidv4 } from 'uuid';
+import { useAppDispatch } from './core/hooks/state.hooks';
+import { hentKodeverk } from './core/reducers/kodeverk.reducer';
+
 const App = () => {
   const methods = useForm<Skadeforklaring>();
+  const dispatch = useAppDispatch();
   autentiseringsInterceptor();
 
   useEffect(() => {
     if (LogService.sesjon === undefined) {
       LogService.sesjon = uuidv4();
+
+      dispatch(hentKodeverk({ typenavn: 'landkoder', kategorinavn: 'xxx' }));
     }
   });
 

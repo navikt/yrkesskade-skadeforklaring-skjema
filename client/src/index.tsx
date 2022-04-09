@@ -7,8 +7,10 @@ import './index.less';
 import App from './App';
 import store from './core/store';
 import { OpenAPI } from './api/skadeforklaring';
+import { OpenAPI as KodeverkOpenApi } from './api/kodeverk';
 
 OpenAPI.BASE = '/api';
+KodeverkOpenApi.BASE = '/kodeverk';
 
 render(
   <React.StrictMode>
