@@ -16,6 +16,8 @@ import dateFnsParse from 'date-fns/parse';
 import InputMask from 'react-input-mask';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import './Tid.less';
+import { Tid as TidModel } from '../../../../api/skadeforklaring';
+import { getEnumKeyByEnumValue } from '../../../../utils/enumHelper';
 
 const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   const FORMAT: string = 'dd.MM.yyyy';
@@ -51,8 +53,8 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
     container: `timeframe-from-date ${dayPickerClassNames.container}`,
   };
 
-  const [timeType, setTimeType] = useState(
-    skadeforklaring.tid?.tidstype || 'Tidspunkt'
+  const [timeType, setTimeType] = useState<string>(
+    skadeforklaring.tid?.tidstype || 'TIDSPUNKT'
   );
   const [specificDate, setSpecificDate] = useState<Date | undefined>(
     handleDateValue(skadeforklaring.tid?.tidspunkt)
@@ -120,7 +122,7 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   }, [specificTime, specificDate, setValue]);
 
   useEffect(() => {
-    if (timeType !== 'Periode') {
+    if (timeType !== 'PERIODE') {
       return;
     }
 
@@ -142,19 +144,23 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
             <Radio
               data-test-id="timeframe-when-date"
               id="timeframe-when-date"
-              value="Tidspunkt"
+              value="TIDSPUNKT"
               {...register('tid.tidstype', {
                 required: 'Dette feltet er påkrevd',
               })}
               onChange={(e) => {
                 setTimeType(e.target.value);
-                onChange(e.target.value);
+                const tidstype = getEnumKeyByEnumValue(
+                  TidModel.tidstype,
+                  e.target.value
+                );
+                onChange(tidstype);
               }}
             >
               På en dato
             </Radio>
 
-            {timeType === 'Tidspunkt' && (
+            {timeType === 'TIDSPUNKT' && (
               <div className="tidspunkt-container spacer">
                 <div className="dato-felt">
                   <Label>Dato for ulykken</Label>
@@ -168,7 +174,7 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
                     format={FORMAT}
                     parseDate={parseDate}
                     {...register('tid.tidspunkt', {
-                      required: timeType === 'Tidspunkt',
+                      required: timeType === 'TIDSPUNKT',
                     })}
                     dayPickerProps={{
                       disabledDays: {
@@ -198,7 +204,7 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
             )}
 
             <Radio
-              value="Periode"
+              value="PERIODE"
               data-testid="timeframe-when-over-period"
               id="timeframe-when-over-period"
               {...register('tid.tidstype', {
@@ -206,12 +212,16 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
               })}
               onChange={(e) => {
                 setTimeType(e.target.value);
-                onChange(e.target.value);
+                const tidstype = getEnumKeyByEnumValue(
+                  TidModel.tidstype,
+                  e.target.value
+                );
+                onChange(tidstype);
               }}
             >
               Over en periode
             </Radio>
-            {timeType === 'Periode' && (
+            {timeType === 'PERIODE' && (
               <div className="periode-container spacer">
                 <div>
                   <Label>Fra dag</Label>

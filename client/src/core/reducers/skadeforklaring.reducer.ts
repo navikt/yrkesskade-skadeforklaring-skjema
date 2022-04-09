@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { merge } from 'lodash';
+import { Tid } from '../../api/skadeforklaring';
 import { Skadeforklaring } from '../../api/skadeforklaring/models/Skadeforklaring';
 import { RootState } from '../store';
 
@@ -12,7 +13,7 @@ const initialState: SkadeforklaringState = {
     innmelder: undefined,
     skadelidt: undefined,
     tid: {
-      tidstype: 'Tidspunkt',
+      tidstype: Tid.tidstype.TIDSPUNKT,
     },
     behandler: {
       erBehandlerOppsokt: undefined,

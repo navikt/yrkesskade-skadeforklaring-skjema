@@ -1,5 +1,6 @@
 import { BodyLong, Label } from '@navikt/ds-react';
 import { parseISO } from 'date-fns';
+import { Tid } from '../../../api/skadeforklaring';
 import { useAppSelector } from '../../../core/hooks/state.hooks';
 import { selectSkadeforklaring } from '../../../core/reducers/skadeforklaring.reducer';
 import { formatDate } from '../../../utils/date';
@@ -13,12 +14,12 @@ const UlykkenOppsummering = () => {
 
   const ulykkestid = () => {
     switch (skadeforklaring.tid?.tidstype) {
-      case 'Tidspunkt':
+      case Tid.tidstype.TIDSPUNKT:
         return formatDato(
           skadeforklaring.tid.tidspunkt,
           `${DATO_FORMAT} HH:MM`
         );
-      case 'Periode':
+      case Tid.tidstype.PERIODE:
         return `${formatDato(skadeforklaring.tid.periode?.fra)} - ${formatDato(
           skadeforklaring.tid.periode?.til
         )}`;

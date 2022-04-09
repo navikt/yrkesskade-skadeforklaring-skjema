@@ -98,7 +98,7 @@ const mapFravaer = (fravaer: Fravaer): PdfFravaer => {
 };
 
 const mapTid = (tid: Tid): PdfTid => {
-  if (tid.tidstype === 'Tidspunkt') {
+  if (tid.tidstype === 'TIDSPUNKT') {
     return {
       tidspunkt: {
         label: 'Tidspunkt',
@@ -109,7 +109,7 @@ const mapTid = (tid: Tid): PdfTid => {
       },
       tidstype: tid.tidstype,
     };
-  } else if (tid.tidstype === 'Periode') {
+  } else if (tid.tidstype === 'PERIODE') {
     return {
       tidstype: tid.tidstype,
       periode: {
