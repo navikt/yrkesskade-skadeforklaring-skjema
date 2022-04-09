@@ -48,6 +48,7 @@ export interface PdfFravaer {
 }
 
 export interface PdfSkadeforklaring {
+  identifikator: string;
   innmelder: PdfInnmelder;
   skadelidt: PdfSkadelidt;
   tid: PdfTid;

@@ -12,7 +12,6 @@ import { logWarningMessage } from '../../utils/logging';
 
 const NotFound = () => {
   const location = useLocation();
-  console.log('location: ', location);
 
   useEffect(() => {
     logWarningMessage(

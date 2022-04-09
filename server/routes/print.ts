@@ -1,5 +1,5 @@
 import { Express } from 'express';
-import { logInfo, logWarn, logError } from '@navikt/yrkesskade-logging';
+import { logError, logInfo } from '@navikt/yrkesskade-logging';
 import axios from 'axios';
 import config from '../config';
 import { pdfSkadeforklaringMapper } from '../dokgen/pdfSkadeforklaringMapper';
@@ -11,8 +11,12 @@ export const configurePrintEndpoint = (app: Express): Express => {
 };
 
 const handlePrint = async (req, res) => {
+  logInfo(
+    `Generer skadeforklaring PDF: ${config.DOKGEN_URL}/template/skadeforklaring-tro-kopi`
+  );
+
   if (!req || !req.body) {
-    logError('Ugyldig print request. Mangler skademelding');
+    logError('Ugyldig print request. Mangler skadeforklaring');
     res.sendStatus(400);
   }
 
@@ -40,6 +44,5 @@ const handlePrint = async (req, res) => {
     'Content-Disposition',
     'attachment; filename=kopi_skadeforklaring.pdf'
   );
-
-  response.data.pipe();
+  response.data.pipe(res);
 };

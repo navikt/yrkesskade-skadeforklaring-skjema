@@ -29,6 +29,7 @@ export const pdfSkadeforklaringMapper = (
   skadeforklaring: Skadeforklaring
 ): PdfSkadeforklaring => {
   return {
+    identifikator: '',
     innmelder: mapInnmelder(skadeforklaring.innmelder),
     skadelidt: mapSkadelidt(skadeforklaring.skadelidt),
     tid: mapTid(skadeforklaring.tid),
@@ -133,7 +134,7 @@ const mapAdresse = (adresse: Adresse): PdfAdresse => {
 
 const hentDokumentinfo = (): PdfDokumentInfo => {
   return {
-    dokumentnavn: 'Kopi av skademelding',
+    dokumentnavn: 'Kopi av skadeforklaring',
     dokumentDatoPrefix: 'Kopi generert',
     dokumentDato: dayjs(new Date()).format(DATO_FORMAT),
     dokumentnummer:
