@@ -28,7 +28,7 @@ const App = () => {
     if (LogService.sesjon === undefined) {
       LogService.sesjon = uuidv4();
 
-      dispatch(hentKodeverk({ typenavn: 'landkoder', kategorinavn: 'xxx' }));
+      dispatch(hentKodeverk('fravaertype'));
     }
   });
 

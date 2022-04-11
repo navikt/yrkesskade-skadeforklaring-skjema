@@ -1,7 +1,8 @@
 import { BodyLong, Label } from '@navikt/ds-react';
 import { parseISO } from 'date-fns';
-import { Tid } from '../../../api/skadeforklaring';
+import { Skadeforklaring, Tid } from '../../../api/skadeforklaring';
 import { useAppSelector } from '../../../core/hooks/state.hooks';
+import { selectKodeverk } from '../../../core/reducers/kodeverk.reducer';
 import { selectSkadeforklaring } from '../../../core/reducers/skadeforklaring.reducer';
 import { formatDate } from '../../../utils/date';
 
@@ -10,6 +11,10 @@ const UlykkenOppsummering = () => {
 
   const skadeforklaring = useAppSelector((state) =>
     selectSkadeforklaring(state)
+  );
+
+  const fravaertyper = useAppSelector((state) =>
+    selectKodeverk(state, 'fravaertype')
   );
 
   const ulykkestid = () => {
@@ -39,6 +44,21 @@ const UlykkenOppsummering = () => {
     return formatDate(parseISO(dato), format);
   };
 
+  const fravaertype = (skadeforklaring: Skadeforklaring): string => {
+    if (
+      skadeforklaring.fravaer &&
+      skadeforklaring.fravaer.fravaertype &&
+      fravaertyper
+    ) {
+      const fravaertypekode: string = skadeforklaring.fravaer.fravaertype;
+      return (
+        fravaertyper[fravaertypekode]?.verdi || 'Kunne ikke finne kodeverdi'
+      );
+    }
+
+    return 'Ukjent';
+  };
+
   return (
     <>
       <Label>Når skjedde ulykken?</Label>
@@ -52,9 +72,7 @@ const UlykkenOppsummering = () => {
         {skadeforklaring.fravaer?.harFravaer ? 'Ja' : 'Nei'}
       </BodyLong>
       <Label>Type fravær</Label>
-      <BodyLong spacing>
-        {skadeforklaring.fravaer?.fravaertype || 'Ukjent'}
-      </BodyLong>
+      <BodyLong spacing>{fravaertype(skadeforklaring)}</BodyLong>
       <Label>Ble lege oppsøkt etter skaden?</Label>
       <BodyLong spacing={skadeforklaring.behandler?.erBehandlerOppsokt}>
         {skadeforklaring.behandler?.erBehandlerOppsokt ? 'Ja' : 'Nei'}

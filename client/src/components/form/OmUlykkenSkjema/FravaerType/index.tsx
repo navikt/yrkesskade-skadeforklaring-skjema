@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Skadeforklaring } from '../../../../api/skadeforklaring/models/Skadeforklaring';
 import { useAppSelector } from '../../../../core/hooks/state.hooks';
+import { selectKodeverk } from '../../../../core/reducers/kodeverk.reducer';
 import { selectSkadeforklaring } from '../../../../core/reducers/skadeforklaring.reducer';
 
 const Fravaertype: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
@@ -22,8 +23,12 @@ const Fravaertype: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
         : 'nei'
       : ''
   );
-  const [fravertype, setFravaertype] = useState<string>(
+  const [fravaertype, setFravaertype] = useState<string>(
     skadeforklaring.fravaer?.fravaertype || ''
+  );
+
+  const fravaertyper = useAppSelector((state) =>
+    selectKodeverk(state, 'fravaertype')
   );
 
   return (
@@ -62,7 +67,7 @@ const Fravaertype: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
         <>
           <RadioGroup
             legend="Velg type fravær"
-            value={fravertype}
+            value={fravaertype}
             error={
               errors?.fravaer?.fravaertype &&
               errors.fravaer?.fravaertype.message
@@ -76,30 +81,22 @@ const Fravaertype: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
             onChange={(e) => setFravaertype(e)}
             data-test-id="fravaer-type"
           >
-            <Radio
-              value="sykemelding"
-              data-test-id="fravaer-type-sykemelding"
-              {...register('fravaer.fravaertype', {
-                required: {
-                  value: fravaer === 'ja',
-                  message: 'Dette feltet er påkrevd',
-                },
-              })}
-            >
-              Sykemelding
-            </Radio>
-            <Radio
-              value="egenmelding"
-              data-test-id="fravaer-type-egenmelding"
-              {...register('fravaer.fravaertype', {
-                required: {
-                  value: fravaer === 'ja',
-                  message: 'Dette feltet er påkrevd',
-                },
-              })}
-            >
-              Egenmelding
-            </Radio>
+            {fravaertyper &&
+              Object.keys(fravaertyper).map((fravaertypekode) => (
+                <Radio
+                  key={fravaertypekode}
+                  value={fravaertype}
+                  data-test-id={`fravaer-type-${fravaertypekode}`}
+                  {...register('fravaer.fravaertype', {
+                    required: {
+                      value: fravaer === 'ja',
+                      message: 'Dette feltet er påkrevd',
+                    },
+                  })}
+                >
+                  {fravaertyper[fravaertypekode]?.verdi || 'Kodeverdi feil'}
+                </Radio>
+              ))}
           </RadioGroup>
         </>
       )}

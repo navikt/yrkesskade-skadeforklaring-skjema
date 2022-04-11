@@ -6,7 +6,7 @@ import {
 import {
   KodeverdiDto,
   KodeverdiResponsDto,
-  KodeverkControllerService,
+  KodeverkApiService,
 } from '../../api/kodeverk';
 import { logErrorMessage } from '../../utils/logging';
 import { RootState } from '../store';
@@ -40,14 +40,12 @@ export const kodeverkSlice = createSlice({
 
 export const hentKodeverk = createAsyncThunk(
   'kodeverk/hent',
-  async (kodeverkRequest: KodeverkRequest): Promise<KodeverkResponsPayload> => {
-    const kodeverdier =
-      await KodeverkControllerService.hentMapMedKodeverdierForTypeOgKategori(
-        kodeverkRequest.typenavn,
-        kodeverkRequest.kategorinavn
-      );
+  async (typenavn: string): Promise<KodeverkResponsPayload> => {
+    const kodeverdier = await KodeverkApiService.hentKodeverdierForType(
+      typenavn
+    );
 
-    return { typenavn: kodeverkRequest.typenavn, kodeverdier: kodeverdier };
+    return { typenavn: typenavn, kodeverdier: kodeverdier };
   }
 );
 
@@ -56,10 +54,6 @@ export default kodeverkSlice.reducer;
 interface KodeverkResponsPayload {
   typenavn: string;
   kodeverdier: KodeverdiResponsDto;
-}
-export interface KodeverkRequest {
-  typenavn: string;
-  kategorinavn: string;
 }
 
 export const selectAlleKodeverk = (state: RootState) => state.kodeverk;
