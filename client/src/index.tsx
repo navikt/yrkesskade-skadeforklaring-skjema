@@ -8,9 +8,12 @@ import App from './App';
 import store from './core/store';
 import { OpenAPI } from './api/skadeforklaring';
 import { OpenAPI as KodeverkOpenApi } from './api/kodeverk';
+import { initAmplitude } from './utils/analytics/amplitude';
 
 OpenAPI.BASE = '/api';
 KodeverkOpenApi.BASE = '/kodeverk';
+
+initAmplitude();
 
 render(
   <React.StrictMode>

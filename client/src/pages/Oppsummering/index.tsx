@@ -20,6 +20,7 @@ import SystemHeader from '../../components/SystemHeader';
 import { useCancel } from '../../core/hooks/cancel.hooks';
 import { useAppSelector } from '../../core/hooks/state.hooks';
 import { selectSkadeforklaring } from '../../core/reducers/skadeforklaring.reducer';
+import { logAmplitudeEvent } from '../../utils/analytics/amplitude';
 import { logMessage } from '../../utils/logging';
 
 const Oppsummering = () => {
@@ -34,8 +35,13 @@ const Oppsummering = () => {
     try {
       await SkadeforklaringApiService.postSkadeforklaring(skadeforklaring);
       logMessage('Skjemainnsending fullført');
+      logAmplitudeEvent('skadeforklaring.innmelding', { status: 'fullfort' });
       navigate('/skjema/kvittering');
     } catch (e: any) {
+      logAmplitudeEvent('skadeforklaring.innmelding', {
+        status: 'feilet',
+        feilmelding: e.body,
+      });
       navigate('/feilmelding', { state: e.body });
     }
   };
