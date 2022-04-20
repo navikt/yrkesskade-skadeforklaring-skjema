@@ -5,7 +5,10 @@ export const endpointUrls = {
   toggle: '**/toggles',
   log: '**/log',
   print: '**/print*',
-  landkoder: '**/api/*/kodeverk/typer/landkoder/kategorier/*/kodeverdier',
-  tidsromkoder: '**/api/*/kodeverk/typer/tidsrom/kategorier/*/kodeverdier',
+  kodeverk: {
+    fravaertyper: '**/api/*/kodeverk/typer/fravaertype/kodeververdier',
+    land: '**/api/*/kodeverk/typer/landkoder/kategorier/*/kodeverdier',
+    tidsrom: '**/api/*/kodeverk/typer/tidsrom/kategorier/*/kodeverdier',
+  },
   vedlegg: '**/api/*/vedlegg',
 };

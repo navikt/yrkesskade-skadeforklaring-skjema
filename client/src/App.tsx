@@ -1,5 +1,5 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import { Routes, Route } from 'react-router';
+import { Routes, Route, useLocation } from 'react-router';
 import { Skadeforklaring } from './api/skadeforklaring';
 import { InnloggetProvider } from './core/contexts/InnloggetContext';
 import Feil from './pages/Feil';
@@ -18,10 +18,12 @@ import { LogService } from './services/LogService';
 import { v4 as uuidv4 } from 'uuid';
 import { useAppDispatch } from './core/hooks/state.hooks';
 import { hentKodeverk } from './core/reducers/kodeverk.reducer';
+import { logAmplitudeEvent } from './utils/analytics/amplitude';
 
 const App = () => {
   const methods = useForm<Skadeforklaring>();
   const dispatch = useAppDispatch();
+  const location = useLocation();
   autentiseringsInterceptor();
 
   useEffect(() => {
@@ -31,6 +33,12 @@ const App = () => {
       dispatch(hentKodeverk('fravaertype'));
     }
   });
+
+  useEffect(() => {
+    logAmplitudeEvent('skadeforklaring.sidevisning', {
+      pathname: location.pathname,
+    });
+  }, [location]);
 
   return (
     <InnloggetProvider>

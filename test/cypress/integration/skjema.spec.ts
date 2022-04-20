@@ -27,6 +27,13 @@ describe('Skadeforklaring skjema', () => {
       .intercept(endpointUrls.innlogget, 'innlogget.json', true)
       .as('getInnlogget');
 
+    network
+      .intercept(
+        endpointUrls.kodeverk.fravaertyper,
+        'kodeverk/fravaertyper.json'
+      )
+      .as('getFravaertyper');
+
     cy.visit('');
     cy.location().should('to.be', 'http://localhost:3006/');
   });
