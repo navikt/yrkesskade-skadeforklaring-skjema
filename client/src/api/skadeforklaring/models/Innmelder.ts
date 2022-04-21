@@ -3,6 +3,6 @@
 /* eslint-disable */
 
 export type Innmelder = {
-    norskIdentitetsnummer?: string;
+    norskIdentitetsnummer: string;
     rolle?: string;
 };

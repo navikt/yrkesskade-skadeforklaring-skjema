@@ -31,6 +31,7 @@ const App = () => {
       LogService.sesjon = uuidv4();
 
       dispatch(hentKodeverk('fravaertype'));
+      dispatch(hentKodeverk('foerteDinSkadeEllerSykdomTilFravaer'));
     }
   });
 

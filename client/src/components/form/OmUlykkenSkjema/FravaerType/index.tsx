@@ -1,6 +1,6 @@
 import { Radio, RadioGroup } from '@navikt/ds-react';
 import { useState } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { Skadeforklaring } from '../../../../api/skadeforklaring/models/Skadeforklaring';
 import { useAppSelector } from '../../../../core/hooks/state.hooks';
 import { selectKodeverk } from '../../../../core/reducers/kodeverk.reducer';
@@ -9,61 +9,55 @@ import { selectSkadeforklaring } from '../../../../core/reducers/skadeforklaring
 const Fravaertype: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   const {
     register,
-    setValue,
-    control,
     formState: { errors },
   } = useFormContext<Skadeforklaring>();
   const skadeforklaring = useAppSelector((state) =>
     selectSkadeforklaring(state)
   );
   const [fravaer, setFravaer] = useState<string>(
-    skadeforklaring.fravaer?.harFravaer !== undefined
-      ? skadeforklaring.fravaer.harFravaer
-        ? 'ja'
-        : 'nei'
-      : ''
+    skadeforklaring.fravaer.foerteDinSkadeEllerSykdomTilFravaer
   );
   const [fravaertype, setFravaertype] = useState<string>(
-    skadeforklaring.fravaer?.fravaertype || ''
+    skadeforklaring.fravaer.fravaertype || ''
   );
 
   const fravaertyper = useAppSelector((state) =>
     selectKodeverk(state, 'fravaertype')
   );
 
+  const foerteDinSkadeEllerSykdomTilFravaer = useAppSelector((state) =>
+    selectKodeverk(state, 'foerteDinSkadeEllerSykdomTilFravaer')
+  );
+
   return (
     <div className={`skade-fravaer ${props.className}`}>
-      <Controller
-        name="fravaer.harFravaer"
-        control={control}
-        render={({ field: { onChange, onBlur } }) => (
-          <RadioGroup
-            legend="Førte din skade/sykdom til fravær?"
-            value={fravaer}
-            error={
-              errors?.fravaer?.harFravaer && errors?.fravaer?.harFravaer.message
-            }
-            onChange={(e) => {
-              setFravaer(e);
-              onChange(e === 'ja');
-              if (e === 'nei') {
-                setValue('fravaer.fravaertype', undefined);
-              }
-            }}
-            onBlur={onBlur}
-            data-test-id="fravaer-valg"
-          >
-            <Radio value="ja" data-test-id="fravaer-valg-ja">
-              Ja
-            </Radio>
-            <Radio value="nei" data-test-id="fravaer-valg-nei">
-              Nei
-            </Radio>
-          </RadioGroup>
-        )}
-      />
+      <RadioGroup
+        className="spacer"
+        legend="Førte din skade/sykdom til fravær?"
+        value={fravaer}
+        error={
+          errors?.fravaer?.foerteDinSkadeEllerSykdomTilFravaer &&
+          errors?.fravaer?.foerteDinSkadeEllerSykdomTilFravaer.message
+        }
+        onChange={(e) => setFravaer(e)}
+        data-test-id="fravaer-valg"
+      >
+        {foerteDinSkadeEllerSykdomTilFravaer &&
+          Object.keys(foerteDinSkadeEllerSykdomTilFravaer).map(
+            (fravaerkode) => (
+              <Radio
+                key={fravaerkode}
+                value={fravaerkode}
+                data-test-id={`fravaer-valg-${fravaerkode}`}
+              >
+                {foerteDinSkadeEllerSykdomTilFravaer[fravaerkode]?.verdi ||
+                  'Kodeverdi feil'}
+              </Radio>
+            )
+          )}
+      </RadioGroup>
 
-      {fravaer === 'ja' && (
+      {fravaer && fravaer !== 'nei' && (
         <>
           <RadioGroup
             legend="Velg type fravær"

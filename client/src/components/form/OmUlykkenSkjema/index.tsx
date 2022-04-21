@@ -17,7 +17,7 @@ const OmUlykkenSkjema = () => {
   );
 
   const [arbeidsbeskrivelse, setArbeidsbeskrivelse] = useState<string>(
-    skadeforklaring.arbeidsbeskrivelse || ''
+    skadeforklaring.arbeidetMedIUlykkesoeyeblikket || ''
   );
 
   return (
@@ -35,7 +35,7 @@ const OmUlykkenSkjema = () => {
           maxLength={1000}
           minRows={5}
           value={arbeidsbeskrivelse}
-          {...register('arbeidsbeskrivelse')}
+          {...register('arbeidetMedIUlykkesoeyeblikket')}
           onChange={(e) => setArbeidsbeskrivelse(e.target.value)}
           data-test-id="ulykke-arbeidsbeskrivelse"
           className="ulykke-arbeidsbeskrivelse"

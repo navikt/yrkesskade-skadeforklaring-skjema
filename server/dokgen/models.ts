@@ -37,13 +37,13 @@ export interface PdfPeriode {
 }
 
 export interface PdfBehandler {
-  erBehandlerOppsokt: Soknadsfelt<boolean>;
+  erBehandlerOppsokt: Soknadsfelt<string>;
   behandlernavn: Soknadsfelt<string>;
   behandleradresse: Soknadsfelt<PdfAdresse>;
 }
 
 export interface PdfFravaer {
-  harFravaer: Soknadsfelt<boolean>;
+  foerteDinSkadeEllerSykdomTilFravaer: Soknadsfelt<string>;
   fravaertype: Soknadsfelt<string>;
 }
 

@@ -6,6 +6,6 @@
  * Angir fra og til datoer
  */
 export type Periode = {
-    fra?: string;
-    til?: string;
+    fra: string;
+    til: string;
 };

@@ -3,8 +3,8 @@
 /* eslint-disable */
 
 export type Vedleggreferanse = {
-    id?: string;
-    navn?: string;
-    storrelse?: number;
-    url?: string;
+    id: string;
+    navn: string;
+    storrelse: number;
+    url: string;
 };

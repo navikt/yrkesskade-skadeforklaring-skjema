@@ -34,6 +34,13 @@ describe('Skadeforklaring skjema', () => {
       )
       .as('getFravaertyper');
 
+    network
+      .intercept(
+        endpointUrls.kodeverk.foerteDinSkadeEllerSykdomTilFravaer,
+        'kodeverk/foerteDinSkadeEllerSykdomTilFravaer.json'
+      )
+      .as('getFravaertyper');
+
     cy.visit('');
     cy.location().should('to.be', 'http://localhost:3006/');
   });
@@ -70,7 +77,7 @@ describe('Skadeforklaring skjema', () => {
       );
 
     // fravær
-    ulykken.fravaer.valgJa().click();
+    ulykken.fravaer.valgTreDagerEllerMindre().click();
     ulykken.fravaer.sykemelding().click();
 
     // lege

@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 export type ErrorResponse = {
-    melding?: string;
-    tidspunkt?: string;
-    statuskode?: number;
+    melding: string;
+    tidspunkt: string;
+    statuskode: number;
 };

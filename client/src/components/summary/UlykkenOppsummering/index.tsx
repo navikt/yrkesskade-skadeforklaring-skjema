@@ -17,6 +17,10 @@ const UlykkenOppsummering = () => {
     selectKodeverk(state, 'fravaertype')
   );
 
+  const foerteDinSkadeEllerSykdomTilFravaer = useAppSelector((state) =>
+    selectKodeverk(state, 'foerteDinSkadeEllerSykdomTilFravaer')
+  );
+
   const ulykkestid = () => {
     switch (skadeforklaring.tid?.tidstype) {
       case Tid.tidstype.TIDSPUNKT:
@@ -59,25 +63,44 @@ const UlykkenOppsummering = () => {
     return 'Ukjent';
   };
 
+  const fravaer = (skadeforklaring: Skadeforklaring): string => {
+    if (
+      skadeforklaring.fravaer.foerteDinSkadeEllerSykdomTilFravaer &&
+      foerteDinSkadeEllerSykdomTilFravaer
+    ) {
+      return (
+        foerteDinSkadeEllerSykdomTilFravaer[
+          skadeforklaring.fravaer.foerteDinSkadeEllerSykdomTilFravaer
+        ]?.verdi || 'Ukjent'
+      );
+    }
+
+    return 'Ukjent';
+  };
+
   return (
     <>
       <Label>Når skjedde ulykken?</Label>
       <BodyLong spacing>{ulykkestid()}</BodyLong>
       <Label>Hva arbeidet du med i ulykkesøyeblikket?</Label>
-      <BodyLong spacing>{skadeforklaring.arbeidsbeskrivelse}</BodyLong>
-      <Label>Beskrivelse av hendelsen</Label>
-      <BodyLong spacing>{skadeforklaring.ulykkesbeskrivelse}</BodyLong>
-      <Label>Førte din skade/sykdom til fravær?</Label>
       <BodyLong spacing>
-        {skadeforklaring.fravaer?.harFravaer ? 'Ja' : 'Nei'}
+        {skadeforklaring.arbeidetMedIUlykkesoeyeblikket}
       </BodyLong>
+      <Label>Beskrivelse av hendelsen</Label>
+      <BodyLong spacing>
+        {skadeforklaring.noeyaktigBeskrivelseAvHendelsen}
+      </BodyLong>
+      <Label>Førte din skade/sykdom til fravær?</Label>
+      <BodyLong spacing>{fravaer(skadeforklaring)}</BodyLong>
       <Label>Type fravær</Label>
       <BodyLong spacing>{fravaertype(skadeforklaring)}</BodyLong>
       <Label>Ble lege oppsøkt etter skaden?</Label>
-      <BodyLong spacing={skadeforklaring.behandler?.erBehandlerOppsokt}>
-        {skadeforklaring.behandler?.erBehandlerOppsokt ? 'Ja' : 'Nei'}
+      <BodyLong
+        spacing={skadeforklaring.behandler?.erBehandlerOppsokt === 'ja'}
+      >
+        {skadeforklaring.behandler?.erBehandlerOppsokt}
       </BodyLong>
-      {skadeforklaring.behandler?.erBehandlerOppsokt && (
+      {skadeforklaring.behandler?.erBehandlerOppsokt === 'ja' && (
         <>
           <Label>Navn på helseforetak, legevakt eller lege</Label>
           <BodyLong spacing>

@@ -14,7 +14,7 @@ const Ulykkesbeskrivelse: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
   );
 
   const [ulykkebeskrivelse, setUlykkesbeskrivelse] = useState<string>(
-    skadeforklaring.ulykkesbeskrivelse || ''
+    skadeforklaring.noeyaktigBeskrivelseAvHendelsen || ''
   );
 
   return (
@@ -35,7 +35,7 @@ const Ulykkesbeskrivelse: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
         maxLength={2000}
         minRows={10}
         value={ulykkebeskrivelse}
-        {...register('ulykkesbeskrivelse')}
+        {...register('noeyaktigBeskrivelseAvHendelsen')}
         onChange={(e) => setUlykkesbeskrivelse(e.target.value)}
         data-test-id="ulykke-ulykkesbeskrivelse"
         className="ulykke-ulykkesbeskrivelse"

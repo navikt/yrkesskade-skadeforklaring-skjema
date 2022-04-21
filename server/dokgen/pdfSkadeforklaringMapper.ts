@@ -38,11 +38,11 @@ export const pdfSkadeforklaringMapper = (
     fravaer: mapFravaer(skadeforklaring.fravaer),
     arbeidsbeskrivelse: {
       label: 'Hva arbeidet du med i ulykkesøyeblikket',
-      verdi: skadeforklaring.arbeidsbeskrivelse,
+      verdi: skadeforklaring.arbeidetMedIUlykkesoeyeblikket,
     },
     ulykkesbeskrivelse: {
       label: 'Gi en så nøyaktig beskrivelse av hendelsen som mulig',
-      verdi: skadeforklaring.ulykkesbeskrivelse,
+      verdi: skadeforklaring.noeyaktigBeskrivelseAvHendelsen,
     },
   };
 };
@@ -89,9 +89,9 @@ const mapBehandler = (behandler: Behandler): PdfBehandler => {
 
 const mapFravaer = (fravaer: Fravaer): PdfFravaer => {
   return {
-    harFravaer: {
+    foerteDinSkadeEllerSykdomTilFravaer: {
       label: 'Førte din skade/sykdom til fravær?',
-      verdi: fravaer.harFravaer,
+      verdi: fravaer.foerteDinSkadeEllerSykdomTilFravaer,
     },
     fravaertype: { label: 'Type fravær', verdi: fravaer.fravaertype },
   };

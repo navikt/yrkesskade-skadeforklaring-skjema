@@ -7,6 +7,8 @@ export const endpointUrls = {
   print: '**/print*',
   kodeverk: {
     fravaertyper: '**/api/*/kodeverk/typer/fravaertype/kodeververdier',
+    foerteDinSkadeEllerSykdomTilFravaer:
+      '**/api/*/kodeverk/typer/foerteDinSkadeEllerSykdomTilFravaer/kodeverdier',
     land: '**/api/*/kodeverk/typer/landkoder/kategorier/*/kodeverdier',
     tidsrom: '**/api/*/kodeverk/typer/tidsrom/kategorier/*/kodeverdier',
   },

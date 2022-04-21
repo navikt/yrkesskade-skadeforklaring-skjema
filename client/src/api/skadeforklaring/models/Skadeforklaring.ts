@@ -13,13 +13,14 @@ import type { Vedleggreferanse } from './Vedleggreferanse';
  * skadeforklaring som skal sendes inn
  */
 export type Skadeforklaring = {
+    saksnummer?: string;
     innmelder?: Innmelder;
     skadelidt?: Skadelidt;
-    arbeidsbeskrivelse?: string;
-    ulykkesbeskrivelse?: string;
-    tid?: Tid;
-    vedleggtype?: string;
-    vedleggreferanser?: Array<Vedleggreferanse>;
-    fravaer?: Fravaer;
-    behandler?: Behandler;
+    arbeidetMedIUlykkesoeyeblikket: string;
+    noeyaktigBeskrivelseAvHendelsen: string;
+    tid: Tid;
+    vedleggtype: string;
+    vedleggreferanser: Array<Vedleggreferanse>;
+    fravaer: Fravaer;
+    behandler: Behandler;
 };

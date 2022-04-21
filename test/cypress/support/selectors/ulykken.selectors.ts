@@ -11,7 +11,8 @@ export const ulykken = {
   antallFravaersdager: () =>
     cy.get('[data-test-id="data-test-id="fravaer-antall-dager"]'),
   fravaer: {
-    valgJa: () => cy.get('[data-test-id="fravaer-valg-ja"]'),
+    valgTreDagerEllerMindre: () =>
+      cy.get('[data-test-id="fravaer-valg-treDagerEllerMindre"]'),
     valgNei: () => cy.get('[data-test-id="fravaer-valg-nei"]'),
     sykemelding: () => cy.get('[data-test-id="fravaer-type-sykemelding"]'),
     egenmelding: () => cy.get('[data-test-id="fravaer-type-egenmelding"]'),
