@@ -10,6 +10,7 @@ import {
   BodyShort,
 } from '@navikt/ds-react';
 import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { SkadeforklaringApiService } from '../../api/skadeforklaring/services/SkadeforklaringApiService';
 import BackButton from '../../components/BackButton';
@@ -22,16 +23,19 @@ import { useAppSelector } from '../../core/hooks/state.hooks';
 import { selectSkadeforklaring } from '../../core/reducers/skadeforklaring.reducer';
 import { logAmplitudeEvent } from '../../utils/analytics/amplitude';
 import { logMessage } from '../../utils/logging';
+import './Oppsummering.less';
 
 const Oppsummering = () => {
   const navigate = useNavigate();
   const cancel = useCancel();
+  const [clicked, setClicked] = useState<boolean>(false);
 
   const skadeforklaring = useAppSelector((state) =>
     selectSkadeforklaring(state)
   );
 
   const handleSubmit = async () => {
+    setClicked(true);
     try {
       await SkadeforklaringApiService.postSkadeforklaring(skadeforklaring);
       logMessage('Skjemainnsending fullført');
@@ -101,6 +105,8 @@ const Oppsummering = () => {
                   variant="primary"
                   onClick={handleSubmit}
                   data-test-id="send-inn"
+                  loading={clicked}
+                  disabled={clicked}
                 >
                   Fullfør
                 </Button>
