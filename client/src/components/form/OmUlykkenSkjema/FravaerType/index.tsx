@@ -39,6 +39,12 @@ const Fravaertype: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
           errors?.fravaer?.foerteDinSkadeEllerSykdomTilFravaer &&
           errors?.fravaer?.foerteDinSkadeEllerSykdomTilFravaer.message
         }
+        {...register('fravaer.foerteDinSkadeEllerSykdomTilFravaer', {
+          required: {
+            value: true,
+            message: 'Dette feltet er påkrevd',
+          },
+        })}
         onChange={(e) => setFravaer(e)}
         data-test-id="fravaer-valg"
       >
@@ -48,6 +54,12 @@ const Fravaertype: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
               <Radio
                 key={fravaerkode}
                 value={fravaerkode}
+                {...register('fravaer.foerteDinSkadeEllerSykdomTilFravaer', {
+                  required: {
+                    value: true,
+                    message: 'Dette feltet er påkrevd',
+                  },
+                })}
                 data-test-id={`fravaer-valg-${fravaerkode}`}
               >
                 {foerteDinSkadeEllerSykdomTilFravaer[fravaerkode]?.verdi ||

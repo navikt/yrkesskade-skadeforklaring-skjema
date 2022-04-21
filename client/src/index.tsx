@@ -15,6 +15,11 @@ KodeverkOpenApi.BASE = '/kodeverk';
 
 initAmplitude();
 
+window.onerror = (msg, url, lineNo, columnNo, error) => {
+  console.log('msg: ', msg);
+  console.log('error: ', error);
+};
+
 render(
   <React.StrictMode>
     <Provider store={store}>

@@ -17,11 +17,7 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
     selectSkadeforklaring(state)
   );
   const [legeOppsokt, setLegeOppsokt] = useState(
-    skadeforklaring.behandler?.erBehandlerOppsokt !== undefined
-      ? skadeforklaring.behandler.erBehandlerOppsokt
-        ? 'ja'
-        : 'nei'
-      : ''
+    skadeforklaring.behandler?.erBehandlerOppsokt
   );
   const [navn, setNavn] = useState(skadeforklaring.behandler?.behandlerNavn);
   const [adresse, setAdresse] = useState(
