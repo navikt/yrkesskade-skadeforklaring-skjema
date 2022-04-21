@@ -19,7 +19,9 @@ export class BrukerinfoApiService {
             method: 'GET',
             url: '/v1/brukerinfo',
             errors: {
+                400: `Bad request`,
                 413: `Payload too large`,
+                422: `Virus oppdaget i vedlegg`,
                 500: `Internal Server Error`,
             },
         });

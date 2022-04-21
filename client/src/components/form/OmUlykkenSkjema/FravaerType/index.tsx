@@ -85,7 +85,7 @@ const Fravaertype: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
               Object.keys(fravaertyper).map((fravaertypekode) => (
                 <Radio
                   key={fravaertypekode}
-                  value={fravaertype}
+                  value={fravaertypekode}
                   data-test-id={`fravaer-type-${fravaertypekode}`}
                   {...register('fravaer.fravaertype', {
                     required: {

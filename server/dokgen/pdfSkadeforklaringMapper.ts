@@ -125,8 +125,8 @@ const mapTid = (tid: Tid): PdfTid => {
 
 const mapAdresse = (adresse: Adresse): PdfAdresse => {
   return {
-    adresselinje1: adresse.adresse,
-    adresselinje2: `${adresse.postnummer} ${adresse.poststed}`,
+    adresselinje1: adresse?.adresse,
+    adresselinje2: `${adresse?.postnummer} ${adresse?.poststed}`,
     adresselinje3: null,
     land: '',
   };
