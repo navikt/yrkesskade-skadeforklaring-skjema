@@ -1,6 +1,6 @@
 import { RadioGroup, Radio, TextField } from '@navikt/ds-react';
 import { useState } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { Skadeforklaring } from '../../../../api/skadeforklaring';
 import { useAppSelector } from '../../../../core/hooks/state.hooks';
 import { selectSkadeforklaring } from '../../../../core/reducers/skadeforklaring.reducer';
@@ -9,7 +9,6 @@ import './LegeOppsokt.less';
 const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   const {
     register,
-    control,
     setValue,
     formState: { errors },
   } = useFormContext<Skadeforklaring>();
@@ -32,35 +31,46 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
 
   return (
     <div className={`skade-lege ${props.className}`}>
-      <Controller
-        name="behandler.erBehandlerOppsokt"
-        control={control}
-        render={({ field: { onChange, onBlur } }) => (
-          <RadioGroup
-            legend="Ble lege oppsøkt etter skaden?"
-            value={legeOppsokt}
-            error={
-              errors?.behandler?.erBehandlerOppsokt &&
-              errors?.behandler.erBehandlerOppsokt.message
-            }
-            onChange={(e) => {
-              setLegeOppsokt(e);
-              onChange(e === 'ja');
-              if (e === 'nei') {
-                // sørg for at vi setter adresse til undefined
-                setValue('behandler.adresse', undefined);
-              }
-            }}
-          >
-            <Radio value="ja" data-test-id="lege-oppsokt-ja">
-              Ja
-            </Radio>
-            <Radio value="nei" data-test-id="lege-oppsokt-nei">
-              Nei
-            </Radio>
-          </RadioGroup>
-        )}
-      />
+      <RadioGroup
+        legend="Ble lege oppsøkt etter skaden?"
+        value={legeOppsokt}
+        error={
+          errors?.behandler?.erBehandlerOppsokt &&
+          errors?.behandler.erBehandlerOppsokt.message
+        }
+        onChange={(e) => {
+          setLegeOppsokt(e);
+          if (e === 'nei') {
+            // sørg for at vi setter adresse til undefined
+            setValue('behandler.adresse', undefined);
+          }
+        }}
+      >
+        <Radio
+          value="ja"
+          data-test-id="lege-oppsokt-ja"
+          {...register('behandler.erBehandlerOppsokt', {
+            required: {
+              value: true,
+              message: 'Dette feltet er påkrevd',
+            },
+          })}
+        >
+          Ja
+        </Radio>
+        <Radio
+          value="nei"
+          data-test-id="lege-oppsokt-nei"
+          {...register('behandler.erBehandlerOppsokt', {
+            required: {
+              value: true,
+              message: 'Dette feltet er påkrevd',
+            },
+          })}
+        >
+          Nei
+        </Radio>
+      </RadioGroup>
 
       {legeOppsokt === 'ja' && (
         <>

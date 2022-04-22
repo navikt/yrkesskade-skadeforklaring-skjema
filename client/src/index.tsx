@@ -9,16 +9,13 @@ import store from './core/store';
 import { OpenAPI } from './api/skadeforklaring';
 import { OpenAPI as KodeverkOpenApi } from './api/kodeverk';
 import { initAmplitude } from './utils/analytics/amplitude';
+import { initWindowOnError } from './utils/global-error';
 
 OpenAPI.BASE = '/api';
 KodeverkOpenApi.BASE = '/kodeverk';
 
 initAmplitude();
-
-window.onerror = (msg, url, lineNo, columnNo, error) => {
-  console.log('msg: ', msg);
-  console.log('error: ', error);
-};
+initWindowOnError();
 
 render(
   <React.StrictMode>

@@ -1,8 +1,12 @@
-const { ESLINT_MODES } = require("@craco/craco");
-const CracoLessPlugin = require("craco-less");
+const { ESLINT_MODES } = require('@craco/craco');
+const CracoLessPlugin = require('craco-less');
+const webpack = require('webpack');
 
 module.exports = {
-  plugins: [{ plugin: CracoLessPlugin }],
+  plugins: [
+    { plugin: CracoLessPlugin },
+    { plugin: new webpack.DefinePlugin({ process: { env: {} } }) },
+  ],
   eslint: {
     mode: ESLINT_MODES.file,
   },
@@ -11,13 +15,13 @@ module.exports = {
       test: /\.(ts|tsx)$/,
       exclude: /node_modules/,
       use: {
-        loader: "babel-loader",
+        loader: 'babel-loader',
         options: {
-          presets: ["@babel/preset-typescript"],
-          plugins: ["istanbul"]
-        }
-      }
+          presets: ['@babel/preset-typescript'],
+          plugins: ['istanbul'],
+        },
+      },
     });
     return webpackConfig;
-  }
+  },
 };

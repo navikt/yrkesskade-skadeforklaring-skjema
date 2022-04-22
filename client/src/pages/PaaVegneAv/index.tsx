@@ -118,8 +118,8 @@ const PaaVegneAv = () => {
                 adresse som deg i folkeregisteret.
               </BodyLong>
               <BodyLong spacing>
-                Alle opplysninger som sendes inn vil være knyttet til personen
-                du velger.
+                Opplysninger som du nå sender NAV vil kun bli knyttet til
+                personen du velger.
               </BodyLong>
               <section className="button-section spacer button-group">
                 <Button

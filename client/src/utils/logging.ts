@@ -20,5 +20,7 @@ const log = (message: string, severity: string) => {
     severity: severity,
     session: LogService.sesjon,
   };
+  console.log('log feilmelding: ', messageObject);
+
   LogService.log(messageObject);
 };

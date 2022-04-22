@@ -1,5 +1,5 @@
 import { Ingress, Textarea } from '@navikt/ds-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import './OmUlykken.less';
 import LegeOppsokt from './LegeOppsokt';
@@ -11,7 +11,10 @@ import Tid from './Tid';
 import Ulykkesbeskrivelse from './Ulykkesbeskrivelse';
 
 const OmUlykkenSkjema = () => {
-  const { register } = useFormContext<Skadeforklaring>();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<Skadeforklaring>();
   const skadeforklaring = useAppSelector((state) =>
     selectSkadeforklaring(state)
   );
@@ -19,6 +22,10 @@ const OmUlykkenSkjema = () => {
   const [arbeidsbeskrivelse, setArbeidsbeskrivelse] = useState<string>(
     skadeforklaring.arbeidetMedIUlykkesoeyeblikket || ''
   );
+
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
 
   return (
     <>

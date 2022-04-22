@@ -5,12 +5,14 @@ import {
   Cell,
   Button,
   BodyLong,
+  Label,
 } from '@navikt/ds-react';
 import { useNavigate } from 'react-router';
 import SystemHeader from '../../components/SystemHeader';
 import { useCancel } from '../../core/hooks/cancel.hooks';
 import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 import { logMessage } from '../../utils/logging';
+import { logAmplitudeEvent } from '../../utils/analytics/amplitude';
 
 const Veiledning = () => {
   const navigate = useNavigate();
@@ -18,6 +20,7 @@ const Veiledning = () => {
 
   const handleNext = () => {
     logMessage('Skjemautfylling påbegynt');
+    logAmplitudeEvent('skadeforklaring.innmelding', { status: 'startet' });
     navigate('/skjema/person');
   };
 
@@ -33,18 +36,18 @@ const Veiledning = () => {
                 Skadeforklaringskjema ved arbeidsulykke
               </Heading>
               <BodyLong spacing>
-                I dette skjemaet kan du gi flere opplysninger om en yrkesskade.
-                Opplysningene som oppgis skal være riktige og relevante, slik at
-                NAV kan behandle saken så effektivt som mulig. Du skal kun oppgi
-                opplysninger om deg selv, personopplysninger om andre anses ikke
-                relevante for saken. Personopplysningene som oppgis i
-                skadeforklaringen skal avgrenses til behandlingens formål og
-                beskrive fakta om hendelsen og hvilken skade du har blitt
-                påført.
+                I dette skjemaet kan du gi flere opplysninger om en innmeldt
+                yrkesskade. Opplysningene som oppgis skal være riktige og
+                relevante, slik at NAV kan behandle saken så effektivt som
+                mulig. Du skal kun oppgi opplysninger om deg selv,
+                personopplysninger om andre anses ikke relevante for saken.
+                Personopplysningene som du oppgir i skadeforklaringen skal
+                begrenses til behandlingens formål; å beskrive fakta om
+                hendelsen og hvilken skade du har blitt påført.
               </BodyLong>
               <BodyLong spacing>
                 Statistisk sentralbyrå og tilsynsmyndigheter kan benytte data om
-                arbeidstakeres yrkesskader til analyse og statistikkformål.
+                yrkesskader til analyse og statistikkformål.
               </BodyLong>
               <BodyLong spacing>
                 Har du fått konkrete spørsmål fra NAV i forbindelse med en
@@ -55,6 +58,11 @@ const Veiledning = () => {
               </BodyLong>
               <BodyLong spacing>
                 Husk å logge av når du er ferdig med registreringen.
+              </BodyLong>
+              <Heading size="small">Kontakt</Heading>
+              <BodyLong spacing>
+                Oppdager du problemer eller har spørsmål kan du ta kontakt på:
+                +47 920 36 454
               </BodyLong>
 
               <section className="button-section spacer button-group">

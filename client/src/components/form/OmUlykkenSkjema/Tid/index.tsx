@@ -34,8 +34,8 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
 
   const dayPickerClassNames = {
     container: 'nav-day-picker',
-    overlay: '',
-    overlayWrapper: '',
+    overlay: 'nav-day-picker-overlay',
+    overlayWrapper: 'nav-day-picker-overlay-wrapper',
   } as InputClassNames;
 
   const whenDayPickerClassNames = {
@@ -166,7 +166,14 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
                   <Label>Dato for ulykken</Label>
 
                   <DayPickerInput
-                    classNames={{ ...whenDayPickerClassNames }}
+                    classNames={{
+                      ...whenDayPickerClassNames,
+                      container: `timeframe-when-date ${
+                        dayPickerClassNames.container
+                      } ${
+                        errors?.tid?.tidspunkt ? 'nav-day-picker-error' : ''
+                      }`,
+                    }}
                     placeholder=""
                     value={specificDate}
                     onDayChange={handleSpecificDate}
@@ -174,7 +181,10 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
                     format={FORMAT}
                     parseDate={parseDate}
                     {...register('tid.tidspunkt', {
-                      required: timeType === 'TIDSPUNKT',
+                      required: {
+                        value: timeType === 'TIDSPUNKT',
+                        message: 'Dette feltet er påkrevd',
+                      },
                     })}
                     dayPickerProps={{
                       disabledDays: {
@@ -184,10 +194,16 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
                   />
 
                   {errors?.tid?.tidspunkt && (
-                    <div>{errors?.tid?.tidspunkt.message}</div>
+                    <div className="navds-label navds-error-message">
+                      {errors?.tid?.tidspunkt.message}
+                    </div>
                   )}
                 </div>
-                <div className="klokkeslett-felt">
+                <div
+                  className={`klokkeslett-felt ${
+                    errors?.tid?.tidspunkt ? 'navds-text-field--error' : ''
+                  }`}
+                >
                   <label htmlFor="timeframe-when-time" className="navds-label">
                     Tid for ulykken
                   </label>
@@ -197,7 +213,7 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
                     value={specificTime || ''}
                     data-test-id="timeframe-when-time"
                     id="timeframe-when-time"
-                    className="navds-text-field__input navds-body-short navds-body-medium"
+                    className={`navds-text-field__input navds-body-short navds-body-medium`}
                   />
                 </div>
               </div>
@@ -226,7 +242,20 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
                 <div>
                   <Label>Fra dag</Label>
                   <DayPickerInput
-                    classNames={fromDayPickerClassNames}
+                    classNames={{
+                      ...fromDayPickerClassNames,
+                      container: `timeframe-from-date ${
+                        dayPickerClassNames.container
+                      } ${
+                        errors?.tid?.periode?.fra ? 'nav-day-picker-error' : ''
+                      }`,
+                    }}
+                    {...register('tid.periode.fra', {
+                      required: {
+                        value: timeType === 'PERIODE',
+                        message: 'Dette feltet er påkrevd',
+                      },
+                    })}
                     placeholder=""
                     value={specificFromDay}
                     onDayChange={handleSpecificFromDay}
@@ -242,12 +271,29 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
                       onDayClick: () => toDayInput?.getInput().focus(),
                     }}
                   />
+                  {errors?.tid?.periode?.fra && (
+                    <div className="navds-label navds-error-message">
+                      {errors?.tid?.periode?.fra?.message}
+                    </div>
+                  )}
                 </div>
                 <div>
                   <Label>Til dag</Label>
                   <DayPickerInput
-                    ref={(el) => setToDayInput(el)}
-                    classNames={toDayPickerClassNames}
+                    classNames={{
+                      ...toDayPickerClassNames,
+                      container: `timeframe-to-date ${
+                        dayPickerClassNames.container
+                      } ${
+                        errors?.tid?.periode?.til ? 'nav-day-picker-error' : ''
+                      }`,
+                    }}
+                    {...register('tid.periode.til', {
+                      required: {
+                        value: timeType === 'PERIODE',
+                        message: 'Dette feltet er påkrevd',
+                      },
+                    })}
                     placeholder=""
                     value={specificToDay}
                     onDayChange={handleSpecificToDay}
@@ -263,6 +309,11 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
                       },
                     }}
                   />
+                  {errors?.tid?.periode?.til && (
+                    <div className="navds-label navds-error-message">
+                      {errors?.tid?.periode?.til?.message}
+                    </div>
+                  )}
                 </div>
               </div>
             )}

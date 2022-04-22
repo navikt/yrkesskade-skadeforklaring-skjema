@@ -1,3 +1,4 @@
+import { BodyLong } from '@navikt/ds-react';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Skadeforklaring } from '../../../../api/skadeforklaring/models/Skadeforklaring';
@@ -48,12 +49,24 @@ const Opplast = () => {
   }, [vedleggliste, setValue]);
 
   return (
-    <AttachmentUploader
-      onFileDelete={onFileDelete}
-      onFilesSelect={onfFilesSelect}
-      attachments={vedleggliste}
-      data-test-id="vedlegg-opplaster"
-    />
+    <>
+      <BodyLong spacing>
+        Send inn det du mener er relevant for å vurdere arbeidsulykken og skaden
+        din. Dersom du likevel sender oss opplysninger som ikke er relevant for
+        saken, vil dette blir arkivert i saken på personen du har valgt.
+      </BodyLong>
+      <BodyLong spacing>
+        NAV vil som hovedregel ikke sladde eller sortere opplysninger som er
+        sendt inn digitalt. Det er ditt ansvar å laste opp riktige opplysninger
+        som handler om arbeidsulykken.
+      </BodyLong>
+      <AttachmentUploader
+        onFileDelete={onFileDelete}
+        onFilesSelect={onfFilesSelect}
+        attachments={vedleggliste}
+        data-test-id="vedlegg-opplaster"
+      />
+    </>
   );
 };
 

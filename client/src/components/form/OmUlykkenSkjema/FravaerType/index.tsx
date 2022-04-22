@@ -78,12 +78,6 @@ const Fravaertype: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
               errors?.fravaer?.fravaertype &&
               errors.fravaer?.fravaertype.message
             }
-            {...register('fravaer.fravaertype', {
-              required: {
-                value: fravaer === 'ja',
-                message: 'Dette feltet er påkrevd',
-              },
-            })}
             onChange={(e) => setFravaertype(e)}
             data-test-id="fravaer-type"
           >
@@ -95,7 +89,7 @@ const Fravaertype: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
                   data-test-id={`fravaer-type-${fravaertypekode}`}
                   {...register('fravaer.fravaertype', {
                     required: {
-                      value: fravaer === 'ja',
+                      value: true,
                       message: 'Dette feltet er påkrevd',
                     },
                   })}

@@ -36,6 +36,7 @@ const VedleggSkjema = () => {
         ettersende dem per post.
       </Ingress>
       <RadioGroup
+        className="spacer"
         legend="Jeg skal ettersende dokumenter"
         value={vedleggtype}
         error={errors?.vedleggtype && errors?.vedleggtype.message}
