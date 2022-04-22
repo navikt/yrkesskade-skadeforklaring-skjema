@@ -38,6 +38,12 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
           errors?.behandler?.erBehandlerOppsokt &&
           errors?.behandler.erBehandlerOppsokt.message
         }
+        {...register('behandler.erBehandlerOppsokt', {
+          required: {
+            value: true,
+            message: 'Dette feltet er påkrevd',
+          },
+        })}
         onChange={(e) => {
           setLegeOppsokt(e);
           if (e === 'nei') {

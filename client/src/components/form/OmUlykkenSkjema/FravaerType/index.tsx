@@ -78,6 +78,12 @@ const Fravaertype: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
               errors?.fravaer?.fravaertype &&
               errors.fravaer?.fravaertype.message
             }
+            {...register('fravaer.fravaertype', {
+              required: {
+                value: true,
+                message: 'Dette feltet er påkrevd',
+              },
+            })}
             onChange={(e) => setFravaertype(e)}
             data-test-id="fravaer-type"
           >
