@@ -39,13 +39,26 @@ const OmUlykkenSkjema = () => {
       <div className="spacer">
         <Textarea
           label="Hva arbeidet du med i ulykkesøyeblikket?"
-          maxLength={1000}
+          maxLength={2000}
           minRows={5}
           value={arbeidsbeskrivelse}
-          {...register('arbeidetMedIUlykkesoeyeblikket')}
+          {...register('arbeidetMedIUlykkesoeyeblikket', {
+            required: {
+              value: true,
+              message: 'Dette feltet er påkrevd',
+            },
+            maxLength: {
+              value: 2000,
+              message: 'Maks 2000 tegn',
+            },
+          })}
           onChange={(e) => setArbeidsbeskrivelse(e.target.value)}
           data-test-id="ulykke-arbeidsbeskrivelse"
           className="ulykke-arbeidsbeskrivelse"
+          error={
+            errors?.arbeidetMedIUlykkesoeyeblikket &&
+            errors?.arbeidetMedIUlykkesoeyeblikket.message
+          }
         />
       </div>
 

@@ -8,7 +8,10 @@ import { selectSkadeforklaring } from '../../../../core/reducers/skadeforklaring
 const Ulykkesbeskrivelse: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
   props
 ) => {
-  const { register } = useFormContext<Skadeforklaring>();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<Skadeforklaring>();
   const skadeforklaring = useAppSelector((state) =>
     selectSkadeforklaring(state)
   );
@@ -35,10 +38,23 @@ const Ulykkesbeskrivelse: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
         maxLength={2000}
         minRows={10}
         value={ulykkebeskrivelse}
-        {...register('noeyaktigBeskrivelseAvHendelsen')}
+        {...register('noeyaktigBeskrivelseAvHendelsen', {
+          required: {
+            value: true,
+            message: 'Dette feltet er påkrevd',
+          },
+          maxLength: {
+            value: 2000,
+            message: 'Maks 2000 tegn',
+          },
+        })}
         onChange={(e) => setUlykkesbeskrivelse(e.target.value)}
         data-test-id="ulykke-ulykkesbeskrivelse"
         className="ulykke-ulykkesbeskrivelse"
+        error={
+          errors?.noeyaktigBeskrivelseAvHendelsen &&
+          errors?.noeyaktigBeskrivelseAvHendelsen.message
+        }
       />
     </div>
   );
