@@ -79,7 +79,7 @@ jobs:
 
   'deployAppToDev':
     name: 'Deploy app to dev'
-    needs: 'build'
+    needs: [build, cypress-run]
     runs-on: 'ubuntu-18.04'
     steps:
       - uses: 'actions/checkout@v2'
@@ -93,7 +93,7 @@ jobs:
 
   'deployAlertsToDev':
     name: 'Deploy alerts to dev'
-    needs: 'build'
+    needs: [build, cypress-run]
     runs-on: 'ubuntu-18.04'
     steps:
       - uses: 'actions/checkout@v2'

@@ -1,4 +1,4 @@
-name: 'Build and deploy yrkesskade skjema'
+name: 'Prod - Build and deploy yrkesskade skadeforklaring skjema'
 on:
   push:
     branches:
@@ -89,7 +89,7 @@ jobs:
           'APIKEY': '${{ secrets.NAIS_DEPLOY_APIKEY }}'
           'CLUSTER': 'prod-gcp'
           'RESOURCE': '.nais/nais.yaml'
-          'VARS': '.nais/prod.yaml'
+          'VARS': '.nais/prod/vars.yaml'
 
   deployAlertsToProd:
     name: Deploy alerts to prod
@@ -103,4 +103,4 @@ jobs:
           'APIKEY': '${{ secrets.NAIS_DEPLOY_APIKEY }}'
           'CLUSTER': 'prod-gcp'
           'RESOURCE': '.nais/prod/alerts.yaml'
-          'VARS': '.nais/prod.yaml'
+          'VARS': '.nais/prod/vars.yaml'

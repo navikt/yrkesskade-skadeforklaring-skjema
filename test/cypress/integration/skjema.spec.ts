@@ -39,13 +39,13 @@ describe('Skadeforklaring skjema', () => {
         endpointUrls.kodeverk.foerteDinSkadeEllerSykdomTilFravaer,
         'kodeverk/foerteDinSkadeEllerSykdomTilFravaer.json'
       )
-      .as('getFravaertyper');
+      .as('getFravaer');
 
     cy.visit('');
     cy.location().should('to.be', 'http://localhost:3006/');
   });
 
-  it('med vedlegg - ingen avvik', () => {
+  it.only('med vedlegg - ingen avvik', () => {
     const injuryTime = dayjs();
 
     cy.wait('@getBrukerinfo');
