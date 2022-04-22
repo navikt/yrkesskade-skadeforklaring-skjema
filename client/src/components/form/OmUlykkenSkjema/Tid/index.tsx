@@ -64,6 +64,7 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
     handleTimeValue(skadeforklaring.tid?.tidspunkt)
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [toDayInput, setToDayInput] = useState<DayPickerInput | null>();
   const [specificFromDay, setSpecificFromDay] = useState<Date | undefined>(
     handleDateValue(skadeforklaring.tid?.periode?.fra)

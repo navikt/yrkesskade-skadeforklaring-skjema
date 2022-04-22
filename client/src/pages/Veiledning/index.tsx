@@ -5,7 +5,6 @@ import {
   Cell,
   Button,
   BodyLong,
-  Label,
 } from '@navikt/ds-react';
 import { useNavigate } from 'react-router';
 import SystemHeader from '../../components/SystemHeader';
