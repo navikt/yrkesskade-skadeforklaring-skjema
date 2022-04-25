@@ -61,7 +61,7 @@ const Veiledning = () => {
               <Heading size="small">Kontakt</Heading>
               <BodyLong spacing>
                 Oppdager du problemer eller har spørsmål kan du ta kontakt på:
-                +47 920 36 454
+                55 55 33 33
               </BodyLong>
 
               <section className="button-section spacer button-group">
