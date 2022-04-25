@@ -15,9 +15,9 @@ const initialState: SkadeforklaringState = {
     tid: {
       tidstype: Tid.tidstype.TIDSPUNKT,
     },
-    behandler: {
-      erBehandlerOppsokt: 'undefined',
-      behandlerNavn: '',
+    helseinstitusjon: {
+      erHelsepersonellOppsokt: 'undefined',
+      navn: '',
     },
     fravaer: {
       foerteDinSkadeEllerSykdomTilFravaer: '',

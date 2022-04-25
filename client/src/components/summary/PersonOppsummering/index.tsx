@@ -24,8 +24,10 @@ const PersonOppsummering = () => {
       {bruker.brukerinfo?.identifikator !==
         skadeforklaring.skadelidt?.norskIdentitetsnummer && (
         <>
-          <Label>Innmelders rolle</Label>
-          <BodyLong spacing>{skadeforklaring.innmelder?.rolle}</BodyLong>
+          <Label>Innmelders innmelderrolle</Label>
+          <BodyLong spacing>
+            {skadeforklaring.innmelder?.innmelderrolle}
+          </BodyLong>
           <Label>Melder på vegne av</Label>
           <BodyLong>
             {skadeforklaring.skadelidt?.norskIdentitetsnummer}

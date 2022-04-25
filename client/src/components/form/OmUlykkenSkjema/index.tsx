@@ -2,7 +2,7 @@ import { Ingress, Textarea } from '@navikt/ds-react';
 import { useState, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import './OmUlykken.less';
-import LegeOppsokt from './LegeOppsokt';
+import Helseinstitusjon from './Helseinstitusjon';
 import Fravaertype from './FravaerType';
 import { Skadeforklaring } from '../../../api/skadeforklaring';
 import { useAppSelector } from '../../../core/hooks/state.hooks';
@@ -66,7 +66,7 @@ const OmUlykkenSkjema = () => {
 
       <Fravaertype className="spacer" />
 
-      <LegeOppsokt className="spacer" />
+      <Helseinstitusjon className="spacer" />
     </>
   );
 };

@@ -37,7 +37,7 @@ export interface PdfPeriode {
 }
 
 export interface PdfBehandler {
-  erBehandlerOppsokt: Soknadsfelt<string>;
+  erHelsepersonellOppsokt: Soknadsfelt<string>;
   behandlernavn: Soknadsfelt<string>;
   behandleradresse: Soknadsfelt<PdfAdresse>;
 }
@@ -55,7 +55,7 @@ export interface PdfSkadeforklaring {
   arbeidsbeskrivelse: Soknadsfelt<string>;
   ulykkesbeskrivelse: Soknadsfelt<string>;
   fravaer: PdfFravaer;
-  behandler: PdfBehandler;
+  helseinstitusjon: PdfBehandler;
   dokumentInfo: PdfDokumentInfo;
 }
 

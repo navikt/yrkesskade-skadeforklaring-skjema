@@ -17,7 +17,7 @@ import {
   Innmelder,
   Skadelidt,
   Tid,
-  Behandler,
+  Helseinstitusjon,
   Adresse,
   Fravaer,
 } from '../../client/src/api/skadeforklaring';
@@ -33,7 +33,7 @@ export const pdfSkadeforklaringMapper = (
     innmelder: mapInnmelder(skadeforklaring.innmelder),
     skadelidt: mapSkadelidt(skadeforklaring.skadelidt),
     tid: mapTid(skadeforklaring.tid),
-    behandler: mapBehandler(skadeforklaring.behandler),
+    helseinstitusjon: mapHelseinstitusjon(skadeforklaring.helseinstitusjon),
     dokumentInfo: hentDokumentinfo(),
     fravaer: mapFravaer(skadeforklaring.fravaer),
     arbeidsbeskrivelse: {
@@ -56,7 +56,7 @@ const mapInnmelder = (innmelder: Innmelder): PdfInnmelder => {
     navn: { label: 'Navn', verdi: '' },
     innmelderrolle: {
       label: 'Innmelderrolle',
-      verdi: innmelder.rolle,
+      verdi: innmelder.innmelderrolle,
     },
   };
 };
@@ -70,19 +70,21 @@ const mapSkadelidt = (skadelidt: Skadelidt): PdfSkadelidt => {
   };
 };
 
-const mapBehandler = (behandler: Behandler): PdfBehandler => {
+const mapHelseinstitusjon = (
+  helseinstitusjon: Helseinstitusjon
+): PdfBehandler => {
   return {
-    erBehandlerOppsokt: {
-      label: 'Ble behandler oppsøkt etter skaden?',
-      verdi: behandler.erBehandlerOppsokt,
+    erHelsepersonellOppsokt: {
+      label: 'Ble helseinstitusjon oppsøkt etter skaden?',
+      verdi: helseinstitusjon.erHelsepersonellOppsokt,
     },
     behandlernavn: {
       label: 'Navn på helseforetak, legevakt eller lege',
-      verdi: behandler.behandlerNavn,
+      verdi: helseinstitusjon.navn,
     },
     behandleradresse: {
       label: 'Adresse',
-      verdi: mapAdresse(behandler.adresse),
+      verdi: mapAdresse(helseinstitusjon.adresse),
     },
   };
 };

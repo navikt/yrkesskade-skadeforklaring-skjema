@@ -4,5 +4,5 @@
 
 export type Innmelder = {
     norskIdentitetsnummer: string;
-    rolle?: string;
+    innmelderrolle?: string;
 };

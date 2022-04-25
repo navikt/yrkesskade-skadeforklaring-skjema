@@ -96,24 +96,24 @@ const UlykkenOppsummering = () => {
       <BodyLong spacing>{fravaertype(skadeforklaring)}</BodyLong>
       <Label>Ble lege oppsøkt etter skaden?</Label>
       <BodyLong
-        spacing={skadeforklaring.behandler?.erBehandlerOppsokt === 'ja'}
+        spacing={
+          skadeforklaring.helseinstitusjon?.erHelsepersonellOppsokt === 'ja'
+        }
       >
-        {skadeforklaring.behandler?.erBehandlerOppsokt}
+        {skadeforklaring.helseinstitusjon?.erHelsepersonellOppsokt}
       </BodyLong>
-      {skadeforklaring.behandler?.erBehandlerOppsokt === 'ja' && (
+      {skadeforklaring.helseinstitusjon?.erHelsepersonellOppsokt === 'ja' && (
         <>
           <Label>Navn på helseforetak, legevakt eller lege</Label>
-          <BodyLong spacing>
-            {skadeforklaring.behandler?.behandlerNavn}
-          </BodyLong>
+          <BodyLong spacing>{skadeforklaring.helseinstitusjon?.navn}</BodyLong>
           <Label>Adresse</Label>
           <BodyLong spacing>
-            {skadeforklaring.behandler.adresse?.adresse}
+            {skadeforklaring.helseinstitusjon.adresse?.adresse}
           </BodyLong>
           <Label>Postnummer og sted</Label>
           <BodyLong>
-            {skadeforklaring.behandler?.adresse?.postnummer}{' '}
-            {skadeforklaring.behandler?.adresse?.poststed}
+            {skadeforklaring.helseinstitusjon?.adresse?.postnummer}{' '}
+            {skadeforklaring.helseinstitusjon?.adresse?.poststed}
           </BodyLong>
         </>
       )}

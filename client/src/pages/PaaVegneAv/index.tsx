@@ -67,9 +67,12 @@ const PaaVegneAv = () => {
       'innmelder.norskIdentitetsnummer',
       bruker.brukerinfo?.identifikator || ''
     );
-    if (bruker.brukerinfo?.identifikator !== person.identifikator) {
-      setValue('innmelder.rolle', 'Foresatt');
-    }
+    const innmelderrolle =
+      bruker.brukerinfo?.identifikator !== person.identifikator
+        ? 'vergeOgForesatt'
+        : 'denSkadelidte';
+    setValue('innmelder.innmelderrolle', innmelderrolle);
+
     navigate('/skjema/ulykken');
   };
 
