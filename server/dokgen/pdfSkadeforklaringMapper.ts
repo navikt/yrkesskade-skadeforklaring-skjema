@@ -36,11 +36,11 @@ export const pdfSkadeforklaringMapper = (
     helseinstitusjon: mapHelseinstitusjon(skadeforklaring.helseinstitusjon),
     dokumentInfo: hentDokumentinfo(),
     fravaer: mapFravaer(skadeforklaring.fravaer),
-    arbeidsbeskrivelse: {
+    arbeidetMedIUlykkesoeyeblikket: {
       label: 'Hva arbeidet du med i ulykkesøyeblikket',
       verdi: skadeforklaring.arbeidetMedIUlykkesoeyeblikket,
     },
-    ulykkesbeskrivelse: {
+    noeyaktigBeskrivelseAvHendelsen: {
       label: 'Gi en så nøyaktig beskrivelse av hendelsen som mulig',
       verdi: skadeforklaring.noeyaktigBeskrivelseAvHendelsen,
     },

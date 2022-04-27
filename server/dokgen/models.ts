@@ -52,8 +52,8 @@ export interface PdfSkadeforklaring {
   innmelder: PdfInnmelder;
   skadelidt: PdfSkadelidt;
   tid: PdfTid;
-  arbeidsbeskrivelse: Soknadsfelt<string>;
-  ulykkesbeskrivelse: Soknadsfelt<string>;
+  arbeidetMedIUlykkesoeyeblikket: Soknadsfelt<string>;
+  noeyaktigBeskrivelseAvHendelsen: Soknadsfelt<string>;
   fravaer: PdfFravaer;
   helseinstitusjon: PdfBehandler;
   dokumentInfo: PdfDokumentInfo;

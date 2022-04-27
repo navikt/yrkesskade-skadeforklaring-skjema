@@ -104,7 +104,7 @@ const PaaVegneAv = () => {
           <div>
             <div>
               <Heading size="2xlarge" spacing data-number="2">
-                Hvem skal du melde på vegne av?
+                Hvem skal du sende på vegne av?
               </Heading>
               <Personvelger
                 personer={personer}
@@ -112,7 +112,7 @@ const PaaVegneAv = () => {
                 data-test-id="person-velger"
               />
               <BodyLong spacing>
-                Du kan melde skadeforklaring digitalt på vegne av dine barn som
+                Du kan sende skadeforklaring digitalt på vegne av dine barn som
                 er oppført med samme bostedsadresse som deg i folkeregisteret.
                 Barn er yrkesskadedekket fra de begynner på skolen, og derfor
                 vil du kun få opp barn som er i skolealder frem til de er 18år.
