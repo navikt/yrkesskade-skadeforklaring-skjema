@@ -12,6 +12,7 @@ import { useCancel } from '../../core/hooks/cancel.hooks';
 import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 import { logMessage } from '../../utils/logging';
 import { logAmplitudeEvent } from '../../utils/analytics/amplitude';
+import './Veiledning.less';
 
 const Veiledning = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const Veiledning = () => {
       <Grid>
         <Cell xs={12} lg={2}></Cell>
         <Cell xs={12} lg={5}>
-          <div>
+          <div className="top-spacer">
             <div>
               <Heading size="2xlarge" spacing data-number="1">
                 Skadeforklaringskjema ved arbeidsulykke

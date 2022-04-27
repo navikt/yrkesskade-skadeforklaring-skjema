@@ -25,7 +25,7 @@ const initialState: SkadeforklaringState = {
     },
     arbeidetMedIUlykkesoeyeblikket: '',
     noeyaktigBeskrivelseAvHendelsen: '',
-    vedleggtype: '',
+    skalEttersendeDokumentasjon: '',
     vedleggreferanser: [],
   },
 };

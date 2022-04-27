@@ -1,7 +1,7 @@
 import { Attachment } from '../../types/attachment';
 import { isAttachmentWithError, mapFileToAttachment } from './util';
 import AttachmentInput from './AttachmentInput';
-import { Label } from '@navikt/ds-react';
+import { BodyShort, Label } from '@navikt/ds-react';
 import { bytesString, getTotalFileSize } from '../../utils/filesize';
 import AttachmentList from './AttachmentList';
 import Block from '../Block';
@@ -96,6 +96,10 @@ const AttachmentOverview = (props: AttachmentOverviewProps) => {
           onClose={deleteFailedAttachments}
         />
       </Block>
+      <BodyShort spacing size="small">
+        Filtyper som støttes er: <strong>PNG</strong>, <strong>JPEG</strong> og{' '}
+        <strong>PDF</strong>. Filstørrelsen kan ikke være større enn 8 MB.
+      </BodyShort>
       <>
         {showAttachments && (
           <>

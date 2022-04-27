@@ -1,5 +1,5 @@
 import { Attachment } from '@navikt/ds-icons';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyLong, BodyShort, Label } from '@navikt/ds-react';
 import {
   Skadeforklaring,
   Vedleggreferanse,
@@ -13,22 +13,16 @@ const VedleggOppsummering = () => {
     selectSkadeforklaring(state)
   );
 
-  const presenterOppsummering = (): JSX.Element => {
-    switch (skadeforklaring.vedleggtype) {
-      case 'digital':
-        return <Digital skadeforklaring={skadeforklaring} />;
-      case 'papir':
-        return <Papir />;
-      default:
-        return <BodyShort>Ingen vedlegg</BodyShort>;
-    }
-  };
-
-  return presenterOppsummering();
-};
-
-const Papir = () => {
-  return <BodyShort>Du har valgt å sende inn vedlegg per post</BodyShort>;
+  return (
+    <>
+      <Digital skadeforklaring={skadeforklaring} />
+      <div className="spacer"></div>
+      <Label>Skal dokumenter ettersendes?</Label>
+      <BodyLong>
+        {skadeforklaring.helseinstitusjon?.erHelsepersonellOppsokt}
+      </BodyLong>
+    </>
+  );
 };
 
 interface DigitalVedleggProps {

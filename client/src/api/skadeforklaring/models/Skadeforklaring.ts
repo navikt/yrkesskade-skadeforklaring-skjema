@@ -19,7 +19,7 @@ export type Skadeforklaring = {
     arbeidetMedIUlykkesoeyeblikket: string;
     noeyaktigBeskrivelseAvHendelsen: string;
     tid: Tid;
-    vedleggtype: string;
+    skalEttersendeDokumentasjon: string;
     vedleggreferanser: Array<Vedleggreferanse>;
     fravaer: Fravaer;
     helseinstitusjon: Helseinstitusjon;

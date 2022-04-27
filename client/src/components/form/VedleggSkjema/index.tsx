@@ -1,11 +1,16 @@
-import { Ingress, Radio, RadioGroup } from '@navikt/ds-react';
+import {
+  BodyShort,
+  Heading,
+  Ingress,
+  Radio,
+  RadioGroup,
+} from '@navikt/ds-react';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Skadeforklaring } from '../../../api/skadeforklaring/models/Skadeforklaring';
 import { useAppSelector } from '../../../core/hooks/state.hooks';
 import { selectSkadeforklaring } from '../../../core/reducers/skadeforklaring.reducer';
 import Opplast from './Opplast';
-import Papir from './Papir';
 
 const VedleggSkjema = () => {
   const {
@@ -15,66 +20,64 @@ const VedleggSkjema = () => {
   const skadeforklaring = useAppSelector((state) =>
     selectSkadeforklaring(state)
   );
-  const [vedleggtype, setVedleggtype] = useState<string>(
-    skadeforklaring.vedleggtype || ''
-  );
+  const [skalEttersendeDokumentasjon, setSkalEttersendeDokumentasjon] =
+    useState<string>(skadeforklaring.skalEttersendeDokumentasjon);
 
-  const visVedleggType = () => {
-    switch (vedleggtype) {
-      case 'digital':
-        return <Opplast />;
-      case 'papir':
-        return <Papir />;
-      default:
-        return <></>;
-    }
-  };
   return (
     <>
       <Ingress spacing>
         Har du noen vedlegg som du ønsker å legge ved her. Du kan også
         ettersende dem per post.
       </Ingress>
+
+      <Opplast />
+      <div className="spacer"></div>
+      <Heading size="small" spacing>
+        Ettersendelse
+      </Heading>
+      <BodyShort spacing>
+        Dersom NAV har bedt om konkret informasjon har du mulighet til å
+        ettersende dette innen fristen NAV har gitt. Trenger du lengre frist ta
+        kontakt med NAV kontaktsenter på 55 55 33 33.
+      </BodyShort>
+      <BodyShort spacing>
+        Hvis du ikke innsender etterspurt dokumentasjon innen frist vil saken
+        bli behandlet basert på de opplysningene NAV har mottatt.
+      </BodyShort>
+
       <RadioGroup
         className="spacer"
+        hideLegend
         legend="Jeg skal ettersende dokumenter"
-        value={vedleggtype}
-        error={errors?.vedleggtype && errors?.vedleggtype.message}
-        {...register('vedleggtype', {
+        value={skalEttersendeDokumentasjon.toString()}
+        error={
+          errors?.skalEttersendeDokumentasjon &&
+          errors?.skalEttersendeDokumentasjon.message
+        }
+        {...register('skalEttersendeDokumentasjon', {
           required: 'Dette feltet er påkrevd',
         })}
-        onChange={(e) => setVedleggtype(e)}
+        onChange={(e) => setSkalEttersendeDokumentasjon(e)}
       >
         <Radio
-          value="digital"
-          data-test-id="vedlegg-type-digital"
-          {...register('vedleggtype', {
+          value="ja"
+          data-test-id="skal-ettersende-dokumentasjon-ja"
+          {...register('skalEttersendeDokumentasjon', {
             required: 'Dette feltet er påkrevd',
           })}
         >
-          Ja, jeg legger det ved denne skadeforklaringen
+          Jeg skal ettersende dokumenter
         </Radio>
         <Radio
-          value="papir"
-          data-test-id="vedlegg-type-papir"
-          {...register('vedleggtype', {
+          value="nei"
+          data-test-id="skal-ettersende-dokumentasjon-nei"
+          {...register('skalEttersendeDokumentasjon', {
             required: 'Dette feltet er påkrevd',
           })}
         >
-          Ja, jeg sender per post
-        </Radio>
-        <Radio
-          value="ingen"
-          data-test-id="vedlegg-type-ingen"
-          {...register('vedleggtype', {
-            required: 'Dette feltet er påkrevd',
-          })}
-        >
-          Nei, jeg har ingen vedlegg
+          Jeg har ikke noen mer å tilføye
         </Radio>
       </RadioGroup>
-
-      {visVedleggType()}
     </>
   );
 };
