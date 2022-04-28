@@ -21,8 +21,13 @@ import {
   Adresse,
   Fravaer,
 } from '../../client/src/api/skadeforklaring';
+import { format } from 'date-fns';
+import { nb } from 'date-fns/locale';
 
-const DATO_FORMAT = 'DD.MM.YYYY';
+export const formatDate = (date: any, formatStr: string) =>
+  format(date, formatStr, { locale: nb });
+
+const DATO_FORMAT = 'dd.MM.yyyy';
 const KLOKKESLETT_FORMAT = 'HH:mm';
 
 export const pdfSkadeforklaringMapper = (
@@ -105,8 +110,8 @@ const mapTid = (tid: Tid): PdfTid => {
       tidspunkt: {
         label: 'Tidspunkt',
         verdi: {
-          dato: dayjs(tid.tidspunkt).format(DATO_FORMAT),
-          klokkeslett: dayjs(tid.tidspunkt).format(KLOKKESLETT_FORMAT),
+          dato: formatDate(tid, DATO_FORMAT),
+          klokkeslett: formatDate(tid, KLOKKESLETT_FORMAT),
         } as PdfTidspunkt,
       },
       tidstype: tid.tidstype,
@@ -117,8 +122,8 @@ const mapTid = (tid: Tid): PdfTid => {
       periode: {
         label: 'Periode',
         verdi: {
-          fra: dayjs(tid.periode.fra).format(DATO_FORMAT),
-          til: dayjs(tid.periode.til).format(DATO_FORMAT),
+          fra: formatDate(tid.periode.fra, DATO_FORMAT),
+          til: formatDate(tid.periode.til, DATO_FORMAT),
         } as PdfPeriode,
       },
     };
@@ -138,7 +143,7 @@ const hentDokumentinfo = (): PdfDokumentInfo => {
   return {
     dokumentnavn: 'Kopi av skadeforklaring',
     dokumentDatoPrefix: 'Kopi generert',
-    dokumentDato: dayjs(new Date()).format(DATO_FORMAT),
+    dokumentDato: formatDate(new Date(), DATO_FORMAT),
     dokumentnummer:
       'Dette dokumenter er en oppsummering av det som er sendt til NAV',
     tekster: hentDokumenttekster(),

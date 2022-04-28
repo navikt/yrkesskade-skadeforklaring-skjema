@@ -26,7 +26,7 @@ const UlykkenOppsummering = () => {
       case Tid.tidstype.TIDSPUNKT:
         return formatDato(
           skadeforklaring.tid.tidspunkt,
-          `${DATO_FORMAT} HH:MM`
+          `${DATO_FORMAT} HH:mm`
         );
       case Tid.tidstype.PERIODE:
         return `${formatDato(skadeforklaring.tid.periode?.fra)} - ${formatDato(
