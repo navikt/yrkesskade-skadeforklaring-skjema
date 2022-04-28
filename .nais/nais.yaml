@@ -28,10 +28,14 @@ spec:
       level: Level4
   accessPolicy:
     outbound:
-       rules:
+      rules:
         - application: yrkesskade-skadeforklaring-api
         - application: yrkesskade-dokgen
         - application: yrkesskade-kodeverk
+      external:
+      {{#each external as |url|}}
+        - {{url}}
+      {{/each}}
   ingresses:
   {{#each ingresses as |url|}}
     - {{url}}
