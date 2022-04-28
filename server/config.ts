@@ -14,7 +14,7 @@ const IDPORTEN_COOKIE_NAME = 'local-idtoken';
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
-  BASE_PATH: '/',
+  BASE_PATH: '/skadeforklaring',
   APP_URL,
   API_URL,
   DOKGEN_URL,

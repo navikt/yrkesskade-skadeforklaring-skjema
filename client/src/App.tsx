@@ -46,16 +46,18 @@ const App = () => {
       <FormProvider {...methods}>
         <StepsProvider stepsDefinition={steps}>
           <Routes>
-            <Route index element={<Landing />} />
-            <Route path="skjema">
-              <Route index element={<Veiledning />} />
-              <Route path="person" element={<PaaVegneAv />} />
-              <Route path="ulykken" element={<Ulykken />} />
-              <Route path="vedlegg" element={<Vedlegg />} />
-              <Route path="oppsummering" element={<Oppsummering />} />
-              <Route path="kvittering" element={<Kvittering />} />
+            <Route path="skadeforklaring">
+              <Route index element={<Landing />} />
+              <Route path="skjema">
+                <Route index element={<Veiledning />} />
+                <Route path="person" element={<PaaVegneAv />} />
+                <Route path="ulykken" element={<Ulykken />} />
+                <Route path="vedlegg" element={<Vedlegg />} />
+                <Route path="oppsummering" element={<Oppsummering />} />
+                <Route path="kvittering" element={<Kvittering />} />
+              </Route>
+              <Route path="feilmelding" element={<Feil />} />
             </Route>
-            <Route path="feilmelding" element={<Feil />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </StepsProvider>
