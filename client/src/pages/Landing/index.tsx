@@ -14,7 +14,7 @@ const Landing = () => {
   useEffect(() => {
     if (innloggetBruker === InnloggetStatus.OK) {
       logMessage('Bruker har logget inn og blir sendt videre til skjema siden');
-      navigate('skjema');
+      navigate('/skadeforklaring/skjema');
     }
   }, [innloggetBruker, navigate]);
 
