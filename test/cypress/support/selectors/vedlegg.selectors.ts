@@ -1,6 +1,7 @@
 export const vedlegg = {
-  digital: () => cy.get('[data-test-id="vedlegg-type-digital"]'),
-  papir: () => cy.get('[data-test-id="vedlegg-type-papir"]'),
-  ingen: () => cy.get('[data-test-id="vedlegg-type-ingen"]'),
+  ingenEttersending: () =>
+    cy.get('[data-test-id="skal-ettersende-dokumentasjon-nei"]'),
+  harEttersending: () =>
+    cy.get('[data-test-id="skal-ettersende-dokumentasjon-ja"]'),
   opplastKnapp: () => cy.get('.attachmentButton'),
 };

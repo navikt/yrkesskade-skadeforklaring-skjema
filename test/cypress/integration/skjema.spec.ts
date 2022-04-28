@@ -90,11 +90,12 @@ describe('Skadeforklaring skjema', () => {
     // gå til vedlegg
     general.nextStep().click();
 
-    vedlegg.digital().click();
     vedlegg
       .opplastKnapp()
       .attachFile('test-dokument.pdf', { subjectType: 'drag-n-drop' });
     cy.wait('@postVedlegg');
+
+    vedlegg.ingenEttersending().click();
 
     // gå til oppsummering
     general.nextStep().click();
