@@ -42,7 +42,7 @@ describe('Skadeforklaring skjema', () => {
       .as('getFravaer');
 
     cy.visit('');
-    cy.location().should('to.be', 'http://localhost:3006/');
+    cy.location().should('to.be', 'http://localhost:3006/skadeforklaring/');
   });
 
   it.only('med vedlegg - ingen avvik', () => {

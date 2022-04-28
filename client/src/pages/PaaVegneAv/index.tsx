@@ -73,7 +73,7 @@ const PaaVegneAv = () => {
         : 'denSkadelidte';
     setValue('innmelder.innmelderrolle', innmelderrolle);
 
-    navigate('/skjema/ulykken');
+    navigate('/skadeforklaring/skjema/ulykken');
   };
 
   const kalkulerPersontype = (fodselsaar?: number): PersonType => {

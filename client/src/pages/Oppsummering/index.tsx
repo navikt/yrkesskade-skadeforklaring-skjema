@@ -40,13 +40,13 @@ const Oppsummering = () => {
       await SkadeforklaringApiService.postSkadeforklaring(skadeforklaring);
       logMessage('Skjemainnsending fullført');
       logAmplitudeEvent('skadeforklaring.innmelding', { status: 'fullfort' });
-      navigate('/skjema/kvittering');
+      navigate('/skadeforklaring/skjema/kvittering');
     } catch (e: any) {
       logAmplitudeEvent('skadeforklaring.innmelding', {
         status: 'feilet',
         feilmelding: e.body,
       });
-      navigate('/feilmelding', { state: e.body });
+      navigate('/skadeforklaring/feilmelding', { state: e.body });
     }
   };
 

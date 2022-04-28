@@ -21,7 +21,7 @@ const Veiledning = () => {
   const handleNext = () => {
     logMessage('Skjemautfylling påbegynt');
     logAmplitudeEvent('skadeforklaring.innmelding', { status: 'startet' });
-    navigate('/skjema/person');
+    navigate('/skadeforklaring/skjema/person');
   };
 
   return (

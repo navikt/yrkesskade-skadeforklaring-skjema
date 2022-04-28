@@ -24,7 +24,7 @@ const Vedlegg = () => {
 
   const handleNext = (data: Skadeforklaring) => {
     dispatch(oppdaterSkadeforklaring(data));
-    navigate('/skjema/oppsummering');
+    navigate('/skadeforklaring/skjema/oppsummering');
   };
 
   return (
