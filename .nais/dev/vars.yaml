@@ -1,19 +1,19 @@
 ingresses:
-  - 'https://skadeforklaring.dev.nav.no'
+  - https://skadeforklaring.dev.nav.no
 env:
   - name: DECORATOR_URL
-    value: 'https://dekoratoren.dev.nav.no'
+    value: https://dekoratoren.dev.nav.no
   - name: DECORATOR_ENV
-    value: 'dev'
+    value: dev
   - name: NODE_ENV
     value: dev
   - name: ENV
     value: dev
   - name: TOKENX_AUDIENCE
-    value: 'dev-gcp:yrkesskade:yrkesskade-skadeforklaring-api'
+    value: dev-gcp:yrkesskade:yrkesskade-skadeforklaring-api
   - name: API_URL
     value: https://yrkesskade-skadeforklaring-api.dev.intern.nav.no/api
   - name: DOKGEN_URL
     value: https://yrkesskade-dokgen.dev.intern.nav.no
 externals:
-  - 'dekoratoren.dev.nav.no'
+  - dekoratoren.dev.nav.no
