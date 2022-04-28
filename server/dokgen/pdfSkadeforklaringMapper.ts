@@ -11,7 +11,6 @@ import {
   PdfTid,
   PdfTidspunkt,
 } from './models';
-import dayjs from 'dayjs';
 import {
   Skadeforklaring,
   Innmelder,
@@ -21,7 +20,7 @@ import {
   Adresse,
   Fravaer,
 } from '../../client/src/api/skadeforklaring';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import { nb } from 'date-fns/locale';
 
 export const formatDate = (date: any, formatStr: string) =>
@@ -110,8 +109,8 @@ const mapTid = (tid: Tid): PdfTid => {
       tidspunkt: {
         label: 'Tidspunkt',
         verdi: {
-          dato: formatDate(tid, DATO_FORMAT),
-          klokkeslett: formatDate(tid, KLOKKESLETT_FORMAT),
+          dato: formatDate(parseISO(tid.tidspunkt), DATO_FORMAT),
+          klokkeslett: formatDate(parseISO(tid.tidspunkt), KLOKKESLETT_FORMAT),
         } as PdfTidspunkt,
       },
       tidstype: tid.tidstype,
@@ -122,8 +121,8 @@ const mapTid = (tid: Tid): PdfTid => {
       periode: {
         label: 'Periode',
         verdi: {
-          fra: formatDate(tid.periode.fra, DATO_FORMAT),
-          til: formatDate(tid.periode.til, DATO_FORMAT),
+          fra: formatDate(parseISO(tid.periode.fra), DATO_FORMAT),
+          til: formatDate(parseISO(tid.periode.til), DATO_FORMAT),
         } as PdfPeriode,
       },
     };
