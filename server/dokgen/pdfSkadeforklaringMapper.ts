@@ -1,6 +1,6 @@
 import {
   PdfAdresse,
-  PdfBehandler,
+  PdfHelseinstitusjon,
   PdfDokumentInfo,
   PdfFravaer,
   PdfInnmelder,
@@ -22,6 +22,7 @@ import {
 } from '../../client/src/api/skadeforklaring';
 import { format, parseISO } from 'date-fns';
 import { nb } from 'date-fns/locale';
+import { capitalize } from '../../client/src/utils/string';
 
 export const formatDate = (date: any, formatStr: string) =>
   format(date, formatStr, { locale: nb });
@@ -48,6 +49,20 @@ export const pdfSkadeforklaringMapper = (
       label: 'Gi en så nøyaktig beskrivelse av hendelsen som mulig',
       verdi: skadeforklaring.noeyaktigBeskrivelseAvHendelsen,
     },
+    vedleggInfo: mapVedleggInfo(skadeforklaring),
+  };
+};
+
+const mapVedleggInfo = (skadeforklaring: Skadeforklaring) => {
+  const vedlegg = skadeforklaring.vedleggreferanser.map(
+    (vedleggreferanse) => vedleggreferanse.navn
+  );
+  if (skadeforklaring.skalEttersendeDokumentasjon === 'ja') {
+    vedlegg.push('Skal ettersende dokumentasjon');
+  }
+  return {
+    label: 'Vedlegg',
+    verdi: vedlegg,
   };
 };
 
@@ -76,17 +91,17 @@ const mapSkadelidt = (skadelidt: Skadelidt): PdfSkadelidt => {
 
 const mapHelseinstitusjon = (
   helseinstitusjon: Helseinstitusjon
-): PdfBehandler => {
+): PdfHelseinstitusjon => {
   return {
     erHelsepersonellOppsokt: {
       label: 'Ble helseinstitusjon oppsøkt etter skaden?',
-      verdi: helseinstitusjon.erHelsepersonellOppsokt,
+      verdi: capitalize(helseinstitusjon.erHelsepersonellOppsokt),
     },
-    behandlernavn: {
+    navn: {
       label: 'Navn på helseforetak, legevakt eller lege',
       verdi: helseinstitusjon.navn,
     },
-    behandleradresse: {
+    adresse: {
       label: 'Adresse',
       verdi: mapAdresse(helseinstitusjon.adresse),
     },
@@ -157,5 +172,6 @@ const hentDokumenttekster = (): PdfTekster => {
     omUlykkenSeksjonstittel: 'Om ulykken',
     skadelidtSeksjonstittel: 'Den skadelidte',
     tidOgStedSeksjonstittel: 'Tid og sted',
+    vedleggSeksjonstittel: 'Vedlegg',
   };
 };

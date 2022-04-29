@@ -45,7 +45,7 @@ describe('Skadeforklaring skjema', () => {
     cy.location().should('to.be', 'http://localhost:3006/skadeforklaring/');
   });
 
-  it.only('med vedlegg - ingen avvik', () => {
+  it('med vedlegg - ingen avvik', () => {
     const injuryTime = dayjs();
 
     cy.wait('@getBrukerinfo');
@@ -144,7 +144,7 @@ describe('Skadeforklaring skjema', () => {
     // gå til vedlegg
     general.nextStep().click();
 
-    vedlegg.papir().click();
+    vedlegg.harEttersending().click();
 
     // gå til oppsummering
     general.nextStep().click();
