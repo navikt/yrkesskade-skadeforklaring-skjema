@@ -69,7 +69,7 @@ const Fravaertype: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
           )}
       </RadioGroup>
 
-      {fravaer && fravaer !== 'nei' && fravaer !== 'oenskerIkkeAaOppgi' && (
+      {fravaer && fravaer !== 'nei' && fravaer !== 'ikkeRelevant' && (
         <>
           <RadioGroup
             legend="Velg type fravær"
