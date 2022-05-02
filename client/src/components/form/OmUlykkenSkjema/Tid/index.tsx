@@ -18,9 +18,13 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import './Tid.less';
 import { Tid as TidModel } from '../../../../api/skadeforklaring';
 import { getEnumKeyByEnumValue } from '../../../../utils/enumHelper';
+import { format } from 'path';
+import nb from 'date-fns/locale/nb';
+import { parse } from 'date-fns';
 
 const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   const FORMAT: string = 'dd.MM.yyyy';
+  const TIDSPUNKT_FORMAT: string = `${FORMAT} HH:mm`;
 
   const {
     register,
@@ -109,18 +113,17 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
 
   useEffect(() => {
     if (specificDate && specificTime && isKlokkeslett(specificTime)) {
-      const timeparts = specificTime.split(':');
-      const newDate = new Date(
-        specificDate.getUTCFullYear(),
-        specificDate?.getUTCMonth(),
-        specificDate?.getUTCDay(),
-        parseInt(timeparts[0]),
-        parseInt(timeparts[1])
-      );
+      const dato = formatDate(specificDate, FORMAT);
+      const tidspunkt = `${dato} ${specificTime}`;
+      const isoDate = parse(
+        tidspunkt,
+        TIDSPUNKT_FORMAT,
+        new Date().getTime()
+      ).toISOString();
 
-      setValue('tid.tidspunkt', newDate.toISOString());
+      setValue('tid.tidspunkt', isoDate);
     }
-  }, [specificTime, specificDate, setValue]);
+  }, [specificTime, specificDate, setValue, TIDSPUNKT_FORMAT]);
 
   useEffect(() => {
     if (timeType !== 'PERIODE') {
