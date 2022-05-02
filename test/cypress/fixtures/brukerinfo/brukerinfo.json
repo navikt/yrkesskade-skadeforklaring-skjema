@@ -1,1 +1,19 @@
-{ "identifikator": "12345678910" }
+{
+  "identifikator": "12345678910",
+  "navn": "Andre McMock",
+  "fodselsdato": "26-04-1986",
+  "foreldreansvar": [
+    {
+      "identifikator": "01234567891",
+      "navn": "Nord McMock",
+      "foedselsdato": "01-01-2010",
+      "foedselsaar": 2010
+    },
+    {
+      "identifikator": "23456789101",
+      "navn": "Vest McMock",
+      "foedselsdato": "120-04-2016",
+      "foedselsaar": 2016
+    }
+  ]
+}

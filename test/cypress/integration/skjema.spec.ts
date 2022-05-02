@@ -19,6 +19,7 @@ describe('Skadeforklaring skjema', () => {
     network
       .intercept(endpointUrls.brukerinfo, 'brukerinfo/brukerinfo.json')
       .as('getBrukerinfo');
+
     network
       .intercept(endpointUrls.skadeforklaringer, 'skadeforklaring.json')
       .as('postSkadeforklaring');
@@ -47,7 +48,8 @@ describe('Skadeforklaring skjema', () => {
     cy.location().should('to.be', 'http://localhost:3006/skadeforklaring/');
   });
 
-  it('med vedlegg - ingen avvik', () => {
+  it('med vedlegg, ingen ettersending - ingen avvik', () => {
+    // test
     const injuryTime = dayjs();
 
     cy.wait('@getBrukerinfo');
@@ -110,13 +112,25 @@ describe('Skadeforklaring skjema', () => {
     );
   });
 
-  it('med papir vedlegg - ingen avvik', () => {
+  it('uten vedlegg, med ettersending - ingen avvik', () => {
+    // stubs
+
+    network
+      .intercept(
+        endpointUrls.brukerinfo,
+        'brukerinfo/brukerinfo-uten-foreldre-ansvar.json'
+      )
+      .as('getBrukerinfo');
+
+    // tests
     const injuryTime = dayjs();
 
     general.nextStep().click();
 
-    // velg person
-    person.personvelger(1).click();
+    // velg person - finnes bare en person og da blir innlogget bruker satt autmoatisk
+    general.nextStep().click();
+
+    // test validering på ulykke skjema - skal ikke kunne gå videre
     general.nextStep().click();
 
     // velg tidspunkt

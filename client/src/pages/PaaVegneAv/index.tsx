@@ -4,6 +4,7 @@ import {
   Cell,
   Heading,
   BodyLong,
+  Button,
 } from '@navikt/ds-react';
 import SystemHeader from '../../components/SystemHeader';
 import {
@@ -60,13 +61,25 @@ const PaaVegneAv = () => {
   }, [bruker]);
 
   const handlePersonChange = (person: Person) => {
-    setValue('skadelidt.norskIdentitetsnummer', person.identifikator);
+    settPersonOgNavigate(person.identifikator);
+  };
+
+  const handleNext = () => {
+    if (bruker.brukerinfo) {
+      settPersonOgNavigate(bruker.brukerinfo?.identifikator);
+    } else {
+      throw new Error('Bruker er ikke satt');
+    }
+  };
+
+  const settPersonOgNavigate = (identifikator: string) => {
+    setValue('skadelidt.norskIdentitetsnummer', identifikator);
     setValue(
       'innmelder.norskIdentitetsnummer',
       bruker.brukerinfo?.identifikator || ''
     );
     const innmelderrolle =
-      bruker.brukerinfo?.identifikator !== person.identifikator
+      bruker.brukerinfo?.identifikator !== identifikator
         ? 'vergeOgForesatt'
         : 'denSkadelidte';
     setValue('innmelder.innmelderrolle', innmelderrolle);
@@ -124,6 +137,16 @@ const PaaVegneAv = () => {
               </BodyLong>
               <section className="button-section spacer button-group">
                 <ExitButton />
+
+                {bruker.brukerinfo?.foreldreansvar.length === 0 && (
+                  <Button
+                    variant="primary"
+                    onClick={handleNext}
+                    data-test-id="neste-steg"
+                  >
+                    Neste
+                  </Button>
+                )}
               </section>
             </div>
           </div>
