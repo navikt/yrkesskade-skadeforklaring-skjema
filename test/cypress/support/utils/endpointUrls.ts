@@ -13,4 +13,5 @@ export const endpointUrls = {
     tidsrom: '**/api/*/kodeverk/typer/tidsrom/kategorier/*/kodeverdier',
   },
   vedlegg: '**/api/*/vedlegg',
+  amplitude: '**/collect-auto',
 };

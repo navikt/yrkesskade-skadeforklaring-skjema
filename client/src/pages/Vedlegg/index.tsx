@@ -10,9 +10,9 @@ import { useFormContext } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { Skadeforklaring } from '../../api/skadeforklaring/models/Skadeforklaring';
 import BackButton from '../../components/BackButton';
+import ExitButton from '../../components/ExitButton';
 import VedleggSkjema from '../../components/form/VedleggSkjema';
 import SystemHeader from '../../components/SystemHeader';
-import { useCancel } from '../../core/hooks/cancel.hooks';
 import { useAppDispatch } from '../../core/hooks/state.hooks';
 import { oppdaterSkadeforklaring } from '../../core/reducers/skadeforklaring.reducer';
 
@@ -20,7 +20,6 @@ const Vedlegg = () => {
   const { handleSubmit } = useFormContext<Skadeforklaring>();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const cancel = useCancel();
 
   const handleNext = (data: Skadeforklaring) => {
     dispatch(oppdaterSkadeforklaring(data));
@@ -41,13 +40,7 @@ const Vedlegg = () => {
               </Heading>
               <VedleggSkjema />
               <section className="button-section spacer button-group">
-                <Button
-                  variant="secondary"
-                  onClick={cancel}
-                  data-test-id="avbryt-skadeforklaring"
-                >
-                  Avbryt
-                </Button>
+                <ExitButton />
                 <Button
                   variant="primary"
                   onClick={handleSubmit(handleNext)}

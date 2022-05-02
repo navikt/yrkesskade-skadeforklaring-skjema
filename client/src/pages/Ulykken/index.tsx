@@ -13,14 +13,13 @@ import 'react-day-picker/lib/style.css';
 import { oppdaterSkadeforklaring } from '../../core/reducers/skadeforklaring.reducer';
 import { useDispatch } from 'react-redux';
 import { Skadeforklaring } from '../../api/skadeforklaring';
-import { useCancel } from '../../core/hooks/cancel.hooks';
 import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 import BackButton from '../../components/BackButton';
+import ExitButton from '../../components/ExitButton';
 
 const Ulykken = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cancel = useCancel();
   const { handleSubmit } = useFormContext<Skadeforklaring>();
 
   const handleNext = (data: Skadeforklaring) => {
@@ -42,13 +41,7 @@ const Ulykken = () => {
               </Heading>
               <OmUlykkenSkjema />
               <section className="button-section spacer button-group">
-                <Button
-                  variant="secondary"
-                  onClick={cancel}
-                  data-test-id="avbryt-skadeforklaring"
-                >
-                  Avbryt
-                </Button>
+                <ExitButton />
                 <Button
                   variant="primary"
                   onClick={handleSubmit(handleNext)}

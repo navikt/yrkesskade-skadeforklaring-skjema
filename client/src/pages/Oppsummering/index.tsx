@@ -14,11 +14,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { SkadeforklaringApiService } from '../../api/skadeforklaring/services/SkadeforklaringApiService';
 import BackButton from '../../components/BackButton';
+import ExitButton from '../../components/ExitButton';
 import PersonOppsummering from '../../components/summary/PersonOppsummering';
 import UlykkenOppsummering from '../../components/summary/UlykkenOppsummering';
 import VedleggOppsummering from '../../components/summary/VedleggOppsummering';
 import SystemHeader from '../../components/SystemHeader';
-import { useCancel } from '../../core/hooks/cancel.hooks';
 import { useAppSelector } from '../../core/hooks/state.hooks';
 import { selectSkadeforklaring } from '../../core/reducers/skadeforklaring.reducer';
 import { logAmplitudeEvent } from '../../utils/analytics/amplitude';
@@ -27,7 +27,6 @@ import './Oppsummering.less';
 
 const Oppsummering = () => {
   const navigate = useNavigate();
-  const cancel = useCancel();
   const [clicked, setClicked] = useState<boolean>(false);
 
   const skadeforklaring = useAppSelector((state) =>
@@ -94,13 +93,7 @@ const Oppsummering = () => {
                 </Accordion.Item>
               </Accordion>
               <section className="button-section spacer button-group">
-                <Button
-                  variant="secondary"
-                  onClick={cancel}
-                  data-test-id="avbryt-skadeforklaring"
-                >
-                  Avbryt
-                </Button>
+                <ExitButton />
                 <Button
                   variant="primary"
                   onClick={handleSubmit}

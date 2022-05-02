@@ -8,15 +8,14 @@ import {
 } from '@navikt/ds-react';
 import { useNavigate } from 'react-router';
 import SystemHeader from '../../components/SystemHeader';
-import { useCancel } from '../../core/hooks/cancel.hooks';
 import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 import { logMessage } from '../../utils/logging';
 import { logAmplitudeEvent } from '../../utils/analytics/amplitude';
 import './Veiledning.less';
+import ExitButton from '../../components/ExitButton';
 
 const Veiledning = () => {
   const navigate = useNavigate();
-  const cancel = useCancel();
 
   const handleNext = () => {
     logMessage('Skjemautfylling påbegynt');
@@ -66,13 +65,7 @@ const Veiledning = () => {
               </BodyLong>
 
               <section className="button-section spacer button-group">
-                <Button
-                  variant="secondary"
-                  onClick={cancel}
-                  data-test-id="avbryt-skadeforklaring"
-                >
-                  Avbryt
-                </Button>
+                <ExitButton />
                 <Button
                   variant="primary"
                   onClick={handleNext}

@@ -3,7 +3,6 @@ import {
   Grid,
   Cell,
   Heading,
-  Button,
   BodyLong,
 } from '@navikt/ds-react';
 import SystemHeader from '../../components/SystemHeader';
@@ -13,7 +12,6 @@ import {
   PersonType,
 } from '@navikt/yrkesskade-personvelger';
 import { useNavigate } from 'react-router';
-import { useCancel } from '../../core/hooks/cancel.hooks';
 import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 import BackButton from '../../components/BackButton';
 import { useFormContext } from 'react-hook-form';
@@ -22,10 +20,10 @@ import { useAppSelector } from '../../core/hooks/state.hooks';
 import { selectBruker } from '../../core/reducers/bruker.reducer';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
+import ExitButton from '../../components/ExitButton';
 
 const PaaVegneAv = () => {
   const navigate = useNavigate();
-  const cancel = useCancel();
   const { setValue } = useFormContext<Skadeforklaring>();
   const bruker = useAppSelector((state) => selectBruker(state));
 
@@ -125,13 +123,7 @@ const PaaVegneAv = () => {
                 personen du velger.
               </BodyLong>
               <section className="button-section spacer button-group">
-                <Button
-                  variant="secondary"
-                  onClick={cancel}
-                  data-test-id="avbryt-skadeforklaring"
-                >
-                  Avbryt
-                </Button>
+                <ExitButton />
               </section>
             </div>
           </div>

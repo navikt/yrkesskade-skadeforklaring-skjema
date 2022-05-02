@@ -41,6 +41,8 @@ describe('Skadeforklaring skjema', () => {
       )
       .as('getFravaer');
 
+    network.intercept(endpointUrls.amplitude, 'amplitude.json').as('amplitude');
+
     cy.visit('');
     cy.location().should('to.be', 'http://localhost:3006/skadeforklaring/');
   });
@@ -102,7 +104,10 @@ describe('Skadeforklaring skjema', () => {
 
     oppsummering.submit().click().wait('@postSkadeforklaring');
 
-    cy.location().should('to.be', 'http://localhost:3006/skjema/kvittering');
+    cy.location().should(
+      'to.be',
+      'http://localhost:3006/skadeforklaring/skjema/kvittering'
+    );
   });
 
   it('med papir vedlegg - ingen avvik', () => {
@@ -150,7 +155,35 @@ describe('Skadeforklaring skjema', () => {
     general.nextStep().click();
 
     oppsummering.submit().click();
-    cy.location().should('to.be', 'http://localhost:3006/skjema/kvittering');
+    cy.location().should(
+      'to.be',
+      'http://localhost:3006/skadeforklaring/skjema/kvittering'
+    );
+  });
+
+  it('Avbryt innsending', () => {
+    const injuryTime = dayjs();
+
+    cy.wait('@getBrukerinfo');
+
+    general.nextStep().click();
+
+    // velg person
+    person.personvelger().click();
+
+    // avbryt innsending
+
+    // nei, tilbake
+    general.avbryt.visModal().click();
+    general.avbryt.tilbake().click();
+    cy.location().should(
+      'to.be',
+      'http://localhost:3006/skadeforklaring/skjema/person'
+    );
+
+    // ja, fortsett
+    // Det oppstår en feil utenfor vår kontroll når Cypress gjør en pageload, og testen henger - derfor får vi ikke testet Ja, fortsett knappen.
+    // https://github.com/cypress-io/cypress/issues/8496
   });
 
   it('feilet innlogging', () => {
@@ -158,8 +191,5 @@ describe('Skadeforklaring skjema', () => {
     cy.intercept(endpointUrls.innlogget, {
       statusCode: 200,
     });
-    /*   network
-      .intercept(endpointUrls.innlogget, 'innlogget.json', false, 401)
-      .as('getInnlogget');*/
   });
 });
