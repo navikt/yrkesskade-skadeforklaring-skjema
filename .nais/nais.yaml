@@ -41,8 +41,6 @@ spec:
     - {{url}}
   {{/each}}
   env:
-    - name: TZ
-      value: "Europe/Oslo"
   {{#each env}}
     - name: {{this.name }}
       value: {{this.value}}
