@@ -19,6 +19,7 @@ import './Tid.less';
 import { Tid as TidModel } from '../../../../api/skadeforklaring';
 import { getEnumKeyByEnumValue } from '../../../../utils/enumHelper';
 import { parse } from 'date-fns';
+import nb from 'date-fns/locale/nb';
 
 const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   const FORMAT: string = 'dd.MM.yyyy';
@@ -113,11 +114,9 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
     if (specificDate && specificTime && isKlokkeslett(specificTime)) {
       const dato = formatDate(specificDate, FORMAT);
       const tidspunkt = `${dato} ${specificTime}`;
-      const isoDate = parse(
-        tidspunkt,
-        TIDSPUNKT_FORMAT,
-        new Date().getTime()
-      ).toISOString();
+      const isoDate = parse(tidspunkt, TIDSPUNKT_FORMAT, new Date(), {
+        locale: nb,
+      }).toISOString();
 
       setValue('tid.tidspunkt', isoDate);
     }
