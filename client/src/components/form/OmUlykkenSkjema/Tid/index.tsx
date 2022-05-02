@@ -18,8 +18,6 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import './Tid.less';
 import { Tid as TidModel } from '../../../../api/skadeforklaring';
 import { getEnumKeyByEnumValue } from '../../../../utils/enumHelper';
-import { format } from 'path';
-import nb from 'date-fns/locale/nb';
 import { parse } from 'date-fns';
 
 const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
