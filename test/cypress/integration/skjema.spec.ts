@@ -112,7 +112,7 @@ describe('Skadeforklaring skjema', () => {
     );
   });
 
-  it('uten vedlegg, med ettersending - ingen avvik', () => {
+  it.skip('uten vedlegg, med ettersending - ingen avvik', () => {
     // stubs
 
     network
