@@ -130,9 +130,6 @@ describe('Skadeforklaring skjema', () => {
     // velg person - finnes bare en person og da blir innlogget bruker satt autmoatisk
     general.nextStep().click();
 
-    // test validering på ulykke skjema - skal ikke kunne gå videre
-    general.nextStep().click();
-
     // velg tidspunkt
     ulykken
       .timeframeWhenDate()
