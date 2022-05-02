@@ -125,7 +125,7 @@ describe('Skadeforklaring skjema', () => {
     // tests
     const injuryTime = dayjs();
 
-    general.nextStep().click();
+    general.nextStep().click().wait('@getBrukerinfo');
 
     // velg person - finnes bare en person og da blir innlogget bruker satt autmoatisk
     general.nextStep().click();
