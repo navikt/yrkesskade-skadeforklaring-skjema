@@ -40,23 +40,39 @@ const Veiledning = () => {
                 relevante, slik at NAV kan behandle saken så effektivt som
                 mulig. Du skal kun oppgi opplysninger om deg selv,
                 personopplysninger om andre anses ikke relevante for saken.
-                Personopplysningene som du oppgir i skadeforklaringen skal
-                begrenses til behandlingens formål; å beskrive fakta om
-                hendelsen og hvilken skade du har blitt påført.
-              </BodyLong>
-              <BodyLong spacing>
-                Statistisk sentralbyrå og tilsynsmyndigheter kan benytte data om
-                yrkesskader til analyse og statistikkformål.
+                Opplysningene skal bidra til å beskrive fakta om hendelsen og
+                hvilken type skade du er blitt påført.
               </BodyLong>
               <BodyLong spacing>
                 Har du fått konkrete spørsmål fra NAV i forbindelse med en
                 innmeldt yrkesskade, kan du benytte skadeforklaringsskjemaet til
-                å besvare disse. Det presiseres at en skadeforklaring ikke
-                erstatter skademeldingen, men kan benyttes for å gi flere
-                opplysninger om en hendelse.
+                å besvare disse.
               </BodyLong>
               <BodyLong spacing>
-                Husk å logge av når du er ferdig med registreringen.
+                Det presiseres at en skadeforklaring ikke erstatter
+                skademeldingen, men kan benyttes for å gi flere opplysninger om
+                en hendelse.
+              </BodyLong>
+              <BodyLong spacing>
+                NAV henter opplysninger om barn du har foreldreansvar for og din
+                bostedsadresse fra folkeregisteret. Det er i tråd med
+                regjeringens digitaliseringsstrategi å bruke data fra nasjonale
+                komponenter slik at du slipper å fylle inn opplysninger som vi
+                allerede har om deg.
+              </BodyLong>
+              <BodyLong spacing>
+                Informasjonen som samles inn, vil bli brukt i behandlingen av
+                yrkesskade eller yrkessykdomssaken din. Søker du om andre
+                ytelser fra NAV hvor yrkesskaden eller yrkessykdommen din kan ha
+                betydning vil opplysningene også kunne bli brukt i forbindelse
+                med behandling av disse sakene.{' '}
+              </BodyLong>
+              <BodyLong spacing>
+                Statistisk sentralbyrå og tilsynsmyndigheter kan benytte data om
+                yrkesskader til analyse og statistikkformål.{' '}
+              </BodyLong>
+              <BodyLong spacing>
+                Husk å logge av når du er ferdig med registreringen.{' '}
               </BodyLong>
               <Heading size="small">Kontakt</Heading>
               <BodyLong spacing>
