@@ -26,8 +26,8 @@ const VedleggSkjema = () => {
   return (
     <>
       <Ingress spacing>
-        Har du noen vedlegg som du ønsker å legge ved her. Du kan også
-        ettersende dem per post.
+        Ønsker du, eller har du blitt bedt om å legge ved dokumentasjon, kan du
+        gjøre det her. Du kan også ettersende det per post.
       </Ingress>
 
       <Opplast />
