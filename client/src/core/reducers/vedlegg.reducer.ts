@@ -100,6 +100,9 @@ export const lastoppVedlegg = createAsyncThunk<
 export const slettVedlegg = createAsyncThunk(
   'vedlegg/slett',
   async (vedlegg: Attachment, { rejectWithValue }) => {
+    if (!vedlegg.uploaded) {
+      return vedlegg;
+    }
     try {
       await VedleggApiService.slettVedlegg(vedlegg.id);
       return vedlegg;
