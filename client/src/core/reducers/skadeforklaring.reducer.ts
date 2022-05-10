@@ -10,8 +10,12 @@ interface SkadeforklaringState {
 
 const initialState: SkadeforklaringState = {
   skadeforklaring: {
-    innmelder: undefined,
-    skadelidt: undefined,
+    innmelder: {
+      norskIdentitetsnummer: '',
+    },
+    skadelidt: {
+      norskIdentitetsnummer: '',
+    },
     tid: {
       tidstype: Tid.tidstype.TIDSPUNKT,
     },
