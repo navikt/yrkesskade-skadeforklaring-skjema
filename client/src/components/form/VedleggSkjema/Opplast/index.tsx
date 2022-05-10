@@ -54,6 +54,9 @@ const Opplast = () => {
         Send inn det du mener er relevant for å vurdere arbeidsulykken og skaden
         din. Dersom du likevel sender oss opplysninger som ikke er relevant for
         saken, vil dette blir arkivert i saken på personen du har valgt.
+        Kvitteringer, resepter og kopi av sykemeldingsblanketter vil ikke kunne
+        si noe om omfanget av arbeidsulykken, det er ikke nødvendig å sende
+        disse opplysningene her.
       </BodyLong>
       <BodyLong spacing>
         NAV vil som hovedregel ikke sladde eller sortere opplysninger som er
