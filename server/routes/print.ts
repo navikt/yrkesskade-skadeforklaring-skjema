@@ -20,7 +20,7 @@ const handlePrint = async (req, res) => {
     res.sendStatus(400);
   }
 
-  const pdfSkadeforklaring = pdfSkadeforklaringMapper(
+  const pdfSkadeforklaring = await pdfSkadeforklaringMapper(
     req.body as Skadeforklaring
   );
 
