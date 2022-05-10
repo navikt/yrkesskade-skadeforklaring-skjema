@@ -100,7 +100,9 @@ const UlykkenOppsummering = () => {
           skadeforklaring.helseinstitusjon?.erHelsepersonellOppsokt === 'ja'
         }
       >
-        {skadeforklaring.helseinstitusjon?.erHelsepersonellOppsokt}
+        {skadeforklaring.helseinstitusjon?.erHelsepersonellOppsokt === 'ja'
+          ? 'Ja'
+          : 'Nei'}
       </BodyLong>
       {skadeforklaring.helseinstitusjon?.erHelsepersonellOppsokt === 'ja' && (
         <>

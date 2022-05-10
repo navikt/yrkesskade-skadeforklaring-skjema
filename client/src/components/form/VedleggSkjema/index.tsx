@@ -49,7 +49,7 @@ const VedleggSkjema = () => {
         className="spacer"
         hideLegend
         legend="Jeg skal ettersende dokumenter"
-        value={skalEttersendeDokumentasjon.toString()}
+        value={skalEttersendeDokumentasjon}
         error={
           errors?.skalEttersendeDokumentasjon &&
           errors?.skalEttersendeDokumentasjon.message

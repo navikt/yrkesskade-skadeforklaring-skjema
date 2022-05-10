@@ -23,10 +23,6 @@ const OmUlykkenSkjema = () => {
     skadeforklaring.arbeidetMedIUlykkesoeyeblikket || ''
   );
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
-
   return (
     <>
       <Ingress spacing>
