@@ -6,8 +6,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-console.log(process.env);
-
 const acceptedAcrLevel = 'Level4'; // definert i nais.yaml idporten.sidecar.level attributen
 const acceptedSigningAlgorithm = 'RS256';
 
