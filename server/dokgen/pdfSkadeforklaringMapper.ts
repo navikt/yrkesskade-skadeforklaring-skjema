@@ -23,6 +23,7 @@ import {
 import { format, parseISO } from 'date-fns';
 import { nb } from 'date-fns/locale';
 import { capitalize } from '../../client/src/utils/string';
+import { KodeverkLoader } from '../kodeverk/kodeverk';
 
 export const formatDate = (date: any, formatStr: string) =>
   format(date, formatStr, { locale: nb });
@@ -30,9 +31,13 @@ export const formatDate = (date: any, formatStr: string) =>
 const DATO_FORMAT = 'dd.MM.yyyy';
 const KLOKKESLETT_FORMAT = 'HH:mm';
 
-export const pdfSkadeforklaringMapper = (
+export const pdfSkadeforklaringMapper = async (
   skadeforklaring: Skadeforklaring
-): PdfSkadeforklaring => {
+): Promise<PdfSkadeforklaring> => {
+  // hent kodeverk
+  const kodeverkLoader = new KodeverkLoader();
+  await kodeverkLoader.init();
+
   return {
     identifikator: '',
     innmelder: mapInnmelder(skadeforklaring.innmelder),
@@ -40,7 +45,7 @@ export const pdfSkadeforklaringMapper = (
     tid: mapTid(skadeforklaring.tid),
     helseinstitusjon: mapHelseinstitusjon(skadeforklaring.helseinstitusjon),
     dokumentInfo: hentDokumentinfo(),
-    fravaer: mapFravaer(skadeforklaring.fravaer),
+    fravaer: mapFravaer(skadeforklaring.fravaer, kodeverkLoader),
     arbeidetMedIUlykkesoeyeblikket: {
       label: 'Hva arbeidet du med i ulykkesøyeblikket',
       verdi: skadeforklaring.arbeidetMedIUlykkesoeyeblikket,
@@ -108,13 +113,22 @@ const mapHelseinstitusjon = (
   };
 };
 
-const mapFravaer = (fravaer: Fravaer): PdfFravaer => {
+const mapFravaer = (
+  fravaer: Fravaer,
+  kodeverkLoader: KodeverkLoader
+): PdfFravaer => {
   return {
     foerteDinSkadeEllerSykdomTilFravaer: {
       label: 'Førte din skade/sykdom til fravær?',
-      verdi: fravaer.foerteDinSkadeEllerSykdomTilFravaer,
+      verdi: kodeverkLoader.mapKodeTilVerdi(
+        fravaer.foerteDinSkadeEllerSykdomTilFravaer,
+        'foerteDinSkadeEllerSykdomTilFravaer'
+      ),
     },
-    fravaertype: { label: 'Type fravær', verdi: fravaer.fravaertype },
+    fravaertype: {
+      label: 'Type fravær',
+      verdi: kodeverkLoader.mapKodeTilVerdi(fravaer.fravaertype, 'fravaertype'),
+    },
   };
 };
 
@@ -168,7 +182,7 @@ const hentDokumenttekster = (): PdfTekster => {
   return {
     innmelderSeksjonstittel: 'Om innmelder',
     omSkadenFlereSkader: 'Flere skader',
-    omSkadenSeksjonstittel: 'Om skaden',
+    omSkadenSeksjonstittel: 'Om fravær og behandling',
     omUlykkenSeksjonstittel: 'Om ulykken',
     skadelidtSeksjonstittel: 'Den skadelidte',
     tidOgStedSeksjonstittel: 'Tid og sted',
