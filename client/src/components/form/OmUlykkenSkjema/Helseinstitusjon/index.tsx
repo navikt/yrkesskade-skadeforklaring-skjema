@@ -86,10 +86,6 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
             value={navn}
             data-test-id="lege-helseinstitusjon-navn"
             {...register('helseinstitusjon.navn', {
-              required: {
-                value: legeOppsokt === 'ja',
-                message: 'Dette feltet er påkrevd',
-              },
               maxLength: {
                 value: 150,
                 message: 'Maks 150 tegn',
