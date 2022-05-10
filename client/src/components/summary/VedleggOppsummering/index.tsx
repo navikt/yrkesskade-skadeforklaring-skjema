@@ -19,7 +19,7 @@ const VedleggOppsummering = () => {
       <div className="spacer"></div>
       <Label>Skal dokumenter ettersendes?</Label>
       <BodyLong>
-        {skadeforklaring.helseinstitusjon?.erHelsepersonellOppsokt}
+        {skadeforklaring.skalEttersendeDokumentasjon === 'ja' ? 'Ja' : 'Nei'}
       </BodyLong>
     </>
   );
