@@ -14,8 +14,8 @@ import type { Vedleggreferanse } from './Vedleggreferanse';
  */
 export type Skadeforklaring = {
     saksnummer?: string;
-    innmelder?: Innmelder;
-    skadelidt?: Skadelidt;
+    innmelder: Innmelder;
+    skadelidt: Skadelidt;
     arbeidetMedIUlykkesoeyeblikket: string;
     noeyaktigBeskrivelseAvHendelsen: string;
     tid: Tid;

@@ -85,8 +85,21 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
             label="Navn på helseforetak, legevakt eller legekontor (valgfritt)"
             value={navn}
             data-test-id="lege-helseinstitusjon-navn"
-            {...register('helseinstitusjon.navn')}
+            {...register('helseinstitusjon.navn', {
+              required: {
+                value: legeOppsokt === 'ja',
+                message: 'Dette feltet er påkrevd',
+              },
+              maxLength: {
+                value: 150,
+                message: 'Maks 150 tegn',
+              },
+            })}
             onChange={(e) => setNavn(e.target.value)}
+            error={
+              errors?.helseinstitusjon?.navn &&
+              errors?.helseinstitusjon?.navn?.message
+            }
           />
           <TextField
             className="spacer"
