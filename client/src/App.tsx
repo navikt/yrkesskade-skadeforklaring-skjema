@@ -32,6 +32,7 @@ const App = () => {
 
       dispatch(hentKodeverk('fravaertype'));
       dispatch(hentKodeverk('foerteDinSkadeEllerSykdomTilFravaer'));
+      dispatch(hentKodeverk('innmelderrolle'));
     }
   });
 
