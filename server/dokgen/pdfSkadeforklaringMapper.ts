@@ -40,7 +40,7 @@ export const pdfSkadeforklaringMapper = async (
 
   return {
     identifikator: '',
-    innmelder: mapInnmelder(skadeforklaring.innmelder),
+    innmelder: mapInnmelder(skadeforklaring.innmelder, kodeverkLoader),
     skadelidt: mapSkadelidt(skadeforklaring.skadelidt),
     tid: mapTid(skadeforklaring.tid),
     helseinstitusjon: mapHelseinstitusjon(skadeforklaring.helseinstitusjon),
@@ -71,7 +71,10 @@ const mapVedleggInfo = (skadeforklaring: Skadeforklaring) => {
   };
 };
 
-const mapInnmelder = (innmelder: Innmelder): PdfInnmelder => {
+const mapInnmelder = (
+  innmelder: Innmelder,
+  kodeverkLoader: KodeverkLoader
+): PdfInnmelder => {
   return {
     norskIdentitetsnummer: {
       label: 'Fødselsnummer',
@@ -80,7 +83,10 @@ const mapInnmelder = (innmelder: Innmelder): PdfInnmelder => {
     navn: { label: 'Navn', verdi: '' },
     innmelderrolle: {
       label: 'Innmelderrolle',
-      verdi: innmelder.innmelderrolle,
+      verdi: kodeverkLoader.mapKodeTilVerdi(
+        innmelder.innmelderrolle,
+        'innmelderrolle'
+      ),
     },
   };
 };

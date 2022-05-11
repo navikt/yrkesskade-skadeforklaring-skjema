@@ -23,6 +23,7 @@ export class KodeverkLoader {
     for (const kodeverk of [
       'fravaertype',
       'foerteDinSkadeEllerSykdomTilFravaer',
+      'innmelderrolle',
     ]) {
       const resultat = await KodeverkApiService.hentKodeverdierForType(
         kodeverk
