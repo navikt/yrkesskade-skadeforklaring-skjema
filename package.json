@@ -1,0 +1,73 @@
+{
+  "name": "yrkesskade-skadeforklaring-skjema",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.ts",
+  "scripts": {
+    "start": "node dist/server.js",
+    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "build": "rimraf dist && ncc build server/server.ts -o dist",
+    "build-prod": "rimraf build && cd client && yarn && yarn run build && cd .. && yarn && yarn run build",
+    "server": "nodemon --verbose --watch \"server\" --ext \"ts,json\" --exec ts-node server/server.ts",
+    "client": "cd client && yarn start && cd ..",
+    "dev": "concurrently \"yarn run client\" \"yarn run server\"",
+    "docker": "yarn build-prod && docker build -t skjema .",
+    "docker-run": "docker run -dp 3000:3005 skjema",
+    "codegen:skadeforklaring": "npx openapi -i http://localhost:8080/api/v3/api-docs -o ./client/src/api/skadeforklaring  --client axios",
+    "codegen:kodeverk": "npx openapi -i https://yrkesskade-kodeverk.dev.intern.nav.no/v3/api-docs -o ./client/src/api/kodeverk --client axios"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/navikt/yrkesskade-skadeforklaring-skjema.git"
+  },
+  "author": "Team Yrkesskade",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/navikt/yrkesskade-skadeforklaring-skjema/issues"
+  },
+  "homepage": "https://github.com/navikt/yrkesskade-skadeforklaring-skjema#readme",
+  "dependencies": {
+    "@google-cloud/bigquery": "^5.12.0",
+    "@hookform/resolvers": "^2.8.5",
+    "@navikt/ds-icons": "^0.7.1",
+    "@navikt/nav-dekoratoren-moduler": "^1.6.9",
+    "@navikt/yrkesskade-logging": "^0.0.2",
+    "@types/ramda": "^0.27.62",
+    "@types/uuid": "^8.3.4",
+    "axios": "^0.25.0",
+    "body-parser": "^1.19.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^11.0.0",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^2.0.2",
+    "jose": "^4.3.8",
+    "js-cookie": "^3.0.1",
+    "mustache-express": "^1.3.2",
+    "openid-client": "^5.1.1",
+    "ramda": "^0.27.2",
+    "unleash-client": "^3.10.2",
+    "uuid": "^8.3.2",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.11.12",
+    "@vercel/ncc": "^0.31.1",
+    "concurrently": "^6.4.0",
+    "cypress": "^9.2.1",
+    "dayjs": "^1.10.7",
+    "nodemon": "^2.0.15",
+    "openapi-typescript-codegen": "^0.20.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.4.0",
+    "tslint": "^6.1.3",
+    "typescript": "^4.5.4"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  }
+}

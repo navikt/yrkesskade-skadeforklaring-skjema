@@ -1,0 +1,45 @@
+@import '@navikt/ds-css';
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--navds-color-text-primary);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+// .cellContentContainer {
+//   max-width: 520px;
+// }
+.spacer {
+  margin: 24px 0 !important;
+}
+.pageNumberTitle {
+  position: relative;
+  &:before {
+    content: attr(data-number) '.';
+    position: absolute;
+    left: 0;
+    transform: translate3d(-150%, 0, 0);
+  }
+}
+
+.button-group {
+  button:first-of-type {
+    margin-right: 24px;
+  }
+  margin-bottom: 280px;
+}
+
+@media print {
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+}

@@ -1,0 +1,33 @@
+.alertstripe {
+  .ikon {
+    display: inline-block;
+    line-height: 0;
+  }
+}
+
+.alertStripeContent {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+
+  .error-list {
+    display: flex;
+    flex-flow: column;
+  }
+
+  .error-list-element:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+}
+
+.lukk-knapp {
+  flex: 0;
+  align-self: center;
+  cursor: pointer;
+}
+
+.attachment-alert {
+  .navds-alert__wrapper {
+    width: 100%;
+  }
+}

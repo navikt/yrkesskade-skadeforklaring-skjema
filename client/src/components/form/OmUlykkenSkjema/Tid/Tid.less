@@ -1,0 +1,27 @@
+.tidspunkt-container {
+  display: flex;
+  align-items: space-between;
+  gap: 2rem;
+
+  .dato-felt {
+    flex: 3;
+  }
+  .klokkeslett-felt {
+    flex: 2;
+  }
+}
+
+.nav-day-picker {
+  &.nav-day-picker-error > input {
+    border-color: var(--navds-text-field-color-border-error);
+    box-shadow: 0 0 0 1px var(--navds-text-field-color-border-error);
+  }
+
+  .nav-day-picker-overlay-wrapper {
+    display: absolute;
+    border: 2px solid var(--navds-text-field-color-border);
+    box-shadow: 0 0 0 1px var(--navds-text-field-color-border);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+}
