@@ -65,6 +65,9 @@ const mapVedleggInfo = (skadeforklaring: Skadeforklaring) => {
   if (skadeforklaring.skalEttersendeDokumentasjon === 'ja') {
     vedlegg.push('Skal ettersende dokumentasjon');
   }
+  else {
+    vedlegg.push('Bruker har ingenting mer å tilføye')
+  }
   return {
     label: 'Vedlegg',
     verdi: vedlegg,
