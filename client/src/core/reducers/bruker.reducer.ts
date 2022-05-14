@@ -29,9 +29,7 @@ export const brukerSlice = createSlice({
 export const selectBruker = (state: RootState) => state.bruker;
 export const selectInnlogget = createSelector(
   selectBruker,
-  (bruker: BrukerState) => {
-    return bruker.innlogget;
-  }
+  (bruker: BrukerState) => bruker.innlogget
 );
 
 export const { setBruker, setInnlogget } = brukerSlice.actions;

@@ -16,8 +16,10 @@ import { Skadeforklaring } from '../../api/skadeforklaring';
 import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 import BackButton from '../../components/BackButton';
 import ExitButton from '../../components/ExitButton';
+import { useCheckIfReloaded } from '../../core/hooks/reload-check.hooks';
 
 const Ulykken = () => {
+  useCheckIfReloaded();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { handleSubmit } = useFormContext<Skadeforklaring>();
