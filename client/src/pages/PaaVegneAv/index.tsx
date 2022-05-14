@@ -22,8 +22,10 @@ import { selectBruker } from '../../core/reducers/bruker.reducer';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import ExitButton from '../../components/ExitButton';
+import { useCheckIfReloaded } from '../../core/hooks/reload-check.hooks';
 
 const PaaVegneAv = () => {
+  useCheckIfReloaded();
   const navigate = useNavigate();
   const { setValue } = useFormContext<Skadeforklaring>();
   const bruker = useAppSelector((state) => selectBruker(state));
