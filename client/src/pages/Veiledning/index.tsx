@@ -13,12 +13,16 @@ import { logMessage } from '../../utils/logging';
 import { logAmplitudeEvent } from '../../utils/analytics/amplitude';
 import './Veiledning.less';
 import ExitButton from '../../components/ExitButton';
+import { useAppDispatch } from '../../core/hooks/state.hooks';
+import { setSkjemaStartet } from '../../core/reducers/app.reducer';
 
 const Veiledning = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleNext = () => {
     logMessage('Skjemautfylling påbegynt');
+    dispatch(setSkjemaStartet());
     logAmplitudeEvent('skadeforklaring.innmelding', { status: 'startet' });
     navigate('/skadeforklaring/skjema/person');
   };

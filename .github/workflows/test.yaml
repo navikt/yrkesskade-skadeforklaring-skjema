@@ -4,9 +4,11 @@ on:
   push:
     branches-ignore:
       - main # deploy-dev.yml har egen cypress test
+      - dev
 
 jobs:
   cypress-run:
+    name: Test frontend
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -17,8 +19,17 @@ jobs:
           cache: 'yarn'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@navikt'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
       - name: 'install server dependencies Yarn'
-        # if: "steps.cache-server-node-modules.outputs.cache-hit != 'true'"
         run: 'yarn install --frozen-lockfile'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}

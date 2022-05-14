@@ -75,7 +75,7 @@ const VedleggSkjema = () => {
             required: 'Dette feltet er påkrevd',
           })}
         >
-          Jeg har ikke noen mer å tilføye
+          Jeg har ikke noe mer å tilføye
         </Radio>
       </RadioGroup>
     </>

@@ -13,10 +13,12 @@ import BackButton from '../../components/BackButton';
 import ExitButton from '../../components/ExitButton';
 import VedleggSkjema from '../../components/form/VedleggSkjema';
 import SystemHeader from '../../components/SystemHeader';
+import { useCheckIfReloaded } from '../../core/hooks/reload-check.hooks';
 import { useAppDispatch } from '../../core/hooks/state.hooks';
 import { oppdaterSkadeforklaring } from '../../core/reducers/skadeforklaring.reducer';
 
 const Vedlegg = () => {
+  useCheckIfReloaded();
   const { handleSubmit } = useFormContext<Skadeforklaring>();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

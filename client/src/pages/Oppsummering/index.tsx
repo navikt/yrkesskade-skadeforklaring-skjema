@@ -19,6 +19,7 @@ import PersonOppsummering from '../../components/summary/PersonOppsummering';
 import UlykkenOppsummering from '../../components/summary/UlykkenOppsummering';
 import VedleggOppsummering from '../../components/summary/VedleggOppsummering';
 import SystemHeader from '../../components/SystemHeader';
+import { useCheckIfReloaded } from '../../core/hooks/reload-check.hooks';
 import { useAppSelector } from '../../core/hooks/state.hooks';
 import { selectSkadeforklaring } from '../../core/reducers/skadeforklaring.reducer';
 import { logAmplitudeEvent } from '../../utils/analytics/amplitude';
@@ -26,6 +27,7 @@ import { logMessage } from '../../utils/logging';
 import './Oppsummering.less';
 
 const Oppsummering = () => {
+  useCheckIfReloaded();
   const navigate = useNavigate();
   const [clicked, setClicked] = useState<boolean>(false);
 
