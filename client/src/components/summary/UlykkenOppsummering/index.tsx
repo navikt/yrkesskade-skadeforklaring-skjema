@@ -94,7 +94,7 @@ const UlykkenOppsummering = () => {
       <BodyLong spacing>{fravaer(skadeforklaring)}</BodyLong>
       <Label>Type fravær</Label>
       <BodyLong spacing>{fravaertype(skadeforklaring)}</BodyLong>
-      <Label>Ble lege oppsøkt etter skaden?</Label>
+      <Label>Ble helsepersonell oppsøkt etter skaden?</Label>
       <BodyLong
         spacing={
           skadeforklaring.helseinstitusjon?.erHelsepersonellOppsokt === 'ja'

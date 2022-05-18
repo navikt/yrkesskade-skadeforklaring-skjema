@@ -32,7 +32,7 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   return (
     <div className={`skade-lege ${props.className}`}>
       <RadioGroup
-        legend="Ble lege oppsøkt etter skaden?"
+        legend="Ble helsepersonell oppsøkt etter skaden?"
         value={legeOppsokt}
         error={
           errors?.helseinstitusjon?.erHelsepersonellOppsokt &&
