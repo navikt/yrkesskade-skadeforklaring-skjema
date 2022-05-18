@@ -42,6 +42,15 @@ export const skadeforklaringSlice = createSlice({
       state,
       action: PayloadAction<Skadeforklaring>
     ) => {
+      if (
+        action.payload.vedleggreferanser &&
+        action.payload.vedleggreferanser.length >= 0
+      ) {
+        // sørg for at vi overskriver vedleggreferanser med liste fra payload
+        state.skadeforklaring.vedleggreferanser =
+          action.payload.vedleggreferanser;
+      }
+
       state.skadeforklaring = merge(state.skadeforklaring, action.payload);
     },
   },

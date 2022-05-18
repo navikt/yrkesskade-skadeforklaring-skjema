@@ -35,17 +35,18 @@ const Opplast = () => {
   };
 
   useEffect(() => {
-    setValue(
-      'vedleggreferanser',
-      vedleggliste.map((vedlegg) => {
+    const mappetListe = vedleggliste
+      .filter((vedlegg) => vedlegg.uploaded)
+      .map((vedlegg) => {
         return {
           id: vedlegg.id,
           navn: vedlegg.filename,
           url: vedlegg.url,
           storrelse: vedlegg.filesize,
         } as Vedleggreferanse;
-      })
-    );
+      });
+
+    setValue('vedleggreferanser', mappetListe);
   }, [vedleggliste, setValue]);
 
   return (
