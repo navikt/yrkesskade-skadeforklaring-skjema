@@ -112,7 +112,7 @@ describe('Skadeforklaring skjema', () => {
     );
   });
 
-  it.skip('uten vedlegg, med ettersending - ingen avvik', () => {
+  it('uten vedlegg, med ettersending - ingen avvik', () => {
     // stubs
 
     network
@@ -129,6 +129,10 @@ describe('Skadeforklaring skjema', () => {
 
     // velg person - finnes bare en person og da blir innlogget bruker satt autmoatisk
     general.nextStep().click();
+
+    // sjekk validering
+    general.nextStep().click();
+    general.feilmeldinger().should('have.length', 5);
 
     // velg tidspunkt
     ulykken
@@ -159,6 +163,10 @@ describe('Skadeforklaring skjema', () => {
 
     // gå til vedlegg
     general.nextStep().click();
+
+    // sjekk validering
+    general.nextStep().click();
+    general.feilmeldinger().should('have.length', 1);
 
     vedlegg.harEttersending().click();
 
