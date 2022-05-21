@@ -122,6 +122,8 @@ describe('Skadeforklaring skjema', () => {
       )
       .as('getBrukerinfo');
 
+    cy.visit('');
+
     // tests
     const injuryTime = dayjs();
 
