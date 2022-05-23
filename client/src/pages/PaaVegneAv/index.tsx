@@ -128,7 +128,7 @@ const PaaVegneAv = () => {
                 Du kan sende skadeforklaring digitalt på vegne av dine barn som
                 er oppført med samme bostedsadresse som deg i folkeregisteret.
                 Barn er yrkesskadedekket fra de begynner på skolen, og derfor
-                vil du kun få opp barn som er i skolealder frem til de er 18år.
+                vil du kun få opp barn som er i skolealder frem til de er 18 år.
                 Får du ikke opp alle dine barn kan det være fordi de ikke er
                 yrkesskade dekket, eller fordi de ikke er oppført på samme
                 adresse som deg i folkeregisteret.

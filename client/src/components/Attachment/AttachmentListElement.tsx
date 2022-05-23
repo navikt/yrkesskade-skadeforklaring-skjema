@@ -32,13 +32,7 @@ const AttachmentListElement: React.FunctionComponent<Props> = ({
       )}
       <VedleggIkon className="icon" />
       <div className={'filename'}>
-        {attachment.url ? (
-          <Link href={attachment.url} target="_blank">
-            {attachment.filename}
-          </Link>
-        ) : (
-          <React.Fragment>{attachment.filename}</React.Fragment>
-        )}
+        <React.Fragment>{attachment.filename}</React.Fragment>
       </div>
       {showFileSize && (
         <div className="filesize">{bytesString(attachment.filesize)}</div>

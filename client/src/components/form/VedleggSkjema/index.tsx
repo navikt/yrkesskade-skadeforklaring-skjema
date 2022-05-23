@@ -41,7 +41,7 @@ const VedleggSkjema = () => {
         kontakt med NAV kontaktsenter på 55 55 33 33.
       </BodyShort>
       <BodyShort spacing>
-        Hvis du ikke innsender etterspurt dokumentasjon innen frist vil saken
+        Hvis du ikke sender inn etterspurt dokumentasjon innen frist vil saken
         bli behandlet basert på de opplysningene NAV har mottatt.
       </BodyShort>
 
