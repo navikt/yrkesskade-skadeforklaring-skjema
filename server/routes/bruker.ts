@@ -19,7 +19,7 @@ export const configureUserInfo = (app: Express) => {
 const hentBrukerprofil = async (req: Request, res: Response) => {
   const token = getTokenFromRequest(req);
 
-  const service = serviceConfig.find(
+  const skadeforklaringService = serviceConfig.find(
     (service: IService) => service.id === 'yrkesskade-skadeforklaring-api'
   );
 
@@ -27,11 +27,14 @@ const hentBrukerprofil = async (req: Request, res: Response) => {
     try {
       await verifiserAccessToken(token);
       const klient = clientRegistry.getClient('tokenX');
-      const audience = utledAudience(service);
+      const audience = utledAudience(skadeforklaringService);
       const tokenX = await exchangeToken(klient, audience, req);
-      const respons = await axios.get(`${service.proxyUrl}/api/v1/brukerinfo`, {
-        headers: { Authorization: `Bearer ${tokenX.access_token}` },
-      });
+      const respons = await axios.get(
+        `${skadeforklaringService.proxyUrl}/api/v1/brukerinfo`,
+        {
+          headers: { Authorization: `Bearer ${tokenX.access_token}` },
+        }
+      );
 
       res.status(200).json(respons.data);
     } catch (error) {
