@@ -10,7 +10,7 @@ const KODEVERK_URL =
   'https://yrkesskade-kodeverk.dev.intern.nav.no';
 const DOKGEN_URL =
   process.env.DOKGEN_URL || 'https://yrkesskade-dokgen.dev.intern.nav.no';
-const IDPORTEN_COOKIE_NAME = 'local-idtoken';
+const COOKIE_NAME = 'local-idtoken';
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
@@ -19,5 +19,5 @@ export default {
   API_URL,
   DOKGEN_URL,
   KODEVERK_URL,
-  IDPORTEN_COOKIE_NAME,
+  COOKIE_NAME,
 };

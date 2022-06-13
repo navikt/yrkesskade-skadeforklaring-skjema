@@ -25,10 +25,6 @@ describe('Skadeforklaring skjema', () => {
       .as('postSkadeforklaring');
 
     network
-      .intercept(endpointUrls.innlogget, 'innlogget.json', true)
-      .as('getInnlogget');
-
-    network
       .intercept(
         endpointUrls.kodeverk.fravaertyper,
         'kodeverk/fravaertyper.json'
@@ -209,7 +205,7 @@ describe('Skadeforklaring skjema', () => {
 
   it('feilet innlogging', () => {
     // denne testen må fikses. dersom vi ikke får 200 fra innlogget, vil applikasjonen gå i en løkke.
-    cy.intercept(endpointUrls.innlogget, {
+    cy.intercept(endpointUrls.brukerinfo, {
       statusCode: 200,
     });
   });

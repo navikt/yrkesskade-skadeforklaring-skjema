@@ -1,7 +1,6 @@
 export const endpointUrls = {
-  innlogget: '**/innlogget',
   skadeforklaringer: '**/api/*/skadeforklaringer',
-  brukerinfo: '**/api/*/brukerinfo',
+  brukerinfo: '**/user/profile',
   toggle: '**/toggles',
   log: '**/log',
   print: '**/print*',

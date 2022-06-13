@@ -109,3 +109,4 @@ build
 
 # Cypress
 test/cypress/downloads/*
+test/cypress/screenshots

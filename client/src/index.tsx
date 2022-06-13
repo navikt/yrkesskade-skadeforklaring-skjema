@@ -11,7 +11,7 @@ import { OpenAPI as KodeverkOpenApi } from './api/kodeverk';
 import { initAmplitude } from './utils/analytics/amplitude';
 import { initWindowOnError } from './utils/global-error';
 
-OpenAPI.BASE = '/api';
+OpenAPI.BASE = '/backend/api';
 KodeverkOpenApi.BASE = '/kodeverk';
 
 initAmplitude();
