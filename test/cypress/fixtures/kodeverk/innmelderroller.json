@@ -1,0 +1,12 @@
+{
+  "kodeverdierMap": {
+    "denSkadelidte": {
+      "kode": "denSkadelidte",
+      "verdi": "Den skadelidte selv"
+    },
+    "vergeOgForesatt": {
+      "kode": "vergeOgForesatt",
+      "verdi": "Verge/Foresatt"
+    }
+  }
+}

@@ -16,6 +16,8 @@ describe('Skadeforklaring skjema', () => {
       },
     }).as('postVedlegg');
 
+    network.intercept(endpointUrls.log, 'logResult.json').as('postLog');
+
     network
       .intercept(endpointUrls.brukerinfo, 'brukerinfo/brukerinfo.json')
       .as('getBrukerinfo');
@@ -37,6 +39,13 @@ describe('Skadeforklaring skjema', () => {
         'kodeverk/foerteDinSkadeEllerSykdomTilFravaer.json'
       )
       .as('getFravaer');
+
+    network
+      .intercept(
+        endpointUrls.kodeverk.innmelderroller,
+        'kodeverk/innmelderroller.json'
+      )
+      .as('getInnmelderroller');
 
     network.intercept(endpointUrls.amplitude, 'amplitude.json').as('amplitude');
 
