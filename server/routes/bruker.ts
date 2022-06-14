@@ -10,7 +10,7 @@ import { verifiserAccessToken } from '../auth/idporten';
 import { serviceConfig } from '../serviceConfig';
 import { IService } from '@navikt/yrkesskade-backend/dist/typer';
 import { logError } from '@navikt/yrkesskade-logging';
-import { exchangeToken } from '@navikt/yrkesskade-backend/dist/auth/tokenx';
+import { exchangeToken } from '@navikt/yrkesskade-backend/dist/auth/tokenX';
 
 export const configureUserInfo = (app: Express) => {
   app.use('/user/profile', ensureAuthenticated, hentBrukerprofil);
