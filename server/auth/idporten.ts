@@ -1,6 +1,5 @@
 import { BaseClient, Issuer } from 'openid-client';
 import { createRemoteJWKSet, jwtVerify } from 'jose';
-import axios from 'axios';
 import { logInfo } from '@navikt/yrkesskade-logging';
 import dotenv from 'dotenv';
 
