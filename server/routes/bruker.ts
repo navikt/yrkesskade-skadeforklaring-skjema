@@ -4,13 +4,13 @@ import {
   getTokenFromRequest,
   utledAudience,
 } from '@navikt/yrkesskade-backend/dist/auth/tokenUtils';
-import { exchangeToken } from '@navikt/yrkesskade-backend/dist/auth/tokenx';
 import axios from 'axios';
 import { Request, Response, Express } from 'express';
 import { verifiserAccessToken } from '../auth/idporten';
 import { serviceConfig } from '../serviceConfig';
 import { IService } from '@navikt/yrkesskade-backend/dist/typer';
 import { logError } from '@navikt/yrkesskade-logging';
+import { exchangeToken } from '@navikt/yrkesskade-backend/dist/auth/tokenx';
 
 export const configureUserInfo = (app: Express) => {
   app.use('/user/profile', ensureAuthenticated, hentBrukerprofil);

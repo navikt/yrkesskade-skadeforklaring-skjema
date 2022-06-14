@@ -3,10 +3,10 @@ import { logError, stdoutLogger } from '@navikt/yrkesskade-logging';
 import { v4 as uuidv4 } from 'uuid';
 import { IService } from '@navikt/yrkesskade-backend/dist/typer';
 import clientRegistry from '@navikt/yrkesskade-backend/dist/auth/clientRegistry';
-import { exchangeToken } from '@navikt/yrkesskade-backend/dist/auth/tokenx';
 import { NextFunction, Request, Response } from 'express';
 import { TokenSet } from 'openid-client';
 import { utledAudience } from '@navikt/yrkesskade-backend/dist/auth/tokenUtils';
+import { exchangeToken } from '@navikt/yrkesskade-backend/dist/auth/tokenx';
 
 export const doProxy = (service: IService) => {
   return createProxyMiddleware(service.proxyPath, {
