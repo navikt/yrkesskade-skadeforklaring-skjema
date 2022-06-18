@@ -24,3 +24,4 @@ export type Skadeforklaring = {
     fravaer: Fravaer;
     helseinstitusjon: Helseinstitusjon;
 };
+

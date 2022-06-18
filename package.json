@@ -59,7 +59,7 @@
     "cypress": "10.1.0",
     "dayjs": "^1.10.7",
     "nodemon": "^2.0.15",
-    "openapi-typescript-codegen": "^0.20.1",
+    "openapi-typescript-codegen": "^0.23.0",
     "rimraf": "^3.0.2",
     "ts-node": "^10.8.1",
     "tslint": "^6.1.3",

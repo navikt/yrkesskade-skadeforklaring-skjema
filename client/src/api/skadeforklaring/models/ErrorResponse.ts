@@ -7,3 +7,4 @@ export type ErrorResponse = {
     tidspunkt: string;
     statuskode: number;
 };
+

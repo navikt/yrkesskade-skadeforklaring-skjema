@@ -6,3 +6,4 @@ export type KodeverdiDto = {
     kode?: string;
     verdi?: string;
 };
+

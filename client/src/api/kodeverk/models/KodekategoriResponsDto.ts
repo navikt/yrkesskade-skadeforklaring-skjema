@@ -7,3 +7,4 @@ import type { KodekategoriDto } from './KodekategoriDto';
 export type KodekategoriResponsDto = {
     kategorier?: Array<KodekategoriDto>;
 };
+

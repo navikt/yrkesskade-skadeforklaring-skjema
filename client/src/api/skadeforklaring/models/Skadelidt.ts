@@ -5,3 +5,4 @@
 export type Skadelidt = {
     norskIdentitetsnummer: string;
 };
+

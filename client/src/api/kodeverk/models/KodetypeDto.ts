@@ -5,4 +5,6 @@
 export type KodetypeDto = {
     navn?: string;
     beskrivelse?: string;
+    antallKategorier?: number;
 };
+

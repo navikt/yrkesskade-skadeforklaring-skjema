@@ -8,3 +8,4 @@ export type Vedleggreferanse = {
     storrelse: number;
     url: string;
 };
+
