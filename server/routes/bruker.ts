@@ -1,7 +1,7 @@
 import clientRegistry from '@navikt/yrkesskade-backend/dist/auth/clientRegistry';
 import {
-  ensureAuthenticated,
   getTokenFromRequest,
+  ensureAuthenticated,
   utledAudience,
 } from '@navikt/yrkesskade-backend/dist/auth/tokenUtils';
 import axios from 'axios';

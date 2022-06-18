@@ -49,8 +49,12 @@ describe('Skadeforklaring skjema', () => {
 
     network.intercept(endpointUrls.amplitude, 'amplitude.json').as('amplitude');
 
-    cy.visit('');
-    cy.location().should('to.be', 'http://localhost:3006/skadeforklaring/');
+    cy.window().then((win) => {
+      win.sessionStorage.removeItem('persist:root');
+
+      cy.visit('');
+      cy.location().should('to.be', 'http://localhost:3006/skadeforklaring/');
+    });
   });
 
   it('med vedlegg, ingen ettersending - ingen avvik', () => {
@@ -127,7 +131,12 @@ describe('Skadeforklaring skjema', () => {
       )
       .as('getBrukerinfo');
 
-    cy.visit('');
+    cy.window().then((win) => {
+      win.sessionStorage.removeItem('persist:root');
+
+      cy.visit('');
+      cy.location().should('to.be', 'http://localhost:3006/skadeforklaring/');
+    });
 
     // tests
     const injuryTime = dayjs();
