@@ -33,6 +33,28 @@ export class KodeverkApiService {
      * @returns KodeverdiResponsDto Kodeverkverdier hentet
      * @throws ApiError
      */
+    public static hentListeKodeverdierForType(
+        typenavn: string,
+    ): CancelablePromise<KodeverdiResponsDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/kodeverk/typer/{typenavn}/kodeverdierliste',
+            path: {
+                'typenavn': typenavn,
+            },
+            errors: {
+                404: `Kunne ikke finne ressurs`,
+                500: `Internal Server Error`,
+            },
+        });
+    }
+
+    /**
+     * Hent liste over kodeverdier for en type
+     * @param typenavn
+     * @returns KodeverdiResponsDto Kodeverkverdier hentet
+     * @throws ApiError
+     */
     public static hentKodeverdierForType(
         typenavn: string,
     ): CancelablePromise<KodeverdiResponsDto> {
@@ -72,6 +94,44 @@ export class KodeverkApiService {
     }
 
     /**
+     * Hent liste over tilgjengelige kategorier
+     * @returns KodetypeResponsDto Kodeverkkategorier hentet
+     * @throws ApiError
+     */
+    public static hentKodeverkategorier(): CancelablePromise<KodetypeResponsDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/kodeverk/kategorier',
+            errors: {
+                404: `Kunne ikke finne ressurs`,
+                500: `Internal Server Error`,
+            },
+        });
+    }
+
+    /**
+     * Hent liste over tilgjengelige typer for en kategori
+     * @param kategorinavn
+     * @returns KodetypeResponsDto Kodeverktyper hentet
+     * @throws ApiError
+     */
+    public static hentKodeverktyper1(
+        kategorinavn: string,
+    ): CancelablePromise<KodetypeResponsDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/kodeverk/kategorier/{kategorinavn}/typer',
+            path: {
+                'kategorinavn': kategorinavn,
+            },
+            errors: {
+                404: `Kunne ikke finne ressurs`,
+                500: `Internal Server Error`,
+            },
+        });
+    }
+
+    /**
      * Hent liste over kodeverdier for en type og kategori
      * @param typenavn
      * @param kategorinavn
@@ -97,6 +157,31 @@ export class KodeverkApiService {
     }
 
     /**
+     * Hent liste over kodeverdier for en type og kategori
+     * @param typenavn
+     * @param kategorinavn
+     * @returns KodeverdiResponsDto Kodeverkverdier hentet
+     * @throws ApiError
+     */
+    public static hentListeMedKodeverdierForTypeOgKategori1(
+        typenavn: string,
+        kategorinavn: string,
+    ): CancelablePromise<KodeverdiResponsDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/kodeverk/kategorier/{kategorinavn}/typer/{typenavn}/kodeverdierliste',
+            path: {
+                'typenavn': typenavn,
+                'kategorinavn': kategorinavn,
+            },
+            errors: {
+                404: `Kunne ikke finne ressurs`,
+                500: `Internal Server Error`,
+            },
+        });
+    }
+
+    /**
      * Hent samling kodeverdier for en type og kategori
      * @param typenavn
      * @param kategorinavn
@@ -110,6 +195,31 @@ export class KodeverkApiService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/kodeverk/typer/{typenavn}/kategorier/{kategorinavn}/kodeverdier',
+            path: {
+                'typenavn': typenavn,
+                'kategorinavn': kategorinavn,
+            },
+            errors: {
+                404: `Kunne ikke finne ressurs`,
+                500: `Internal Server Error`,
+            },
+        });
+    }
+
+    /**
+     * Hent samling kodeverdier for en type og kategori
+     * @param typenavn
+     * @param kategorinavn
+     * @returns KodeverdiResponsDto Kodeverkverdier hentet
+     * @throws ApiError
+     */
+    public static hentMapMedKodeverdierForTypeOgKategori1(
+        typenavn: string,
+        kategorinavn: string,
+    ): CancelablePromise<KodeverdiResponsDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/kodeverk/kategorier/{kategorinavn}/typer/{typenavn}/kodeverdier',
             path: {
                 'typenavn': typenavn,
                 'kategorinavn': kategorinavn,

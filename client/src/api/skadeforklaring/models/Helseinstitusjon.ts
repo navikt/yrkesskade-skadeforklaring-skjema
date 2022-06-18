@@ -12,3 +12,4 @@ export type Helseinstitusjon = {
     navn?: string;
     adresse?: Adresse;
 };
+

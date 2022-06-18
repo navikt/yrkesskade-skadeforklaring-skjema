@@ -6,3 +6,4 @@ export type Innmelder = {
     norskIdentitetsnummer: string;
     innmelderrolle?: string;
 };
+

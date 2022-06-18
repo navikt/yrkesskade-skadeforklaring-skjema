@@ -10,3 +10,4 @@ export type Brukerinfo = {
     fodselsdato: string;
     foreldreansvar: Array<Person>;
 };
+

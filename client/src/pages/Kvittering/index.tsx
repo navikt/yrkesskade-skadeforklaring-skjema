@@ -10,9 +10,9 @@ import {
   Label,
 } from '@navikt/ds-react';
 import { format } from 'date-fns';
+import { useLocation } from 'react-router';
+import { Skadeforklaring } from '../../api/skadeforklaring';
 import SystemHeader from '../../components/SystemHeader';
-import { useAppSelector } from '../../core/hooks/state.hooks';
-import { selectSkadeforklaring } from '../../core/reducers/skadeforklaring.reducer';
 import { PrintService } from '../../services/PrintService';
 import {
   logErrorMessage,
@@ -21,13 +21,11 @@ import {
 } from '../../utils/logging';
 
 const Kvittering = () => {
-  const skadeforklaring = useAppSelector((state) =>
-    selectSkadeforklaring(state)
-  );
+  const { state } = useLocation();
 
   const handlePrintClicked = async () => {
     try {
-      const response = await PrintService.print(skadeforklaring);
+      const response = await PrintService.print(state as Skadeforklaring);
 
       const file = new Blob([response.data], { type: 'application/pdf' });
       const fileURL = URL.createObjectURL(file);

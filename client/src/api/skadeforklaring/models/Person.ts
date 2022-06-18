@@ -8,3 +8,4 @@ export type Person = {
     foedselsdato: string;
     foedselsaar: number;
 };
+

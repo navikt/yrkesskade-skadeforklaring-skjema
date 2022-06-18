@@ -8,7 +8,7 @@
   "devDependencies": {
     "@cypress/code-coverage": "^3.9.12",
     "@cypress/instrument-cra": "^1.4.0",
-    "cypress": "9.6.1",
+    "cypress": "10.1.0",
     "dayjs": "^1.10.7"
   },
   "scripts": {

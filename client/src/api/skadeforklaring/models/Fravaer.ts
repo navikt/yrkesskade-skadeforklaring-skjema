@@ -12,3 +12,4 @@ export type Fravaer = {
      */
     fravaertype?: string;
 };
+
