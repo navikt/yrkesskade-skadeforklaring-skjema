@@ -2,6 +2,14 @@ import axios, { AxiosError } from 'axios';
 
 // interne hjelpe metoder
 const er401Feil = (error: AxiosError) => error?.response?.status === 401;
+const erNoValidToken = (error: AxiosError) => {
+  return (
+    error.response?.status === 500 &&
+    error.response.statusText.includes(
+      'no valid token found in validation context'
+    )
+  );
+};
 
 const getLoginUrl = () => {
   return `/redirect-til-login?redirect=${window.location.origin}/skadeforklaring/`;
@@ -25,7 +33,7 @@ export const autentiseringsInterceptor = () => {
       return response;
     },
     (error: AxiosError) => {
-      if (er401Feil(error)) {
+      if (er401Feil(error) || erNoValidToken(error)) {
         window.location.href = getLoginUrl();
       } else {
         throw error;
