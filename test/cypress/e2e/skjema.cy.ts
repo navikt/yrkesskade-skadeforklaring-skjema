@@ -19,10 +19,6 @@ describe('Skadeforklaring skjema', () => {
     network.intercept(endpointUrls.log, 'logResult.json').as('postLog');
 
     network
-      .intercept(endpointUrls.brukerinfo, 'brukerinfo/brukerinfo.json')
-      .as('getBrukerinfo');
-
-    network
       .intercept(endpointUrls.skadeforklaringer, 'skadeforklaring.json')
       .as('postSkadeforklaring');
 
@@ -48,16 +44,10 @@ describe('Skadeforklaring skjema', () => {
       .as('getInnmelderroller');
 
     network.intercept(endpointUrls.amplitude, 'amplitude.json').as('amplitude');
-
-    cy.window().then((win) => {
-      win.sessionStorage.removeItem('persist:root');
-
-      cy.visit('');
-      cy.location().should('to.be', 'http://localhost:3006/skadeforklaring/');
-    });
   });
 
   it('med vedlegg, ingen ettersending - ingen avvik', () => {
+    cy.visitWithUserInfo('brukerinfo/brukerinfo.json', 'getBrukerinfo');
     // test
     const injuryTime = dayjs();
 
@@ -123,20 +113,10 @@ describe('Skadeforklaring skjema', () => {
 
   it('uten vedlegg, med ettersending - ingen avvik', () => {
     // stubs
-
-    network
-      .intercept(
-        endpointUrls.brukerinfo,
-        'brukerinfo/brukerinfo-uten-foreldre-ansvar.json'
-      )
-      .as('getBrukerinfo');
-
-    cy.window().then((win) => {
-      win.sessionStorage.removeItem('persist:root');
-
-      cy.visit('');
-      cy.location().should('to.be', 'http://localhost:3006/skadeforklaring/');
-    });
+    cy.visitWithUserInfo(
+      'brukerinfo/brukerinfo-uten-foreldre-ansvar.json',
+      'getBrukerinfo'
+    );
 
     // tests
     const injuryTime = dayjs();
@@ -197,6 +177,8 @@ describe('Skadeforklaring skjema', () => {
   });
 
   it('Avbryt innsending', () => {
+    cy.visitWithUserInfo('brukerinfo/brukerinfo.json', 'getBrukerinfo');
+
     const injuryTime = dayjs();
 
     cy.wait('@getBrukerinfo');
