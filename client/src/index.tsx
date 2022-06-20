@@ -12,9 +12,12 @@ import { initAmplitude } from './utils/analytics/amplitude';
 import { initWindowOnError } from './utils/global-error';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
+import { autentiseringsInterceptor } from './utils/autentisering';
 
 OpenAPI.BASE = '/backend/api';
 KodeverkOpenApi.BASE = '/kodeverk';
+
+autentiseringsInterceptor();
 
 initAmplitude();
 initWindowOnError();
