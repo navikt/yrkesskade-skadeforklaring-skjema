@@ -33,7 +33,9 @@ export const kodeverkSlice = createSlice({
           action.payload.kodeverdier.kodeverdierMap;
       })
       .addCase(hentKodeverk.rejected, (state, action) => {
-        logErrorMessage(`Klarte ikke hente kodeverk. Årsak: ${action.error}`);
+        logErrorMessage(
+          `Klarte ikke hente kodeverk. Årsak: ${JSON.stringify(action.error)}`
+        );
       });
   },
 });

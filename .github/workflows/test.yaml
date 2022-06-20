@@ -50,6 +50,11 @@ jobs:
           build: yarn build-prod
           start: yarn dev
           wait-on: 'http://localhost:3006'
+      - uses: tintef/nyc-reporter-action
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPORTER: 'text'
+          COVERAGE_FOLDER: ./test/coverage
       - name: Upload screenshots
         uses: actions/upload-artifact@v3
         if: failure()
