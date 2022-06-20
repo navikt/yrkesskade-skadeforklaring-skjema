@@ -33,6 +33,7 @@ export const autentiseringsInterceptor = () => {
       return response;
     },
     (error: AxiosError) => {
+      console.error(error);
       if (er401Feil(error) || erNoValidToken(error)) {
         window.location.href = getLoginUrl();
       } else {
