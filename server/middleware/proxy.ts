@@ -17,6 +17,10 @@ export const doProxy = (service: IService) => {
     pathRewrite: (path: string, _req: Request) => {
       return path.replace(service.proxyPath, '');
     },
+    router: async (req: Request) => {
+      logInfo(`proxy headers: ${JSON.stringify(req.headers)}`);
+      return undefined;
+    },
     secure: true,
     target: `${service.proxyUrl}`,
   });
