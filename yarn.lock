@@ -183,15 +183,16 @@
     prop-types "^15.7.2"
     react "^17.0.2"
 
-"@navikt/yrkesskade-backend@^0.1.5":
-  version "0.1.5"
-  resolved "https://npm.pkg.github.com/download/@navikt/yrkesskade-backend/0.1.5/e0dafe6f38e4ad83d7c4854ba0cfe39f22ca57f4a95f150199426093480a8308#5eb85e24998036747e7c196d7f787b54341895d2"
-  integrity sha512-AqMD1IUzXVzTYOn+tVF/BcpQeC7qjpvS/bUHQcapecUZGYMaAr+1xKVJt96WcydZ7qN+1kGPihPCWT6/uPpF5Q==
+"@navikt/yrkesskade-backend@^0.1.6":
+  version "0.1.6"
+  resolved "https://npm.pkg.github.com/download/@navikt/yrkesskade-backend/0.1.6/799e67731f02538aeb4498b2a321e32455817157e43cbac8ab9b4cfe091e4078#c3a6695ba28060f22859c577fc00ea173e33aab1"
+  integrity sha512-51/nTO7BA7BfnSxN2C7w43E+Am/mAYqkha+gJWWOrI3GM1Fpz4f3InBbL4fFKKEgRfQt1HcMLfHpMPrAVk0Q6g==
   dependencies:
     "@navikt/yrkesskade-logging" "^0.0.5"
     "@types/cookie-parser" "^1.4.3"
     "@types/cors" "^2.8.12"
     "@types/express" "^4.17.13"
+    "@types/uuid" "^8.3.4"
     axios "^0.27.2"
     body-parser "^1.20.0"
     cookie-parser "^1.4.6"
@@ -202,6 +203,7 @@
     js-cookie "^3.0.1"
     openid-client "^5.1.6"
     snyk "^1.942.0"
+    uuid4 "^2.0.2"
 
 "@navikt/yrkesskade-logging@^0.0.2":
   version "0.0.2"
@@ -3961,6 +3963,11 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
+
+uuid4@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/uuid4/-/uuid4-2.0.2.tgz#d33169f4a8fe84b217f50a0f28f971cd9ff56216"
+  integrity sha512-TzsQS8sN1B2m9WojyNp0X/3JL8J2RScnrAJnooNPL6lq3lA02/XdoWysyUgI6rAif0DzkkWk51N6OggujPy2RA==
 
 uuid@^8.0.0, uuid@^8.3.2:
   version "8.3.2"
