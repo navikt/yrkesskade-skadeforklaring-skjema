@@ -44,6 +44,7 @@ const attachTokenX = (
     .then((tokenSet: TokenSet) => {
       req.headers['Nav-Call-Id'] = uuidv4();
       req.headers.Authorization = `Bearer ${tokenSet.access_token}`;
+      req.headers.authorization = req.headers['Authorization'];
       return next();
     })
     .catch((e) => {
