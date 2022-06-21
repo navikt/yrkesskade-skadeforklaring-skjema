@@ -53,5 +53,5 @@ const attachTokenX = (
         status: 'FEILET',
         melding: 'Uventet feil. Vennligst prøv på nytt.',
       });
-  };
+    });
 };
