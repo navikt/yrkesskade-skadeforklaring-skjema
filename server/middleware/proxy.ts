@@ -28,21 +28,30 @@ export const doProxy = (service: IService) => {
 
 export const attachToken = (service: IService) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const klient = clientRegistry.getClient('tokenX');
-    const audience = utledAudience(service);
-    exchangeToken(klient, audience, req)
-      .then((tokenSet: TokenSet) => {
-        req.headers['Nav-Call-Id'] = uuidv4();
-        req.headers.Authorization = `Bearer ${tokenSet.access_token}`;
-        logInfo(`access token: ${tokenSet.access_token}`);
-        return next();
-      })
-      .catch((e) => {
-        logError(`Uventet feil - exchangeToken`, e);
-        res.status(500).json({
-          status: 'FEILET',
-          melding: 'Uventet feil. Vennligst prøv på nytt.',
-        });
+    attachTokenX(service, req, res, next);
+  };
+};
+
+const attachTokenX = (
+  service: IService,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const klient = clientRegistry.getClient('tokenX');
+  const audience = utledAudience(service);
+  exchangeToken(klient, audience, req)
+    .then((tokenSet: TokenSet) => {
+      req.headers['Nav-Call-Id'] = uuidv4();
+      req.headers.Authorization = `Bearer ${tokenSet.access_token}`;
+      req.headers.authorization = req.headers['Authorization'];
+      return next();
+    })
+    .catch((e) => {
+      logError(`Uventet feil - exchangeToken`, e);
+      res.status(500).json({
+        status: 'FEILET',
+        melding: 'Uventet feil. Vennligst prøv på nytt.',
       });
   };
 };
