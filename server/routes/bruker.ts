@@ -9,7 +9,7 @@ import { Request, Response, Express } from 'express';
 import { verifiserAccessToken } from '../auth/idporten';
 import { serviceConfig } from '../serviceConfig';
 import { IService } from '@navikt/yrkesskade-backend/dist/typer';
-import { logError } from '@navikt/yrkesskade-logging';
+import { logError, logInfo } from '@navikt/yrkesskade-logging';
 import { exchangeToken } from '@navikt/yrkesskade-backend/dist/auth/tokenX';
 
 export const configureUserInfo = (app: Express) => {
@@ -29,6 +29,7 @@ const hentBrukerprofil = async (req: Request, res: Response) => {
       const klient = clientRegistry.getClient('tokenX');
       const audience = utledAudience(skadeforklaringService);
       const tokenX = await exchangeToken(klient, audience, req);
+      logInfo(`tokenX: ${tokenX}`);
       const respons = await axios.get(
         `${skadeforklaringService.proxyUrl}/api/v1/brukerinfo`,
         {
