@@ -1,5 +1,5 @@
 import { createProxyMiddleware, fixRequestBody } from 'http-proxy-middleware';
-import { logError, stdoutLogger } from '@navikt/yrkesskade-logging';
+import { logError, logInfo, stdoutLogger } from '@navikt/yrkesskade-logging';
 import { v4 as uuidv4 } from 'uuid';
 import { IService } from '@navikt/yrkesskade-backend/dist/typer';
 import clientRegistry from '@navikt/yrkesskade-backend/dist/auth/clientRegistry';
@@ -16,6 +16,10 @@ export const doProxy = (service: IService) => {
     logProvider: () => stdoutLogger,
     pathRewrite: (path: string, _req: Request) => {
       return path.replace(service.proxyPath, '');
+    },
+    router: async (req: Request) => {
+      logInfo(`proxy headers: ${JSON.stringify(req.headers)}`);
+      return undefined;
     },
     secure: true,
     target: `${service.proxyUrl}`,
