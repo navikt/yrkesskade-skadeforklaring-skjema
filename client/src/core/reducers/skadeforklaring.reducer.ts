@@ -54,8 +54,6 @@ export const skadeforklaringSlice = createSlice({
       state.skadeforklaring = merge(state.skadeforklaring, action.payload);
     },
     nullstillSkjema: () => {
-      console.log('initialState', initialState);
-
       return { ...initialState };
     },
   },
