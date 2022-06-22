@@ -25,6 +25,7 @@ const Kvittering = () => {
 
   const handlePrintClicked = async () => {
     try {
+      console.log('state', state);
       const response = await PrintService.print(state as Skadeforklaring);
 
       const file = new Blob([response.data], { type: 'application/pdf' });

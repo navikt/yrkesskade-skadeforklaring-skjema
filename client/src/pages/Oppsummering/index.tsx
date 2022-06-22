@@ -26,6 +26,7 @@ import {
   nullstillSkjema,
   selectSkadeforklaring,
 } from '../../core/reducers/skadeforklaring.reducer';
+import { nullstillVedlegg } from '../../core/reducers/vedlegg.reducer';
 import { logAmplitudeEvent } from '../../utils/analytics/amplitude';
 import { logMessage } from '../../utils/logging';
 import './Oppsummering.less';
@@ -45,13 +46,13 @@ const Oppsummering = () => {
     try {
       await SkadeforklaringApiService.postSkadeforklaring(skadeforklaring);
       dispatch(nullstillSkjema());
+      dispatch(nullstillVedlegg());
       dispatch(setSkjemaFullfort());
+      logMessage('Skjemainnsending fullført');
+      logAmplitudeEvent('skadeforklaring.innmelding', { status: 'fullfort' });
       navigate('/skadeforklaring/skjema/kvittering', {
         state: skadeforklaring,
       });
-      logMessage('Skjemainnsending fullført');
-      logAmplitudeEvent('skadeforklaring.innmelding', { status: 'fullfort' });
-      navigate('/skadeforklaring/skjema/kvittering');
     } catch (e: any) {
       logAmplitudeEvent('skadeforklaring.innmelding', {
         status: 'feilet',
