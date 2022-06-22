@@ -14,8 +14,8 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
-import '@cypress/code-coverage/support'
+import './commands';
+import '@cypress/code-coverage/support';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
@@ -23,7 +23,7 @@ import '@cypress/code-coverage/support'
 declare global {
   namespace Cypress {
     interface Chainable {
-
+      visitWithUserInfo(fixturePath: string, alias: string): Chainable<Element>;
     }
   }
 }

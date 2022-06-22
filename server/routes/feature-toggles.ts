@@ -1,10 +1,7 @@
-import { Express, NextFunction, Response } from 'express';
+import { Express } from 'express';
 import config from '../config';
 import { isEnabled } from '../featureflag/unleash';
 import { ToggleKeys } from '../../client/src/types/feature-toggles';
-import axios from 'axios';
-import { exchangeToken } from '../tokenx';
-import { logError } from '@navikt/yrkesskade-logging';
 
 const toggleFetchHandler = (req, res) => {
   const toggleId = req.params.id;

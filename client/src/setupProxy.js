@@ -20,7 +20,7 @@ module.exports = function (app) {
   );
 
   app.use(
-    '/innlogget',
+    '/user/profile',
     createProxyMiddleware({
       target: `http://${host}:${port}/`,
       changeOrigin: true,
@@ -52,7 +52,7 @@ module.exports = function (app) {
   );
 
   app.use(
-    '/api',
+    '/backend',
     createProxyMiddleware({
       target: `http://${host}:${port}`,
       changeOrigin: true,

@@ -1,6 +1,5 @@
 import { BaseClient, Issuer } from 'openid-client';
 import { createRemoteJWKSet, jwtVerify } from 'jose';
-import axios from 'axios';
 import { logInfo } from '@navikt/yrkesskade-logging';
 import dotenv from 'dotenv';
 
@@ -26,6 +25,11 @@ export const initIdPorten = async () => {
 };
 
 export const verifiserAccessToken = async (token: string | Uint8Array) => {
+  const env = process.env.ENV;
+  if (env === 'local') {
+    return;
+  }
+
   const { payload } = await jwtVerify(token, _remoteJWKSet, {
     algorithms: [acceptedSigningAlgorithm],
     issuer: idPortenIssuer.metadata.issuer,
@@ -41,11 +45,4 @@ export const verifiserAccessToken = async (token: string | Uint8Array) => {
   ) {
     throw new Error('Invalid client id');
   }
-};
-
-// Mock IDPorten
-export const getMockTokenFromIdPorten = async () => {
-  return await (
-    await axios.get(`${process.env.FAKEDINGS_URL_IDPORTEN}?acr=Level=4`)
-  ).data;
 };

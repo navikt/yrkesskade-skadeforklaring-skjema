@@ -20,14 +20,20 @@ import UlykkenOppsummering from '../../components/summary/UlykkenOppsummering';
 import VedleggOppsummering from '../../components/summary/VedleggOppsummering';
 import SystemHeader from '../../components/SystemHeader';
 import { useCheckIfReloaded } from '../../core/hooks/reload-check.hooks';
-import { useAppSelector } from '../../core/hooks/state.hooks';
-import { selectSkadeforklaring } from '../../core/reducers/skadeforklaring.reducer';
+import { useAppDispatch, useAppSelector } from '../../core/hooks/state.hooks';
+import { setSkjemaFullfort } from '../../core/reducers/app.reducer';
+import {
+  nullstillSkjema,
+  selectSkadeforklaring,
+} from '../../core/reducers/skadeforklaring.reducer';
+import { nullstillVedlegg } from '../../core/reducers/vedlegg.reducer';
 import { logAmplitudeEvent } from '../../utils/analytics/amplitude';
 import { logMessage } from '../../utils/logging';
 import './Oppsummering.less';
 
 const Oppsummering = () => {
   useCheckIfReloaded();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [clicked, setClicked] = useState<boolean>(false);
 
@@ -39,9 +45,14 @@ const Oppsummering = () => {
     setClicked(true);
     try {
       await SkadeforklaringApiService.postSkadeforklaring(skadeforklaring);
+      dispatch(nullstillSkjema());
+      dispatch(nullstillVedlegg());
+      dispatch(setSkjemaFullfort());
       logMessage('Skjemainnsending fullført');
       logAmplitudeEvent('skadeforklaring.innmelding', { status: 'fullfort' });
-      navigate('/skadeforklaring/skjema/kvittering');
+      navigate('/skadeforklaring/skjema/kvittering', {
+        state: skadeforklaring,
+      });
     } catch (e: any) {
       logAmplitudeEvent('skadeforklaring.innmelding', {
         status: 'feilet',

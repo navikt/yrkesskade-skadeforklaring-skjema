@@ -10,7 +10,6 @@ import {
   setBruker,
   setInnlogget,
 } from '../reducers/bruker.reducer';
-import { BrukerinfoApiService } from '../../api/skadeforklaring/services/BrukerinfoApiService';
 import { logErrorMessage } from '../../utils/logging';
 
 const [InnloggetProvider, useInnloggetContext] = createUseContext(() => {
@@ -25,41 +24,19 @@ const [InnloggetProvider, useInnloggetContext] = createUseContext(() => {
 
   const verifiserAtBrukerErAutentisert = () => {
     return axios
-      .get('/innlogget')
+      .get('/user/profile')
       .then((ressurs) => {
         if (ressurs.status === 200) {
-          BrukerinfoApiService.hentBrukerinfo()
-            .then((brukerResponse) => {
-              if (brukerResponse) {
-                dispatch(setInnlogget(InnloggetStatus.OK));
-                dispatch(setBruker(brukerResponse));
-              } else {
-                dispatch(setInnlogget(InnloggetStatus.FEILET));
-                logErrorMessage(
-                  'Innlogging feilet. Kunne ikke finne bruker i brukerresponse'
-                );
-              }
-            })
-            .catch((error) => {
-              dispatch(setInnlogget(InnloggetStatus.FEILET));
-              logErrorMessage(
-                `Hente brukerinformasjon feilet. Årsak: ${JSON.stringify(
-                  error
-                )}`
-              );
-            });
+          dispatch(setInnlogget(InnloggetStatus.OK));
+          dispatch(setBruker(ressurs.data));
         } else {
           dispatch(setInnlogget(InnloggetStatus.FEILET));
-          logErrorMessage(
-            `Innlogginsjekk feilet. Uventet statuskode: ${ressurs.status}`
-          );
+          logErrorMessage('Innlogging feilet');
         }
       })
       .catch((error) => {
         dispatch(setInnlogget(InnloggetStatus.FEILET));
-        logErrorMessage(
-          `Innloggingsjekk feilet. Årsak: ${JSON.stringify(error)}`
-        );
+        logErrorMessage(`Innlogging feilet. Årsak: ${JSON.stringify(error)}`);
       });
   };
 
