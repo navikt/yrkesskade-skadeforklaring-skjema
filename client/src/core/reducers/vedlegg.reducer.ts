@@ -18,7 +18,11 @@ const initialState: VedleggState = {
 export const vedleggSlice = createSlice({
   name: 'vedlegg',
   initialState,
-  reducers: {},
+  reducers: {
+    nullstillVedlegg: () => {
+      return { ...initialState };
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(lastoppVedlegg.pending, (state, action) => {
@@ -119,5 +123,7 @@ export const slettVedlegg = createAsyncThunk(
 
 export const selectVedleggliste = (state: RootState) =>
   state.vedlegg.vedleggliste;
+
+export const { nullstillVedlegg } = vedleggSlice.actions;
 
 export default vedleggSlice.reducer;

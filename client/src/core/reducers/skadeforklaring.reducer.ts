@@ -53,11 +53,15 @@ export const skadeforklaringSlice = createSlice({
 
       state.skadeforklaring = merge(state.skadeforklaring, action.payload);
     },
+    nullstillSkjema: () => {
+      return { ...initialState };
+    },
   },
 });
 
 export const selectSkadeforklaring = (state: RootState) =>
   state.skadeforklaring.skadeforklaring;
 
-export const { oppdaterSkadeforklaring } = skadeforklaringSlice.actions;
+export const { oppdaterSkadeforklaring, nullstillSkjema } =
+  skadeforklaringSlice.actions;
 export default skadeforklaringSlice.reducer;

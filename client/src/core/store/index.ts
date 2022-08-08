@@ -4,15 +4,28 @@ import brukerReducer from '../reducers/bruker.reducer';
 import kodeverkReducer from '../reducers/kodeverk.reducer';
 import skadeforklaringReducer from '../reducers/skadeforklaring.reducer';
 import vedleggReducer from '../reducers/vedlegg.reducer';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage/session';
+import { combineReducers } from 'redux';
+
+const rootReducers = combineReducers({
+  appState: appReducer,
+  bruker: brukerReducer,
+  skadeforklaring: skadeforklaringReducer,
+  vedlegg: vedleggReducer,
+  kodeverk: kodeverkReducer,
+});
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  blacklist: ['bruker'],
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducers);
 
 const reducers = {
-  reducer: {
-    appState: appReducer,
-    bruker: brukerReducer,
-    skadeforklaring: skadeforklaringReducer,
-    vedlegg: vedleggReducer,
-    kodeverk: kodeverkReducer,
-  },
+  reducer: persistedReducer,
   middleware: getDefaultMiddleware({
     serializableCheck: false,
   }),
