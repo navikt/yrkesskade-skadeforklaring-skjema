@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FormProvider, useForm } from 'react-hook-form';
 import { Routes, Route, useLocation } from 'react-router';
 import { Skadeforklaring } from './api/skadeforklaring';
@@ -12,27 +13,17 @@ import Ulykken from './pages/Ulykken';
 import Vedlegg from './pages/Vedlegg';
 import Veiledning from './pages/Veiledning';
 import { StepsProvider, ISteps } from '@navikt/yrkesskade-stepindicator';
+import { InnloggetStatus } from './utils/autentisering';
 import { useEffect } from 'react';
 import { LogService } from './services/LogService';
 import { v4 as uuidv4 } from 'uuid';
-import { useAppDispatch } from './core/hooks/state.hooks';
+import { useAppDispatch, useAppSelector } from './core/hooks/state.hooks';
 import { hentKodeverk } from './core/reducers/kodeverk.reducer';
 import { logAmplitudeEvent } from './utils/analytics/amplitude';
+import { selectInnlogget } from './core/reducers/bruker.reducer';
 
 const App = () => {
-  const methods = useForm<Skadeforklaring>();
-  const dispatch = useAppDispatch();
   const location = useLocation();
-
-  useEffect(() => {
-    if (LogService.sesjon === undefined) {
-      LogService.sesjon = uuidv4();
-
-      dispatch(hentKodeverk('fravaertype'));
-      dispatch(hentKodeverk('foerteDinSkadeEllerSykdomTilFravaer'));
-      dispatch(hentKodeverk('innmelderrolle'));
-    }
-  });
 
   useEffect(() => {
     logAmplitudeEvent('skadeforklaring.sidevisning', {
@@ -40,32 +31,56 @@ const App = () => {
     });
   }, [location]);
 
+  useEffect(() => {
+    if (LogService.sesjon === undefined) {
+      LogService.sesjon = uuidv4();
+    }
+  });
+
   return (
     <InnloggetProvider>
-      <FormProvider {...methods}>
-        <StepsProvider stepsDefinition={steps}>
-          <Routes>
-            <Route path="skadeforklaring">
-              <Route index element={<Landing />} />
-              <Route path="skjema">
-                <Route index element={<Veiledning />} />
-                <Route path="person" element={<PaaVegneAv />} />
-                <Route path="ulykken" element={<Ulykken />} />
-                <Route path="vedlegg" element={<Vedlegg />} />
-                <Route path="oppsummering" element={<Oppsummering />} />
-                <Route path="kvittering" element={<Kvittering />} />
-              </Route>
-              <Route path="feilmelding" element={<Feil />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </StepsProvider>
-      </FormProvider>
+      <AppContent />
     </InnloggetProvider>
   );
 };
 
 export default App;
+
+const AppContent = () => {
+  const methods = useForm<Skadeforklaring>();
+  const dispatch = useAppDispatch();
+  const innlogget = useAppSelector((state) => selectInnlogget(state));
+
+  useEffect(() => {
+    if (innlogget === InnloggetStatus.OK) {
+      dispatch(hentKodeverk('fravaertype'));
+      dispatch(hentKodeverk('foerteDinSkadeEllerSykdomTilFravaer'));
+      dispatch(hentKodeverk('innmelderrolle'));
+    }
+  }, [innlogget]);
+
+  return (
+    <FormProvider {...methods}>
+      <StepsProvider stepsDefinition={steps}>
+        <Routes>
+          <Route path="skadeforklaring">
+            <Route index element={<Landing />} />
+            <Route path="skjema">
+              <Route index element={<Veiledning />} />
+              <Route path="person" element={<PaaVegneAv />} />
+              <Route path="ulykken" element={<Ulykken />} />
+              <Route path="vedlegg" element={<Vedlegg />} />
+              <Route path="oppsummering" element={<Oppsummering />} />
+              <Route path="kvittering" element={<Kvittering />} />
+            </Route>
+            <Route path="feilmelding" element={<Feil />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </StepsProvider>
+    </FormProvider>
+  );
+};
 
 const steps: ISteps = {
   totalSteps: 5,
