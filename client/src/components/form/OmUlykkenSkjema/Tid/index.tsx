@@ -307,6 +307,7 @@ const Tid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
                       modifiers,
                       disabledDays: {
                         after: new Date(),
+                        before: specificFromDay,
                       },
                     }}
                   />
