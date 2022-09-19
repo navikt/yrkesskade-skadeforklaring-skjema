@@ -26,8 +26,9 @@ const VedleggSkjema = () => {
   return (
     <>
       <Ingress spacing>
-        Ønsker du, eller har du blitt bedt om å legge ved dokumentasjon, kan du
-        gjøre det her. Du kan også ettersende det per post.
+        Ønsker du, eller har du blitt bedt om å legge ved dokumentasjon som
+        journaler, tannlegeerklæringer, skisser eller lignende, kan du gjøre det
+        her. Du kan også ettersende det per post.
       </Ingress>
 
       <Opplast />
@@ -66,7 +67,17 @@ const VedleggSkjema = () => {
             required: 'Dette feltet er påkrevd',
           })}
         >
-          Jeg skal ettersende dokumenter
+          Jeg skal ettersende dokumenter senere
+        </Radio>
+        <Radio
+          value="ferdig"
+          data-test-id="skal-ettersende-dokumentasjon-ferdig"
+          {...register('skalEttersendeDokumentasjon', {
+            required: 'Dette feltet er påkrevd',
+          })}
+        >
+          Jeg har blitt bedt om å sende inn dokumentasjon og har lagt ved alt i
+          denne innsendingen
         </Radio>
         <Radio
           value="nei"
@@ -75,7 +86,7 @@ const VedleggSkjema = () => {
             required: 'Dette feltet er påkrevd',
           })}
         >
-          Jeg har ikke noe mer å tilføye
+          Jeg skal ikke sende inn ytterligere dokumentasjon
         </Radio>
       </RadioGroup>
     </>
