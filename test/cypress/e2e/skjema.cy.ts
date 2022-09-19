@@ -164,7 +164,7 @@ describe('Skadeforklaring skjema', () => {
     general.nextStep().click();
     general.feilmeldinger().should('have.length', 1);
 
-    vedlegg.harEttersending().click();
+    vedlegg.harEttersendingAlt().click();
 
     // gå til oppsummering
     general.nextStep().click();

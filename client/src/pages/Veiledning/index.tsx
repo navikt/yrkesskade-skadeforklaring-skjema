@@ -5,26 +5,43 @@ import {
   Cell,
   Button,
   BodyLong,
+  BodyShort,
 } from '@navikt/ds-react';
+import BackButton from '../../components/BackButton';
 import { useNavigate } from 'react-router';
 import SystemHeader from '../../components/SystemHeader';
 import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
-import { logMessage } from '../../utils/logging';
-import { logAmplitudeEvent } from '../../utils/analytics/amplitude';
+import { People } from '@navikt/ds-icons';
 import './Veiledning.less';
 import ExitButton from '../../components/ExitButton';
-import { useAppDispatch } from '../../core/hooks/state.hooks';
-import { setSkjemaStartet } from '../../core/reducers/app.reducer';
+// import { useAppDispatch } from '../../core/hooks/state.hooks';
+import { useAppSelector } from '../../core/hooks/state.hooks';
+import { selectBruker } from '../../core/reducers/bruker.reducer';
+import { selectSkadeforklaring } from '../../core/reducers/skadeforklaring.reducer';
 
 const Veiledning = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
+  const bruker = useAppSelector((state) => selectBruker(state));
+  const skadeforklaring = useAppSelector((state) =>
+    selectSkadeforklaring(state)
+  );
+  console.log('skadeforklaring', skadeforklaring);
+  const skadelidt = skadeforklaring?.skadelidt?.norskIdentitetsnummer;
+
+  console.log('skadelidt', skadelidt);
+
+  const valgtSkadelidt =
+    skadelidt === bruker?.brukerinfo?.identifikator
+      ? bruker.brukerinfo
+      : bruker.brukerinfo?.foreldreansvar.find(
+          (barn) => barn.identifikator === skadelidt
+        );
+
+  console.log(valgtSkadelidt);
 
   const handleNext = () => {
-    logMessage('Skjemautfylling påbegynt');
-    dispatch(setSkjemaStartet());
-    logAmplitudeEvent('skadeforklaring.innmelding', { status: 'startet' });
-    navigate('/skadeforklaring/skjema/person');
+    navigate('/skadeforklaring/skjema/ulykken');
   };
 
   return (
@@ -33,10 +50,25 @@ const Veiledning = () => {
       <Grid>
         <Cell xs={12} lg={2}></Cell>
         <Cell xs={12} lg={5}>
-          <div className="top-spacer">
+          <BackButton />
+          <div>
             <div>
               <Heading size="2xlarge" spacing data-number="1">
-                Skadeforklaringskjema ved arbeidsulykke
+                Velkommen til skadeforklaring ved arbeidsulykke
+              </Heading>
+              <BodyLong spacing>
+                Under ser du hvem du er i ferd med å sende inn på vegne av.
+              </BodyLong>
+
+              <div className="person-container spacer">
+                <People />
+                <div className="texts">
+                  <Heading size="small">{valgtSkadelidt?.navn}</Heading>
+                  <BodyShort>{valgtSkadelidt?.navn}</BodyShort>
+                </div>
+              </div>
+              <Heading size="large" spacing>
+                For deg som skal sende inn skadeforklaring
               </Heading>
               <BodyLong spacing>
                 I dette skjemaet kan du gi flere opplysninger om en innmeldt
@@ -57,6 +89,10 @@ const Veiledning = () => {
                 skademeldingen, men kan benyttes for å gi flere opplysninger om
                 en hendelse.
               </BodyLong>
+
+              <Heading size="large" spacing>
+                Vi vil hente informasjon om deg
+              </Heading>
               <BodyLong spacing>
                 NAV henter opplysninger om barn du har foreldreansvar for og din
                 bostedsadresse fra folkeregisteret. Det er i tråd med
@@ -69,15 +105,16 @@ const Veiledning = () => {
                 yrkesskade eller yrkessykdomssaken din. Søker du om andre
                 ytelser fra NAV hvor yrkesskaden eller yrkessykdommen din kan ha
                 betydning vil opplysningene også kunne bli brukt i forbindelse
-                med behandling av disse sakene.{' '}
+                med behandling av disse sakene.
               </BodyLong>
               <BodyLong spacing>
                 Statistisk sentralbyrå og tilsynsmyndigheter kan benytte data om
-                yrkesskader til analyse og statistikkformål.{' '}
+                yrkesskader til analyse og statistikkformål.
               </BodyLong>
               <BodyLong spacing>
-                Husk å logge av når du er ferdig med registreringen.{' '}
+                Husk å logge av når du er ferdig med registreringen.
               </BodyLong>
+
               <Heading size="small">Kontakt</Heading>
               <BodyLong spacing>
                 Oppdager du problemer eller har spørsmål kan du ta kontakt på:

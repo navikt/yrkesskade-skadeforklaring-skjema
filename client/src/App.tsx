@@ -66,8 +66,8 @@ const AppContent = () => {
           <Route path="skadeforklaring">
             <Route index element={<Landing />} />
             <Route path="skjema">
-              <Route index element={<Veiledning />} />
-              <Route path="person" element={<PaaVegneAv />} />
+              <Route index element={<PaaVegneAv />} />
+              <Route path="veiledning" element={<Veiledning />} />
               <Route path="ulykken" element={<Ulykken />} />
               <Route path="vedlegg" element={<Vedlegg />} />
               <Route path="oppsummering" element={<Oppsummering />} />
@@ -83,20 +83,20 @@ const AppContent = () => {
 };
 
 const steps: ISteps = {
-  totalSteps: 5,
+  totalSteps: 4,
   currentStep: 0,
   details: [
+    // {
+    //   text: 'Dine opplysninger',
+    //   done: false,
+    //   active: true,
+    //   pathmatch: '/skadeforklaring/skjema',
+    // },
     {
       text: 'Veiledning',
       done: false,
-      active: true,
-      pathmatch: '/skadeforklaring/skjema',
-    },
-    {
-      text: 'Dine opplysninger',
-      done: false,
       active: false,
-      pathmatch: '/skadeforklaring/skjema/person',
+      pathmatch: '/skadeforklaring/skjema/veiledning',
     },
     {
       text: 'Om ulykken',
