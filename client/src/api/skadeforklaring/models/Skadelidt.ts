@@ -3,5 +3,5 @@
 /* eslint-disable */
 
 export type Skadelidt = {
-    norskIdentitetsnummer: string;
+  norskIdentitetsnummer: string;
 };
