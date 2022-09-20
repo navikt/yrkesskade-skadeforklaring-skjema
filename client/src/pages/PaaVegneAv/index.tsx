@@ -14,24 +14,21 @@ import {
 } from '@navikt/yrkesskade-personvelger';
 import { useNavigate } from 'react-router';
 import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
-// import BackButton from '../../components/BackButton';
 import { useFormContext } from 'react-hook-form';
 import { Skadeforklaring } from '../../api/skadeforklaring';
 import { useAppSelector } from '../../core/hooks/state.hooks';
+import { useAppDispatch } from '../../core/hooks/state.hooks';
 import { selectBruker } from '../../core/reducers/bruker.reducer';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import ExitButton from '../../components/ExitButton';
-import { useCheckIfReloaded } from '../../core/hooks/reload-check.hooks';
-import { useAppDispatch } from '../../core/hooks/state.hooks';
 import { setSkjemaStartet } from '../../core/reducers/app.reducer';
 import { logMessage } from '../../utils/logging';
 import { logAmplitudeEvent } from '../../utils/analytics/amplitude';
 
 const PaaVegneAv = () => {
-  useCheckIfReloaded();
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { setValue } = useFormContext<Skadeforklaring>();
   const bruker = useAppSelector((state) => selectBruker(state));
 
@@ -54,7 +51,7 @@ const PaaVegneAv = () => {
 
     if (brukerinfo.foreldreansvar) {
       const barn: Person[] = brukerinfo.foreldreansvar.map(
-        (foreldreansvarperson) => ({
+        (foreldreansvarperson: any) => ({
           navn: foreldreansvarperson.navn || '',
           beskrivelse: 'Barn',
           identifikator: foreldreansvarperson.identifikator || '',
@@ -80,7 +77,6 @@ const PaaVegneAv = () => {
   };
 
   const settPersonOgNavigate = (identifikator: string) => {
-    console.log('hjelpes', identifikator);
     setValue('skadelidt.norskIdentitetsnummer', identifikator);
     setValue(
       'innmelder.norskIdentitetsnummer',
@@ -95,6 +91,7 @@ const PaaVegneAv = () => {
     logMessage('Skjemautfylling påbegynt');
     dispatch(setSkjemaStartet());
     logAmplitudeEvent('skadeforklaring.innmelding', { status: 'startet' });
+
     navigate('/skadeforklaring/skjema/veiledning');
   };
 

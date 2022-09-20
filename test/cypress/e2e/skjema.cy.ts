@@ -53,10 +53,11 @@ describe('Skadeforklaring skjema', () => {
 
     cy.wait('@getBrukerinfo');
 
-    general.nextStep().click();
-
     // velg person
-    person.personvelger().click();
+    person.personvelger().trigger('click');
+
+    // start skjema etter info
+    general.nextStep().click();
 
     // velg tidspunkt
     ulykken
@@ -183,10 +184,10 @@ describe('Skadeforklaring skjema', () => {
 
     cy.wait('@getBrukerinfo');
 
-    general.nextStep().click();
-
     // velg person
     person.personvelger().click();
+
+    general.nextStep().click();
 
     // avbryt innsending
 

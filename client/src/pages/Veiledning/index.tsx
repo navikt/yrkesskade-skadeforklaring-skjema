@@ -14,31 +14,29 @@ import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 import { People } from '@navikt/ds-icons';
 import './Veiledning.less';
 import ExitButton from '../../components/ExitButton';
-// import { useAppDispatch } from '../../core/hooks/state.hooks';
 import { useAppSelector } from '../../core/hooks/state.hooks';
 import { selectBruker } from '../../core/reducers/bruker.reducer';
 import { selectSkadeforklaring } from '../../core/reducers/skadeforklaring.reducer';
+import { useCheckIfReloaded } from '../../core/hooks/reload-check.hooks';
 
 const Veiledning = () => {
+  useCheckIfReloaded();
   const navigate = useNavigate();
-  // const dispatch = useAppDispatch();
   const bruker = useAppSelector((state) => selectBruker(state));
   const skadeforklaring = useAppSelector((state) =>
     selectSkadeforklaring(state)
   );
-  console.log('skadeforklaring', skadeforklaring);
   const skadelidt = skadeforklaring?.skadelidt?.norskIdentitetsnummer;
-
-  console.log('skadelidt', skadelidt);
 
   const valgtSkadelidt =
     skadelidt === bruker?.brukerinfo?.identifikator
-      ? bruker.brukerinfo
-      : bruker.brukerinfo?.foreldreansvar.find(
-          (barn) => barn.identifikator === skadelidt
-        );
-
-  console.log(valgtSkadelidt);
+      ? { ...bruker.brukerinfo, beskrivelse: 'Deg selv' }
+      : {
+          ...bruker.brukerinfo?.foreldreansvar.find(
+            (barn: any) => barn.identifikator === skadelidt
+          ),
+          beskrivelse: 'Barn',
+        };
 
   const handleNext = () => {
     navigate('/skadeforklaring/skjema/ulykken');
@@ -64,7 +62,7 @@ const Veiledning = () => {
                 <People />
                 <div className="texts">
                   <Heading size="small">{valgtSkadelidt?.navn}</Heading>
-                  <BodyShort>{valgtSkadelidt?.navn}</BodyShort>
+                  <BodyShort>{valgtSkadelidt?.beskrivelse}</BodyShort>
                 </div>
               </div>
               <Heading size="large" spacing>
