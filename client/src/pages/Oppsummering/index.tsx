@@ -11,7 +11,6 @@ import {
 } from '@navikt/ds-react';
 import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 import axios, { AxiosError } from 'axios';
-import e from 'express';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { SkadeforklaringApiService } from '../../api/skadeforklaring/services/SkadeforklaringApiService';
