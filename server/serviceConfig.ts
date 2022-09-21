@@ -3,8 +3,8 @@ import { IService } from '@navikt/yrkesskade-backend/dist/typer';
 let proxyUrls: { [key: string]: string } = {};
 if (process.env.ENV === 'local') {
   proxyUrls = {
-    yrkesskade_kodeverk: 'https://yrkesskade-kodeverk.dev.intern.nav.no',
-    yrkesskade_skadeforklaring_api: 'http://localhost:8080',
+    yrkesskade_kodeverk: 'http://localhost:8080',
+    yrkesskade_skadeforklaring_api: 'http://localhost:9082',
   };
 } else {
   const env = process.env.ENV === 'prod' ? '' : `.${process.env.ENV}`;
