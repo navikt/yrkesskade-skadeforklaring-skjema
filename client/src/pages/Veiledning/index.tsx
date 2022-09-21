@@ -17,13 +17,7 @@ import ExitButton from '../../components/ExitButton';
 import { selectBruker } from '../../core/reducers/bruker.reducer';
 import { selectSkadeforklaring } from '../../core/reducers/skadeforklaring.reducer';
 import { useCheckIfReloaded } from '../../core/hooks/reload-check.hooks';
-import { useAppDispatch, useAppSelector } from '../../core/hooks/state.hooks';
-import {
-  selectSkjemaStartet,
-  setSkjemaStartet,
-} from '../../core/reducers/app.reducer';
-import { logAmplitudeEvent } from '../../utils/analytics/amplitude';
-import { logMessage } from '../../utils/logging';
+import { useAppSelector } from '../../core/hooks/state.hooks';
 
 const Veiledning = () => {
   useCheckIfReloaded();
@@ -32,8 +26,6 @@ const Veiledning = () => {
   const skadeforklaring = useAppSelector((state) =>
     selectSkadeforklaring(state)
   );
-  const dispatch = useAppDispatch();
-  const skjemaStartet = useAppSelector((state) => selectSkjemaStartet(state));
   const skadelidt = skadeforklaring?.skadelidt?.norskIdentitetsnummer;
 
   const valgtSkadelidt =
@@ -47,17 +39,7 @@ const Veiledning = () => {
         };
 
   const handleNext = () => {
-    if (skjemaStartet) {
-      logMessage('Skjemautfylling gjenopptatt');
-      logAmplitudeEvent('skadeforklaring.innmelding', {
-        status: 'gjenopptatt',
-      });
-    } else {
-      logMessage('Skjemautfylling påbegynt');
-      dispatch(setSkjemaStartet());
-      logAmplitudeEvent('skadeforklaring.innmelding', { status: 'startet' });
-    }
-    navigate('/skadeforklaring/skjema/person');
+    navigate('/skadeforklaring/skjema/ulykken');
   };
 
   return (

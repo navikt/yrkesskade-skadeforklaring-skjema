@@ -22,7 +22,10 @@ import { selectBruker } from '../../core/reducers/bruker.reducer';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import ExitButton from '../../components/ExitButton';
-import { setSkjemaStartet } from '../../core/reducers/app.reducer';
+import {
+  selectSkjemaStartet,
+  setSkjemaStartet,
+} from '../../core/reducers/app.reducer';
 import { logMessage } from '../../utils/logging';
 import { logAmplitudeEvent } from '../../utils/analytics/amplitude';
 
@@ -31,6 +34,7 @@ const PaaVegneAv = () => {
   const navigate = useNavigate();
   const { setValue } = useFormContext<Skadeforklaring>();
   const bruker = useAppSelector((state) => selectBruker(state));
+  const skjemaStartet = useAppSelector((state) => selectSkjemaStartet(state));
 
   const [personer, setPersoner] = useState<Person[]>([]);
 
@@ -88,9 +92,16 @@ const PaaVegneAv = () => {
         : 'denSkadelidte';
     setValue('innmelder.innmelderrolle', innmelderrolle);
 
-    logMessage('Skjemautfylling påbegynt');
-    dispatch(setSkjemaStartet());
-    logAmplitudeEvent('skadeforklaring.innmelding', { status: 'startet' });
+    if (skjemaStartet) {
+      logMessage('Skjemautfylling gjenopptatt');
+      logAmplitudeEvent('skadeforklaring.innmelding', {
+        status: 'gjenopptatt',
+      });
+    } else {
+      logMessage('Skjemautfylling påbegynt');
+      dispatch(setSkjemaStartet());
+      logAmplitudeEvent('skadeforklaring.innmelding', { status: 'startet' });
+    }
 
     navigate('/skadeforklaring/skjema/veiledning');
   };
