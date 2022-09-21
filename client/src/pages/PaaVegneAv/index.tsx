@@ -23,13 +23,14 @@ import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import ExitButton from '../../components/ExitButton';
 import { setSkjemaStartet } from '../../core/reducers/app.reducer';
+import { oppdaterSkadeforklaring } from '../../core/reducers/skadeforklaring.reducer';
 import { logMessage } from '../../utils/logging';
 import { logAmplitudeEvent } from '../../utils/analytics/amplitude';
 
 const PaaVegneAv = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { setValue } = useFormContext<Skadeforklaring>();
+  const { setValue, getValues } = useFormContext<Skadeforklaring>();
   const bruker = useAppSelector((state) => selectBruker(state));
 
   const [personer, setPersoner] = useState<Person[]>([]);
@@ -78,10 +79,11 @@ const PaaVegneAv = () => {
 
   const settPersonOgNavigate = (identifikator: string) => {
     setValue('skadelidt.norskIdentitetsnummer', identifikator);
-    setValue(
-      'innmelder.norskIdentitetsnummer',
-      bruker.brukerinfo?.identifikator || ''
-    );
+    // setValue(
+    //   'innmelder.norskIdentitetsnummer',
+    //   bruker.brukerinfo?.identifikator || ''
+    // );
+    setValue('innmelder.norskIdentitetsnummer', '12');
     const innmelderrolle =
       bruker.brukerinfo?.identifikator !== identifikator
         ? 'vergeOgForesatt'
@@ -91,7 +93,7 @@ const PaaVegneAv = () => {
     logMessage('Skjemautfylling påbegynt');
     dispatch(setSkjemaStartet());
     logAmplitudeEvent('skadeforklaring.innmelding', { status: 'startet' });
-
+    dispatch(oppdaterSkadeforklaring(getValues()));
     navigate('/skadeforklaring/skjema/veiledning');
   };
 
