@@ -10,6 +10,7 @@ import {
   BodyShort,
 } from '@navikt/ds-react';
 import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
+import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { SkadeforklaringApiService } from '../../api/skadeforklaring/services/SkadeforklaringApiService';
@@ -28,7 +29,7 @@ import {
 } from '../../core/reducers/skadeforklaring.reducer';
 import { nullstillVedlegg } from '../../core/reducers/vedlegg.reducer';
 import { logAmplitudeEvent } from '../../utils/analytics/amplitude';
-import { logMessage } from '../../utils/logging';
+import { logMessage, logWarningMessage } from '../../utils/logging';
 import './Oppsummering.less';
 
 const Oppsummering = () => {
@@ -53,12 +54,22 @@ const Oppsummering = () => {
       navigate('/skadeforklaring/skjema/kvittering', {
         state: skadeforklaring,
       });
-    } catch (e: any) {
-      logAmplitudeEvent('skadeforklaring.innmelding', {
-        status: 'feilet',
-        feilmelding: e.body,
-      });
-      navigate('/skadeforklaring/feilmelding', { state: e.body });
+    } catch (error: any) {
+      const melding = `Innsending ikke fullført. Brukeren sin autorisasjon er utgått og blir sendt tilbake til pålogging`;
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response?.status === 401) {
+          logWarningMessage(melding);
+        }
+      } else if (error.status === 401) {
+        logWarningMessage(melding);
+      } else {
+        logAmplitudeEvent('skadeforklaring.innmelding', {
+          status: 'feilet',
+          feilmelding: error.body,
+        });
+        navigate('/skadeforklaring/feilmelding', { state: error.body });
+      }
     }
   };
 
