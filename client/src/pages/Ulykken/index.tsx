@@ -25,6 +25,7 @@ const Ulykken = () => {
   const { handleSubmit } = useFormContext<Skadeforklaring>();
 
   const handleNext = (data: Skadeforklaring) => {
+    console.log(data);
     dispatch(oppdaterSkadeforklaring(data));
     navigate('/skadeforklaring/skjema/vedlegg');
   };

@@ -19,7 +19,7 @@ export type OpenAPIConfig = {
 };
 
 export const OpenAPI: OpenAPIConfig = {
-    BASE: 'http://localhost:8080/api',
+    BASE: 'https://yrkesskade-skadeforklaring-api.dev.intern.nav.no/api',
     VERSION: '0',
     WITH_CREDENTIALS: false,
     CREDENTIALS: 'include',

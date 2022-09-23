@@ -1,5 +1,5 @@
 import {
-  PdfAdresse,
+  // PdfAdresse,
   PdfHelseinstitusjon,
   PdfDokumentInfo,
   PdfFravaer,
@@ -17,7 +17,7 @@ import {
   Skadelidt,
   Tid,
   Helseinstitusjon,
-  Adresse,
+  // Adresse,
   Fravaer,
 } from '../../client/src/api/skadeforklaring';
 import { format, parseISO } from 'date-fns';
@@ -43,7 +43,15 @@ export const pdfSkadeforklaringMapper = async (
     innmelder: mapInnmelder(skadeforklaring.innmelder, kodeverkLoader),
     skadelidt: mapSkadelidt(skadeforklaring.skadelidt),
     tid: mapTid(skadeforklaring.tid),
-    helseinstitusjon: mapHelseinstitusjon(skadeforklaring.helseinstitusjon),
+    helseinstitusjoner: mapHelseinstitusjon(skadeforklaring.helseinstitusjoner),
+    foersteHelsepersonellOppsoktDato: {
+      label: 'Når hadde du første time hos lege/behandler?',
+      verdi: formatDate(parseISO(skadeforklaring.foersteHelsepersonellOppsoktDato), DATO_FORMAT)
+    },
+    erHelsepersonellOppsokt: {
+      label: 'Ble helsepersonell oppsøkt etter skaden?',
+      verdi: capitalize(skadeforklaring.erHelsepersonellOppsokt),
+    },
     dokumentInfo: hentDokumentinfo(),
     fravaer: mapFravaer(skadeforklaring.fravaer, kodeverkLoader),
     arbeidetMedIUlykkesoeyeblikket: {
@@ -104,20 +112,12 @@ const mapSkadelidt = (skadelidt: Skadelidt): PdfSkadelidt => {
 };
 
 const mapHelseinstitusjon = (
-  helseinstitusjon: Helseinstitusjon
+  helseinstitusjoner: Helseinstitusjon[]
 ): PdfHelseinstitusjon => {
   return {
-    erHelsepersonellOppsokt: {
-      label: 'Ble helseinstitusjon oppsøkt etter skaden?',
-      verdi: capitalize(helseinstitusjon.erHelsepersonellOppsokt),
-    },
     navn: {
-      label: 'Navn på helseforetak, legevakt eller lege',
-      verdi: helseinstitusjon.navn,
-    },
-    adresse: {
-      label: 'Adresse',
-      verdi: mapAdresse(helseinstitusjon.adresse),
+      label: 'Hvor har du blitt behandlet (valgfritt)',
+      verdi: helseinstitusjoner.map(instutisjon => `${instutisjon.navn} `).toString(),
     },
   };
 };
@@ -167,14 +167,14 @@ const mapTid = (tid: Tid): PdfTid => {
   }
 };
 
-const mapAdresse = (adresse: Adresse): PdfAdresse => {
-  return {
-    adresselinje1: adresse?.adresse,
-    adresselinje2: `${adresse?.postnummer} ${adresse?.poststed}`,
-    adresselinje3: null,
-    land: '',
-  };
-};
+// const mapAdresse = (adresse: Adresse): PdfAdresse => {
+//   return {
+//     adresselinje1: adresse?.adresse,
+//     adresselinje2: `${adresse?.postnummer} ${adresse?.poststed}`,
+//     adresselinje3: null,
+//     land: '',
+//   };
+// };
 
 const hentDokumentinfo = (): PdfDokumentInfo => {
   return {

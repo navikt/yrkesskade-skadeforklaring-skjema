@@ -132,13 +132,13 @@ const PaaVegneAv = () => {
                 data-test-id="person-velger"
               />
               <BodyLong spacing>
-                Du kan sende skadeforklaring digitalt på vegne av dine barn som
-                er oppført med samme bostedsadresse som deg i folkeregisteret.
-                Barn er yrkesskadedekket fra de begynner på skolen, og derfor
-                vil du kun få opp barn som er i skolealder frem til de er 18 år.
-                Får du ikke opp alle dine barn kan det være fordi de ikke er
-                yrkesskadedekket, eller fordi de ikke er oppført på samme
-                adresse som deg i folkeregisteret.
+                Du kan sende inn skadeforklaring digitalt på vegne av deg selv,
+                eller for egne barn du har foreldreansvar for. Barn er
+                yrkesskadedekket fra de begynner på skolen, du vil derfor kun få
+                opp barn i skolealder som alternativ. Får du ikke opp alle dine
+                barn, kan det være fordi de ikke er yrkesskadedekket, eller
+                fordi du ikke er oppført med foreldreansvar for dem i
+                folkeregisteret
               </BodyLong>
               <BodyLong spacing>
                 Opplysninger som du nå sender til NAV vil kun bli knyttet til

@@ -19,8 +19,19 @@ export type Skadeforklaring = {
     arbeidetMedIUlykkesoeyeblikket: string;
     noeyaktigBeskrivelseAvHendelsen: string;
     tid: Tid;
+    /**
+     * Informasjon om dokumentasjon skal ettersendes eller om alt er lagt ved. Gyldige verdier er 'ja','nei' og 'ferdig'
+     */
     skalEttersendeDokumentasjon: string;
     vedleggreferanser: Array<Vedleggreferanse>;
     fravaer: Fravaer;
-    helseinstitusjon: Helseinstitusjon;
+    /**
+     * Beskriver om skadelidt har vært hos medisinsk behandler. Gyldige verdier er 'ja' eller 'nei'
+     */
+    erHelsepersonellOppsokt: string;
+    helseinstitusjoner: Array<Helseinstitusjon>;
+    /**
+     * Dato for når første helsepersonell ble oppsøkt
+     */
+    foersteHelsepersonellOppsoktDato?: string;
 };

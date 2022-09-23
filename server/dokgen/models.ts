@@ -37,9 +37,9 @@ export interface PdfPeriode {
 }
 
 export interface PdfHelseinstitusjon {
-  erHelsepersonellOppsokt: Soknadsfelt<string>;
+  // erHelsepersonellOppsokt: Soknadsfelt<string>;
   navn: Soknadsfelt<string>;
-  adresse: Soknadsfelt<PdfAdresse>;
+  // adresse: Soknadsfelt<PdfAdresse>;
 }
 
 export interface PdfFravaer {
@@ -55,9 +55,11 @@ export interface PdfSkadeforklaring {
   arbeidetMedIUlykkesoeyeblikket: Soknadsfelt<string>;
   noeyaktigBeskrivelseAvHendelsen: Soknadsfelt<string>;
   fravaer: PdfFravaer;
-  helseinstitusjon: PdfHelseinstitusjon;
+  helseinstitusjoner: PdfHelseinstitusjon;
   dokumentInfo: PdfDokumentInfo;
   vedleggInfo: Soknadsfelt<string[]>;
+  foersteHelsepersonellOppsoktDato: Soknadsfelt<string>;
+  erHelsepersonellOppsokt: Soknadsfelt<string>;
 }
 
 export interface PdfDokumentInfo {

@@ -4,7 +4,8 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "es6"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -21,7 +22,7 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src/**/*"
-, "craco.config.js"  ]
+    "src/**/*",
+    "craco.config.js"
+  ]
 }
-

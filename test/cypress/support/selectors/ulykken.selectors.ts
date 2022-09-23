@@ -22,11 +22,9 @@ export const ulykken = {
     oppsoktJa: () => cy.get('[data-test-id="lege-oppsokt-ja"]'),
     oppsoktNei: () => cy.get('[data-test-id="lege-oppsokt-nei"]'),
     navn: () => cy.get('[data-test-id="lege-helseinstitusjon-navn"]'),
-    behandlerAdresse: () =>
-      cy.get('[data-test-id="lege-helseinstitusjon-adresse"]'),
-    behandlerPostnummer: () =>
-      cy.get('[data-test-id="lege-helseinstitusjon-postnummer"]'),
-    behandlerPoststed: () =>
-      cy.get('[data-test-id="lege-helseinstitusjon-poststed"]'),
+    oppsoktTid: () => cy.get('.lege-oppsokt-tid input'),
+    leggTilLege: () => cy.get('[data-test-id="add-lege-button"'),
+    fjernLege: () => cy.get('[data-test-id="lege-tabell-fjern"'),
+
   },
 };
