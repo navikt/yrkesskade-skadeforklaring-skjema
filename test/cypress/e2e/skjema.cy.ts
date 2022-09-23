@@ -87,9 +87,16 @@ describe('Skadeforklaring skjema', () => {
     // lege
     ulykken.lege.oppsoktJa().click();
     ulykken.lege.navn().type('Test Testesen');
-    ulykken.lege.behandlerAdresse().type('Testveien 1');
-    ulykken.lege.behandlerPostnummer().type('4314');
-    ulykken.lege.behandlerPoststed().type('Sandnes');
+    ulykken.lege.leggTilLege().click();
+    ulykken.lege.navn().type('Test Testesen2');
+    ulykken.lege.leggTilLege().click();
+    ulykken.lege.navn().type('Test Testesen3');
+
+    ulykken
+      .lege.oppsoktTid()
+      .clear()
+      .type(injuryTime.format('DD.MM.YYYY'))
+      .type('{enter}');
 
     // gå til vedlegg
     general.nextStep().click();

@@ -1,33 +1,81 @@
-import { RadioGroup, Radio, TextField } from '@navikt/ds-react';
-import { useState } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { RadioGroup, Radio, Label } from '@navikt/ds-react';
+import { useState, useEffect } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
 import { Skadeforklaring } from '../../../../api/skadeforklaring';
 import { useAppSelector } from '../../../../core/hooks/state.hooks';
 import { selectSkadeforklaring } from '../../../../core/reducers/skadeforklaring.reducer';
 import './Helseinstitusjon.less';
+import BehandlerNavn from '../../../BehandlerNavn';
+import { formatDate, handleDateValue } from '../../../../utils/date';
+import dateFnsParse from 'date-fns/parse';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import { parse } from 'date-fns';
+import nb from 'date-fns/locale/nb';
+import { DateUtils } from 'react-day-picker';
+import { InputClassNames } from 'react-day-picker/types/ClassNames';
 
 const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   const {
     register,
     setValue,
+    control,
     formState: { errors },
   } = useFormContext<Skadeforklaring>();
   const skadeforklaring = useAppSelector((state) =>
     selectSkadeforklaring(state)
   );
   const [legeOppsokt, setLegeOppsokt] = useState(
-    skadeforklaring.helseinstitusjon?.erHelsepersonellOppsokt
+    skadeforklaring?.erHelsepersonellOppsokt
   );
-  const [navn, setNavn] = useState(skadeforklaring.helseinstitusjon?.navn);
-  const [adresse, setAdresse] = useState(
-    skadeforklaring.helseinstitusjon?.adresse?.adresse || ''
+
+  const FORMAT: string = 'dd.MM.yyyy';
+  const TIDSPUNKT_FORMAT: string = `${FORMAT} HH:mm`;
+
+  const dayPickerClassNames = {
+    container: 'nav-day-picker',
+    overlay: 'nav-day-picker-overlay',
+    overlayWrapper: 'nav-day-picker-overlay-wrapper',
+  } as InputClassNames;
+
+  const whenDayPickerClassNames = {
+    ...dayPickerClassNames,
+    container: `timeframe-when-date ${dayPickerClassNames.container}`,
+  };
+
+  const [oppsoktDato, setOppsoktDato] = useState<Date | undefined>(
+    handleDateValue(skadeforklaring.tid?.tidspunkt)
   );
-  const [postnummer, setPostnummer] = useState(
-    skadeforklaring.helseinstitusjon?.adresse?.postnummer || ''
-  );
-  const [poststed, setPoststed] = useState(
-    skadeforklaring.helseinstitusjon?.adresse?.poststed || ''
-  );
+
+  const handleOppsoktDato = (selectedDay: Date) => {
+    setOppsoktDato(selectedDay);
+  };
+
+  const parseDate = (str: string, format: string) => {
+    // sjekk at vi har skrevet noe og at noe er 10 tegn
+    if (!str || str.length !== 10) {
+      return undefined;
+    }
+
+    // parse noe til dato om mulig
+    const parsed = dateFnsParse(str, format, new Date());
+    if (DateUtils.isDate(parsed)) {
+      return parsed;
+    }
+
+    // ikke dato
+    return undefined;
+  };
+
+  useEffect(() => {
+    if (oppsoktDato) {
+      const dato = formatDate(oppsoktDato, FORMAT);
+      const isoDate = parse(`${dato} 12:00`, TIDSPUNKT_FORMAT, new Date(), {
+        locale: nb,
+      }).toISOString();
+
+      setValue('foersteHelsepersonellOppsoktDato', isoDate);
+    }
+  }, [oppsoktDato, setValue, FORMAT, TIDSPUNKT_FORMAT]);
 
   return (
     <div className={`skade-lege ${props.className}`}>
@@ -35,10 +83,10 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
         legend="Ble helsepersonell oppsøkt etter skaden?"
         value={legeOppsokt}
         error={
-          errors?.helseinstitusjon?.erHelsepersonellOppsokt &&
-          errors?.helseinstitusjon.erHelsepersonellOppsokt.message
+          errors?.erHelsepersonellOppsokt &&
+          errors?.erHelsepersonellOppsokt.message
         }
-        {...register('helseinstitusjon.erHelsepersonellOppsokt', {
+        {...register('erHelsepersonellOppsokt', {
           required: {
             value: true,
             message: 'Dette feltet er påkrevd',
@@ -46,16 +94,12 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
         })}
         onChange={(e) => {
           setLegeOppsokt(e);
-          if (e === 'nei') {
-            // sørg for at vi setter adresse til undefined
-            setValue('helseinstitusjon.adresse', undefined);
-          }
         }}
       >
         <Radio
           value="ja"
           data-test-id="lege-oppsokt-ja"
-          {...register('helseinstitusjon.erHelsepersonellOppsokt', {
+          {...register('erHelsepersonellOppsokt', {
             required: {
               value: true,
               message: 'Dette feltet er påkrevd',
@@ -67,7 +111,7 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
         <Radio
           value="nei"
           data-test-id="lege-oppsokt-nei"
-          {...register('helseinstitusjon.erHelsepersonellOppsokt', {
+          {...register('erHelsepersonellOppsokt', {
             required: {
               value: true,
               message: 'Dette feltet er påkrevd',
@@ -80,59 +124,52 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
 
       {legeOppsokt === 'ja' && (
         <>
-          <TextField
-            className="spacer"
-            label="Navn på helseforetak, legevakt eller legekontor (valgfritt)"
-            value={navn}
-            data-test-id="lege-helseinstitusjon-navn"
-            {...register('helseinstitusjon.navn', {
-              maxLength: {
-                value: 150,
-                message: 'Maks 150 tegn',
-              },
-            })}
-            onChange={(e) => setNavn(e.target.value)}
-            error={
-              errors?.helseinstitusjon?.navn &&
-              errors?.helseinstitusjon?.navn?.message
-            }
+          <Controller
+            name="helseinstitusjoner"
+            control={control}
+            render={({ field: { onChange, onBlur, value, name, ref } }) => (
+              <BehandlerNavn
+                helseinstitusjoner={skadeforklaring.helseinstitusjoner || []}
+                onInstutisjonChange={(instutisjoner) => {
+                  onChange(instutisjoner);
+                }}
+              />
+            )}
           />
-          <TextField
-            className="spacer"
-            label="Adresse (valgfritt)"
-            value={adresse}
-            data-test-id="lege-helseinstitusjon-adresse"
-            {...register('helseinstitusjon.adresse.adresse')}
-            onChange={(e) => setAdresse(e.target.value)}
-          />
+          <div className="tidspunkt-container spacer">
+            <div className="dato-felt">
+              <Label>Når hadde du første time hos lege/behandler?</Label>
 
-          <div className="postnummer-sted-felt spacer">
-            <TextField
-              className="postnummer-felt"
-              label="Postnummer (valgfritt)"
-              value={postnummer}
-              data-test-id="lege-helseinstitusjon-postnummer"
-              {...register('helseinstitusjon.adresse.postnummer', {
-                pattern: {
-                  value: /^[0-9]+$/,
-                  message: 'Kun tall',
-                },
-              })}
-              error={
-                errors?.helseinstitusjon?.adresse?.postnummer &&
-                errors?.helseinstitusjon?.adresse?.postnummer.message
-              }
-              onChange={(e) => setPostnummer(e.target.value)}
-            />
-
-            <TextField
-              className="poststed-felt"
-              label="Poststed (valgfritt)"
-              value={poststed}
-              data-test-id="lege-helseinstitusjon-poststed"
-              {...register('helseinstitusjon.adresse.poststed')}
-              onChange={(e) => setPoststed(e.target.value)}
-            />
+              <DayPickerInput
+                classNames={{
+                  ...whenDayPickerClassNames,
+                  container: `lege-oppsokt-tid ${
+                    dayPickerClassNames.container
+                  } ${
+                    errors?.foersteHelsepersonellOppsoktDato
+                      ? 'nav-day-picker-error'
+                      : ''
+                  }`,
+                }}
+                placeholder=""
+                value={oppsoktDato}
+                onDayChange={handleOppsoktDato}
+                formatDate={formatDate}
+                format={FORMAT}
+                parseDate={parseDate}
+                {...register('foersteHelsepersonellOppsoktDato', {
+                  required: {
+                    value: true,
+                    message: 'Dette feltet er påkrevd',
+                  },
+                })}
+                dayPickerProps={{
+                  disabledDays: {
+                    after: new Date(),
+                  },
+                }}
+              />
+            </div>
           </div>
         </>
       )}

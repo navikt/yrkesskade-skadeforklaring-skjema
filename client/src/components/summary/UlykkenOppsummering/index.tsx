@@ -95,27 +95,25 @@ const UlykkenOppsummering = () => {
       <Label>Type fravær</Label>
       <BodyLong spacing>{fravaertype(skadeforklaring)}</BodyLong>
       <Label>Ble helsepersonell oppsøkt etter skaden?</Label>
-      <BodyLong
-        spacing={
-          skadeforklaring.helseinstitusjon?.erHelsepersonellOppsokt === 'ja'
-        }
-      >
-        {skadeforklaring.helseinstitusjon?.erHelsepersonellOppsokt === 'ja'
-          ? 'Ja'
-          : 'Nei'}
+      <BodyLong spacing={skadeforklaring?.erHelsepersonellOppsokt === 'ja'}>
+        {skadeforklaring?.erHelsepersonellOppsokt === 'ja' ? 'Ja' : 'Nei'}
       </BodyLong>
-      {skadeforklaring.helseinstitusjon?.erHelsepersonellOppsokt === 'ja' && (
+      {skadeforklaring?.erHelsepersonellOppsokt === 'ja' && (
         <>
-          <Label>Navn på helseforetak, legevakt eller lege</Label>
-          <BodyLong spacing>{skadeforklaring.helseinstitusjon?.navn}</BodyLong>
-          <Label>Adresse</Label>
+          {skadeforklaring.helseinstitusjoner &&
+            skadeforklaring.helseinstitusjoner.length > 0 && (
+              <>
+                <Label>Navn på helseforetak, legevakt eller lege</Label>
+                <BodyLong spacing>
+                  {skadeforklaring.helseinstitusjoner.map(
+                    (instutisjon) => `${instutisjon.navn}, `
+                  )}
+                </BodyLong>
+              </>
+            )}
+          <Label>Helsepersonell først oppsøkt</Label>
           <BodyLong spacing>
-            {skadeforklaring.helseinstitusjon.adresse?.adresse}
-          </BodyLong>
-          <Label>Postnummer og sted</Label>
-          <BodyLong>
-            {skadeforklaring.helseinstitusjon?.adresse?.postnummer}{' '}
-            {skadeforklaring.helseinstitusjon?.adresse?.poststed}
+            {formatDato(skadeforklaring.foersteHelsepersonellOppsoktDato)}
           </BodyLong>
         </>
       )}
