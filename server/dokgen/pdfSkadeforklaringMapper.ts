@@ -1,6 +1,6 @@
 import {
   // PdfAdresse,
-  PdfHelseinstitusjon,
+  // PdfHelseinstitusjon,
   PdfDokumentInfo,
   PdfFravaer,
   PdfInnmelder,
@@ -43,7 +43,10 @@ export const pdfSkadeforklaringMapper = async (
     innmelder: mapInnmelder(skadeforklaring.innmelder, kodeverkLoader),
     skadelidt: mapSkadelidt(skadeforklaring.skadelidt),
     tid: mapTid(skadeforklaring.tid),
-    helseinstitusjoner: mapHelseinstitusjon(skadeforklaring.helseinstitusjoner),
+    helseinstitusjoner: {
+      label: 'Hvor har du blitt behandlet (valgfritt)',
+      verdi: skadeforklaring.helseinstitusjoner
+    },
     foersteHelsepersonellOppsoktDato: {
       label: 'Når hadde du første time hos lege/behandler?',
       verdi: formatDate(parseISO(skadeforklaring.foersteHelsepersonellOppsoktDato), DATO_FORMAT)
@@ -111,16 +114,16 @@ const mapSkadelidt = (skadelidt: Skadelidt): PdfSkadelidt => {
   };
 };
 
-const mapHelseinstitusjon = (
-  helseinstitusjoner: Helseinstitusjon[]
-): PdfHelseinstitusjon => {
-  return {
-    navn: {
-      label: 'Hvor har du blitt behandlet (valgfritt)',
-      verdi: helseinstitusjoner.map(instutisjon => `${instutisjon.navn} `).toString(),
-    },
-  };
-};
+// const mapHelseinstitusjon = (
+//   helseinstitusjoner: Helseinstitusjon[]
+// ): PdfHelseinstitusjon => {
+//   return {
+//     navn: {
+//       label: 'Hvor har du blitt behandlet (valgfritt)',
+//       verdi: helseinstitusjoner
+//     },
+//   };
+// };
 
 const mapFravaer = (
   fravaer: Fravaer,
