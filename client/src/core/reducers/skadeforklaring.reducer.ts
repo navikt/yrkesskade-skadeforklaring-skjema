@@ -32,7 +32,7 @@ const initialState: SkadeforklaringState = {
 
     erHelsepersonellOppsokt: '',
     helseinstitusjoner: [],
-    foersteHelsepersonellOppsoktDato: '',
+    foersteHelsepersonellOppsoktDato: undefined,
   },
 };
 
