@@ -14,7 +14,9 @@ import nb from 'date-fns/locale/nb';
 import { DateUtils } from 'react-day-picker';
 import { InputClassNames } from 'react-day-picker/types/ClassNames';
 
-const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
+const Helseinstitusjon: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
+  props
+) => {
   const {
     register,
     setValue,
@@ -43,7 +45,7 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   };
 
   const [oppsoktDato, setOppsoktDato] = useState<Date | undefined>(
-    handleDateValue(skadeforklaring.tid?.tidspunkt)
+    handleDateValue(skadeforklaring?.foersteHelsepersonellOppsoktDato)
   );
 
   const handleOppsoktDato = (selectedDay: Date) => {
@@ -159,7 +161,7 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
                 parseDate={parseDate}
                 {...register('foersteHelsepersonellOppsoktDato', {
                   required: {
-                    value: true,
+                    value: legeOppsokt === 'ja',
                     message: 'Dette feltet er påkrevd',
                   },
                 })}
@@ -177,4 +179,4 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   );
 };
 
-export default LegeOppsokt;
+export default Helseinstitusjon;
