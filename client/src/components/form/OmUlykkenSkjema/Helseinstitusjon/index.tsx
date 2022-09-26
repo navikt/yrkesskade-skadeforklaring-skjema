@@ -14,9 +14,7 @@ import nb from 'date-fns/locale/nb';
 import { DateUtils } from 'react-day-picker';
 import { InputClassNames } from 'react-day-picker/types/ClassNames';
 
-const Helseinstitusjon: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
-  props
-) => {
+const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   const {
     register,
     setValue,
@@ -45,7 +43,7 @@ const Helseinstitusjon: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
   };
 
   const [oppsoktDato, setOppsoktDato] = useState<Date | undefined>(
-    handleDateValue(skadeforklaring.foersteHelsepersonellOppsoktDato)
+    handleDateValue(skadeforklaring.tid?.tidspunkt)
   );
 
   const handleOppsoktDato = (selectedDay: Date) => {
@@ -179,4 +177,4 @@ const Helseinstitusjon: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
   );
 };
 
-export default Helseinstitusjon;
+export default LegeOppsokt;

@@ -46,10 +46,6 @@ describe('Skadeforklaring skjema', () => {
     network.intercept(endpointUrls.amplitude, 'amplitude.json').as('amplitude');
   });
 
-  Cypress.on('uncaught:exception', (err, runnable) => {
-    return false;
-  });
-
   it('med vedlegg, ingen ettersending - ingen avvik', () => {
     cy.visitWithUserInfo('brukerinfo/brukerinfo.json', 'getBrukerinfo');
     // test
@@ -61,7 +57,7 @@ describe('Skadeforklaring skjema', () => {
     person.personvelger().trigger('click');
 
     // start skjema etter info
-    general.nextStep().trigger('click');
+    general.nextStep().click();
 
     // velg tidspunkt
     ulykken
