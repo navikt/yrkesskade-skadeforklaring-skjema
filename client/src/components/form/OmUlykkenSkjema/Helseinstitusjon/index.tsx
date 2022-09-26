@@ -14,7 +14,9 @@ import nb from 'date-fns/locale/nb';
 import { DateUtils } from 'react-day-picker';
 import { InputClassNames } from 'react-day-picker/types/ClassNames';
 
-const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
+const Helseinstitusjon: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
+  props
+) => {
   const {
     register,
     setValue,
@@ -177,4 +179,4 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   );
 };
 
-export default LegeOppsokt;
+export default Helseinstitusjon;

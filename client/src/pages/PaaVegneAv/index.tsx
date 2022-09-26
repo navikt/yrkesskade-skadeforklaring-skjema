@@ -79,11 +79,10 @@ const PaaVegneAv = () => {
 
   const settPersonOgNavigate = (identifikator: string) => {
     setValue('skadelidt.norskIdentitetsnummer', identifikator);
-    // setValue(
-    //   'innmelder.norskIdentitetsnummer',
-    //   bruker.brukerinfo?.identifikator || ''
-    // );
-    setValue('innmelder.norskIdentitetsnummer', '12');
+    setValue(
+      'innmelder.norskIdentitetsnummer',
+      bruker.brukerinfo?.identifikator || ''
+    );
     const innmelderrolle =
       bruker.brukerinfo?.identifikator !== identifikator
         ? 'vergeOgForesatt'
