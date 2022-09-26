@@ -1,3 +1,5 @@
+import { Helseinstitusjon } from "../../client/src/api/skadeforklaring";
+
 export interface Soknadsfelt<T> {
   label: string;
   verdi: T;
@@ -36,11 +38,11 @@ export interface PdfPeriode {
   til: string;
 }
 
-export interface PdfHelseinstitusjon {
-  // erHelsepersonellOppsokt: Soknadsfelt<string>;
-  navn: Soknadsfelt<string>;
-  // adresse: Soknadsfelt<PdfAdresse>;
-}
+// export interface PdfHelseinstitusjon {
+//   // erHelsepersonellOppsokt: Soknadsfelt<string>;
+//   navn: Soknadsfelt<{ navn: string }[]>;
+//   // adresse: Soknadsfelt<PdfAdresse>;
+// }
 
 export interface PdfFravaer {
   foerteDinSkadeEllerSykdomTilFravaer: Soknadsfelt<string>;
@@ -55,7 +57,7 @@ export interface PdfSkadeforklaring {
   arbeidetMedIUlykkesoeyeblikket: Soknadsfelt<string>;
   noeyaktigBeskrivelseAvHendelsen: Soknadsfelt<string>;
   fravaer: PdfFravaer;
-  helseinstitusjoner: PdfHelseinstitusjon;
+  helseinstitusjoner: Soknadsfelt<Helseinstitusjon[]>;
   dokumentInfo: PdfDokumentInfo;
   vedleggInfo: Soknadsfelt<string[]>;
   foersteHelsepersonellOppsoktDato: Soknadsfelt<string>;
