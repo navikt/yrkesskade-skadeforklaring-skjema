@@ -3,7 +3,6 @@ import { merge } from 'lodash';
 import { Tid, Helseinstitusjon } from '../../api/skadeforklaring';
 import { Skadeforklaring } from '../../api/skadeforklaring/models/Skadeforklaring';
 import { RootState } from '../store';
-import { without } from 'ramda'
 
 interface SkadeforklaringState {
   skadeforklaring: Skadeforklaring;
@@ -57,7 +56,7 @@ export const skadeforklaringSlice = createSlice({
     },
     fjernInstitusjon: (
       (state, action: PayloadAction<Helseinstitusjon>) => {
-        state.skadeforklaring.helseinstitusjoner = without([action.payload], state.skadeforklaring.helseinstitusjoner);
+        state.skadeforklaring.helseinstitusjoner = state.skadeforklaring.helseinstitusjoner.filter(i => i.navn !== action.payload.navn);
       }
     ),
     oppdaterInstitusjon: (
@@ -68,7 +67,7 @@ export const skadeforklaringSlice = createSlice({
     nullstillSkjema: () => {
       return { ...initialState };
     },
-  },
+  }
 });
 
 export const selectSkadeforklaring = (state: RootState) =>

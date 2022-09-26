@@ -44,7 +44,7 @@ const BehandlerNavn = ({ helseinstitusjoner, onInstutisjonChange }: IProps) => {
       setInstutisjon(institusjon.navn);
       setNameForTable(resten);
     }
-  }, [helseinstitusjoner]);
+  }, []);
 
   useEffect(() => {
     if (instutisjon) {
@@ -52,7 +52,7 @@ const BehandlerNavn = ({ helseinstitusjoner, onInstutisjonChange }: IProps) => {
     } else {
       onInstutisjonChange(nameForTable);
     }
-  }, []);
+  }, [nameForTable, setNameForTable]);
 
   useEffect(() => {
     if (instutisjon) {
