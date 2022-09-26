@@ -43,7 +43,7 @@ const LegeOppsokt: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   };
 
   const [oppsoktDato, setOppsoktDato] = useState<Date | undefined>(
-    handleDateValue(skadeforklaring.tid?.tidspunkt)
+    handleDateValue(skadeforklaring.foersteHelsepersonellOppsoktDato)
   );
 
   const handleOppsoktDato = (selectedDay: Date) => {
