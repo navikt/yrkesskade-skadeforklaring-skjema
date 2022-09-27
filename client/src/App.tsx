@@ -83,19 +83,19 @@ const AppContent = () => {
 };
 
 const steps: ISteps = {
-  totalSteps: 5,
+  totalSteps: 4,
   currentStep: 0,
   details: [
-    {
-      text: 'Dine opplysninger',
-      done: false,
-      active: true,
-      pathmatch: '/skadeforklaring/skjema',
-    },
+    // {
+    //   text: 'Dine opplysninger',
+    //   done: false,
+    //   active: true,
+    //   pathmatch: '/skadeforklaring/skjema',
+    // },
     {
       text: 'Veiledning',
       done: false,
-      active: false,
+      active: true,
       pathmatch: '/skadeforklaring/skjema/veiledning',
     },
     {
