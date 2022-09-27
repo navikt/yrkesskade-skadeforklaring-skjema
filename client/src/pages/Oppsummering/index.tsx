@@ -104,7 +104,7 @@ const Oppsummering = () => {
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item renderContentWhenClosed={true}>
-                  <Accordion.Header>Om Ulykken</Accordion.Header>
+                  <Accordion.Header>Om ulykken</Accordion.Header>
                   <Accordion.Content>
                     <UlykkenOppsummering />
                   </Accordion.Content>

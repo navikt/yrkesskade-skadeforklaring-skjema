@@ -13,7 +13,7 @@ import {
   PersonType,
 } from '@navikt/yrkesskade-personvelger';
 import { useNavigate } from 'react-router';
-import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
+// import { StepIndicator } from '@navikt/yrkesskade-stepindicator';
 import { useFormContext } from 'react-hook-form';
 import { Skadeforklaring } from '../../api/skadeforklaring';
 import { useAppSelector } from '../../core/hooks/state.hooks';
@@ -172,7 +172,7 @@ const PaaVegneAv = () => {
         </Cell>
         <Cell xs={12} lg={2}></Cell>
         <Cell xs={12} sm={12} lg={2}>
-          <StepIndicator />
+          {/* <StepIndicator /> */}
         </Cell>
       </Grid>
     </ContentContainer>
